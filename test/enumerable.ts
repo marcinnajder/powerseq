@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import {Enumerable, map, flatmap, concat} from "../src/enumerable";
-//import * as async from "async";
+import {Enumerable, map, flatmap, concat} from "../src/index";
 
 describe('enumerable', function () {
 
@@ -9,6 +8,7 @@ describe('enumerable', function () {
         yield 2;
         yield 3; 
     }
+
 
     describe('enumerable functions', function () {
         it('from', function() {

@@ -1,8 +1,4 @@
 .DS_Store
 /node_modules
 /npm-debug.log*
-/code/**/*.js
-/code/**/*.d.ts
-/test/**/*.js
-/test/**/*.d.ts
 /dist

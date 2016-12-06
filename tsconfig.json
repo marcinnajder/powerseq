@@ -1,24 +1,7 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
-        "noImplicitAny": false,
-        "sourceMap": false,
-        "lib": [
-            "es2015"        
-        ],
-        "allowJs": false,
-        "declaration": true,
-        "outDir": "./dist",
-        "rootDir": "./",
-        "moduleResolution": "node"
-    },
+    "extends": "./tsconfig.base.json",
     "include": [
-        "**/*.ts"
-    ],
-    "exclude": [
-        "node_modules/**",
-        "dist/**",
-        "**/*.spec.ts"
+        "src/**/*.ts",
+        "test/**/*.ts"
     ]
 }

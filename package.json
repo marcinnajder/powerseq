@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
-    "watch": "tsc -w",
-    "tsc": "tsc",
-    "del-dist": "node tools/delDist.js"
+    "watch": "node tools/tsc.js watch",
+    "tsc": "node tools/tsc.js",
+    "del-dist": "node tools/delDist.js",
+    "gen": "node tools/generateMethods.js"
   },
   "dependencies": {},
   "devDependencies": {
+    "@types/glob": "^5.0.30",
     "@types/mocha": "^2.2.33",
     "@types/node": "0.0.2",
+    "glob": "^7.1.1",
     "mocha": "^3.2.0",
     "typescript": "^2.2.0-dev.20161123"
   },
