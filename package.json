@@ -1,0 +1,21 @@
+{
+  "name": "powerseq",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
+    "watch": "tsc -w",
+    "tsc": "tsc",
+    "del-dist": "node tools/delDist.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/mocha": "^2.2.33",
+    "@types/node": "0.0.2",
+    "mocha": "^3.2.0",
+    "typescript": "^2.2.0-dev.20161123"
+  },
+  "author": "",
+  "license": "ISC"
+}
