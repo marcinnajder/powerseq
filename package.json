@@ -2,13 +2,14 @@
   "name": "powerseq",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
-    "watch": "node tools/tsc.js watch",
+    "del-dist": "shx rm -rf ./dist",
     "tsc": "node tools/tsc.js",
-    "del-dist": "node tools/delDist.js",
-    "gen": "node tools/generateMethods.js"
+    "gen-methods": "node tools/genMethods.js",
+    "gen-package-json": "node tools/genPackageJson.js",
+    "watch": "node tools/tsc.js watch",
+    "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
+    "rebuild": "npm-run-all del-dist gen-methods gen-package-json tsc"
   },
   "dependencies": {},
   "devDependencies": {
@@ -17,6 +18,9 @@
     "@types/node": "0.0.2",
     "glob": "^7.1.1",
     "mocha": "^3.2.0",
+    "npm-run-all": "^3.1.2",
+    "npm-scripts-info": "^0.3.6",
+    "shx": "^0.2.1",
     "typescript": "^2.2.0-dev.20161123"
   },
   "author": "",
