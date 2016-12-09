@@ -11,7 +11,7 @@ export function* filter<T>(source: Iterable<T>, predicate:predicate<T>) : Iterab
 }
 declare module '../enumerable' {
     interface Enumerable<T> {
-        filter(pedicate:predicate<T>):Enumerable<T>;
+        filter(preficate:predicate<T>):Enumerable<T>;
     }
 }
 Enumerable.prototype.filter = function<T>(this:Enumerable<T>, predicate:predicate<T>) {
