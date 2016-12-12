@@ -14,3 +14,6 @@ delete pkg.scripts;
 var filePath = "./npmpackage/package.json";
 fs.writeFileSync(filePath, JSON.stringify(pkg, null, 2));
 console.log(filePath, " file generated");
+
+fs.writeFileSync('./npmpackage/LICENSE.txt', fs.readFileSync('./LICENSE.txt').toString());
+fs.writeFileSync('./npmpackage/README.md', fs.readFileSync('./README.md').toString());
