@@ -9,6 +9,8 @@ var pkg = require('../package.json');
 //   typings: 'Rx.d.ts'
 // });
 
-var filePath = "./dist/src/package.json";
+delete pkg.scripts;
+
+var filePath = "./npmpackage/package.json";
 fs.writeFileSync(filePath, JSON.stringify(pkg, null, 2));
 console.log(filePath, " file generated");
