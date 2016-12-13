@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+        "module": "es2015",
+        "target": "es6",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "lib": [
+            "es2015"        
+        ],
+        "allowJs": false,
+        "declaration": false,
+        "outDir": "./dist/es6",
+        "rootDir": "./",
+        "moduleResolution": "node",
+        "noEmitHelpers": true
+    },
+    "include": [
+        "src/**/*.ts",
+        "test/**/*.ts"
+    ]
+}
