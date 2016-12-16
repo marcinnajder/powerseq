@@ -2,7 +2,7 @@ export * from "./operators/concat";
 export * from "./operators/count";
 export * from "./operators/distinct";
 export * from "./operators/every";
-export * from "./operators/expect";
+export * from "./operators/except";
 export * from "./operators/filter";
 export * from "./operators/find";
 export * from "./operators/findindex";
