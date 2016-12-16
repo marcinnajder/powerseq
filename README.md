@@ -1,79 +1,19 @@
 
-Filtering
-- Where (filter)
-- OfType
 
-Projection
-- Select  (map)
-- SelectMany (flatmap)
+```javascript
+import {Enumerable} from "powerseq";
 
-Partitioning
-- Skip (skip)
-- SkipWhile (skipwhile)
-- Take (take)
-- TakeWhile (takewhile)
+var q = Enumerable
+    .range(1,Number.MAX_VALUE)
+    .filter( x => x % 2 === 0)
+    .take(5)
+    .reverse();
 
-Join 
-- GroupJoin
-- Join (join)
-- Zip (zip)
+console.log(q.toarray());
+```
 
-Concatenation 
-- Concat (concat)
+enumerable
+<table><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/enumerable/empty">empty</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/enumerable/entries">entries</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/enumerable/from">from</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/enumerable/of">of</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/enumerable/range">range (Range)</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/enumerable/repeatvalue">repeatvalue</a></td></tr></table>
 
-Ordering
-- OrderBy, OrderByDescending (sort)
-- Reverse (reverse)
-- ThenBy, ThenByDescending
-
-Grouping
-- GroupBy (groupby)
-- ToLookup
-
-Set
-- Distinct (distinct)
-- Except (except)
-- Intersect (intersect)
-- Union (union) 
-
-Conversion
-- AsEnumerable, AsQueryable
-- Cast
-- ToArray,ToList (toarray)
-- ToDictionary (tomap)
-
-Equality
-- SequenceEqual
-
-Element 
-- ElementAt, ElementAtOrDefault
-- First, FirstOrDefault (find)
-- Last, LastOrDefault
-- Single, SingleOrDefault
-
-Generation
-- DefaultIfEmpty
-- Empty (empty)
-- Range (range)
-- Repeat (repeatvalue)
-
-Quantifiers
-- All (every)
-- Any (some)
-- Contains
-
-Aggregation
-- Aggregate (reduce)
-- Count, LongCount (count)
-- Max (max)
-- Min (min)
-- Sum
-- Average
-
-Others
-- of
-- entries 
-- toobject
-- findIndex
-
-
+operators
+<table><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/concat">concat (Concat)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/findindex">findindex</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/min">min (Min)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/take">take (Take)</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/count">count (Count)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/flatmap">flatmap (SelectMany)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/reduce">reduce (Aggregate)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/takewhile">takewhile (TakeWhile)</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/distinct">distinct (Distinct)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/groupby">groupby (GroupBy)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/reverse">reverse (Reverse)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/toarray">toarray (ToArray)</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/every">every (All)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/intersect">intersect (Intersect)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/skip">skip (Skip)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/tomap">tomap</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/expect">expect</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/join">join (Join)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/skipwhile">skipwhile (SkipWhile)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/toobject">toobject</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/filter">filter (Where)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/map">map (Select)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/some">some (Any)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/union">union (Union)</a></td></tr><tr><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/find">find (First)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/max">max (Max)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/sort">sort (OrderBy)</a></td><td><a href="https://github.com/marcinnajder/powerseq/tree/master/test/operators/zip">zip (Zip)</a></td></tr></table>
