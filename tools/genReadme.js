@@ -70,7 +70,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
                 break;
             }
             linq = require("../dist/test/"+enumerableOrOpertor+"/"+methodName+".js").linq;
-            content += `<td><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}">${methodName}${linq?" ("+linq+")":""}</a></td>`;
+            content += `<td><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts">${methodName}${linq?" ("+linq+")":""}</a></td>`;
         }
         content += "</tr>";
     }
