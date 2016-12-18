@@ -10,6 +10,7 @@ export * from "./operators/flatmap";
 export * from "./operators/groupby";
 export * from "./operators/intersect";
 export * from "./operators/join";
+export * from "./operators/last";
 export * from "./operators/map";
 export * from "./operators/max";
 export * from "./operators/min";
