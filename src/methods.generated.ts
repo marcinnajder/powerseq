@@ -16,6 +16,7 @@ export * from "./operators/max";
 export * from "./operators/min";
 export * from "./operators/reduce";
 export * from "./operators/reverse";
+export * from "./operators/single";
 export * from "./operators/skip";
 export * from "./operators/skipwhile";
 export * from "./operators/some";
