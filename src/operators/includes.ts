@@ -8,6 +8,7 @@ export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: n
                 return true;
             }
         }
+        return false;
     } else {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
@@ -16,12 +17,19 @@ export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: n
         while (index < fromIndex) {
             value = iterator.next();
             if (value.done) return false;
+            index++;
         }
+
+        // if (index > 0 && value.value === searchElement) {
+        //     console.log("Wbijam ", index, value.value)
+        //     return true;
+        // }
+
         while (true) {
             value = iterator.next();
             if (value.done) return false;
 
-            if (item === searchElement) {
+            if (value.value === searchElement) {
                 return true;
             }
         }

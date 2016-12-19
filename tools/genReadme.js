@@ -148,8 +148,8 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 // - Count, LongCount (count)
 // - Max (max)
 // - Min (min)
-// - Sum
-// - Average
+// - Sum (sum)
+// - Average (average)
 
 // Others
 // - of
