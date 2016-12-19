@@ -1,6 +1,7 @@
 export * from "./operators/concat";
 export * from "./operators/count";
 export * from "./operators/distinct";
+export * from "./operators/elementat";
 export * from "./operators/every";
 export * from "./operators/except";
 export * from "./operators/filter";

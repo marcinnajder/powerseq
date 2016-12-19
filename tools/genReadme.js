@@ -127,10 +127,10 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 // - SequenceEqual
 
 // Element 
-// - ElementAt, ElementAtOrDefault
+// - ElementAt, ElementAtOrDefault (elementat)
 // - First, FirstOrDefault (find)
-// - Last, LastOrDefault
-// - Single, SingleOrDefault
+// - Last, LastOrDefault (last)
+// - Single, SingleOrDefault (single)
 
 // Generation
 // - DefaultIfEmpty
