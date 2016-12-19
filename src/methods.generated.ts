@@ -9,6 +9,7 @@ export * from "./operators/find";
 export * from "./operators/findindex";
 export * from "./operators/flatmap";
 export * from "./operators/groupby";
+export * from "./operators/includes";
 export * from "./operators/intersect";
 export * from "./operators/join";
 export * from "./operators/last";

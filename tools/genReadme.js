@@ -141,7 +141,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 // Quantifiers
 // - All (every)
 // - Any (some)
-// - Contains
+// - Contains (includes)
 
 // Aggregation
 // - Aggregate (reduce)
