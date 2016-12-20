@@ -1,4 +1,10 @@
 <a name="0.0.4"></a>
+# [0.0.5](https://github.com/marcinnajder/powerseq/releases/tag/0.0.5) (2016-12-20)
+
+* full LINQ compiliant groupby operator implementation 
+* new operators: last, single, elementat, includes, minby, maxby, sum, average, sequenceequal, cast, oftype, defaultifempty, groupjoin
+
+<a name="0.0.4"></a>
 # [0.0.4](https://github.com/marcinnajder/powerseq/releases/tag/0.0.4) (2016-12-16)
 
 *  readme.md containing list of all operators
