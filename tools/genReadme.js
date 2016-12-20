@@ -82,7 +82,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
 // Filtering
 // - Where (filter)
-// - OfType
+// - OfType (oftype)
 
 // Projection
 // - Select  (map)
@@ -95,7 +95,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 // - TakeWhile (takewhile)
 
 // Join 
-// - GroupJoin
+// - GroupJoin (groupjoin)
 // - Join (join)
 // - Zip (zip)
 
@@ -119,12 +119,12 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
 // Conversion
 // - AsEnumerable, AsQueryable
-// - Cast
+// - Cast (cast)
 // - ToArray,ToList (toarray)
 // - ToDictionary (tomap)
 
 // Equality
-// - SequenceEqual
+// - SequenceEqual (sequenceequal)
 
 // Element 
 // - ElementAt, ElementAtOrDefault (elementat)
@@ -133,7 +133,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 // - Single, SingleOrDefault (single)
 
 // Generation
-// - DefaultIfEmpty
+// - DefaultIfEmpty (defaultifempty)
 // - Empty (empty)
 // - Range (range)
 // - Repeat (repeatvalue)
