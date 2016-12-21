@@ -1,4 +1,11 @@
-<a name="0.0.4"></a>
+
+<a name="0.0.6"></a>
+# [0.0.6](https://github.com/marcinnajder/powerseq/releases/tag/0.0.6) (2016-12-21)
+
+* new operators: orderby, orderbydescending, thenby, thenbydescending operators
+* remove sort operator
+
+<a name="0.0.5"></a>
 # [0.0.5](https://github.com/marcinnajder/powerseq/releases/tag/0.0.5) (2016-12-20)
 
 * full LINQ compiliant groupby operator implementation 
