@@ -1,4 +1,4 @@
-import {selector} from "../common/types";
+import {selector, EIterable } from "../common/types";
 import {Enumerable} from "../enumerable";
 
 export function flatmap<T,TCollection>(source: Iterable<T>, collectionSelector:selector<T, Iterable<TCollection>>) : Iterable<TCollection>;
@@ -22,10 +22,10 @@ export function* flatmap<T,TCollection, TResult>(source: Iterable<T>, collection
 }
 declare module '../enumerable' {
     interface Enumerable<T> {
-        flatmap<TCollection>(collectionSelector:selector<T, Iterable<TCollection>>) : Enumerable<TCollection>;
-        flatmap<TCollection, TResult>(collectionSelector:selector<T, Iterable<TCollection>>, resultSelector: (item:T, collectionItem:TCollection) => TResult) : Enumerable<TResult>;
+        flatmap<TCollection>(collectionSelector:selector<T, EIterable<TCollection>>) : Enumerable<TCollection>;
+        flatmap<TCollection, TResult>(collectionSelector:selector<T, EIterable<TCollection>>, resultSelector: (item:T, collectionItem:TCollection) => TResult) : Enumerable<TResult>;
     }
 }
-Enumerable.prototype.flatmap = function<T,TCollection, TResult>(this:Enumerable<T>, collectionSelector:selector<T, Iterable<TCollection>>, resultSelector?: (item:T, collectionItem:TCollection) => TResult) : Enumerable<TResult>{
+Enumerable.prototype.flatmap = function<T,TCollection, TResult>(this:Enumerable<T>, collectionSelector:selector<T, EIterable<TCollection>>, resultSelector?: (item:T, collectionItem:TCollection) => TResult) : Enumerable<TResult>{
     return new Enumerable<TResult>(flatmap(this,collectionSelector, resultSelector)); 
 };

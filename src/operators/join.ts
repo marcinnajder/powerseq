@@ -1,5 +1,5 @@
 import {Enumerable} from "../enumerable";
-import {keySelector} from "../common/types";
+import {keySelector, EIterable } from "../common/types";
 
 export function* join<T,T2,TKey,TResult>(source1: Iterable<T>,source2: Iterable<T2>, key1Selector:keySelector<T,TKey>,
     key2Selector:keySelector<T2,TKey>, resultSelector:(item1:T, item2:T2) => TResult): Iterable<TResult> {
@@ -30,11 +30,11 @@ export function* join<T,T2,TKey,TResult>(source1: Iterable<T>,source2: Iterable<
 }
 declare module '../enumerable' {
     interface Enumerable<T> {
-        join<T2,TKey,TResult>(source2: Iterable<T2>, key1Selector:keySelector<T,TKey>,
+        join<T2,TKey,TResult>(source2: EIterable<T2>, key1Selector:keySelector<T,TKey>,
             key2Selector:keySelector<T2,TKey>, resultSelector:(item1:T, item2:T2) => TResult) : Enumerable<TResult>;
     }
 }
-Enumerable.prototype.join = function<T,T2,TKey,TResult>(this:Enumerable<T>,source2: Iterable<T2>, key1Selector:keySelector<T,TKey>,
+Enumerable.prototype.join = function<T,T2,TKey,TResult>(this:Enumerable<T>,source2: EIterable<T2>, key1Selector:keySelector<T,TKey>,
     key2Selector:keySelector<T2,TKey>, resultSelector:(item1:T, item2:T2) => TResult) : Enumerable<TResult>{
     return new Enumerable<TResult>(join(this,source2,key1Selector,key2Selector,resultSelector));
 };

@@ -4,8 +4,8 @@ export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>): bo
 export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, source3: Iterable<T>): boolean;
 export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>): boolean;
 export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>, source5: Iterable<T>): boolean;
-export function sequenceequal<T>(...args:Iterable<T>[]): boolean;
-export function sequenceequal<T>(...args:Iterable<T>[]): boolean {
+export function sequenceequal<T>(...args: Iterable<T>[]): boolean;
+export function sequenceequal<T>(...args: Iterable<T>[]): boolean {
     var iterators = args.map((i: Iterable<any>) => i[Symbol.iterator]());
     var value: IteratorResult<any>, firstValue: IteratorResult<any>;
 
@@ -33,7 +33,7 @@ declare module '../enumerable' {
         sequenceequal(source2: Iterable<T>, source3: Iterable<T>): boolean;
         sequenceequal(source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>): boolean;
         sequenceequal(source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>, source5: Iterable<T>): boolean;
-        sequenceequal(...args:Iterable<T>[]): boolean;
+        sequenceequal(...args: Iterable<T>[]): boolean;
     }
 }
 Enumerable.prototype.sequenceequal = function <T>(this: Enumerable<T>, ...args): boolean {

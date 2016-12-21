@@ -1,30 +1,30 @@
-import {Enumerable} from "../enumerable";
-import {predicate} from "../common/types";
+import { Enumerable } from "../enumerable";
+import { predicate } from "../common/types";
 
-export function single<T>(source:Iterable<T>, predicate?:predicate<T>): T|undefined{
+export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
     var hasValue = false;
-    var value : T|undefined =  undefined;
+    var value: T | undefined = undefined;
 
-    if(typeof predicate === "undefined"){
-        for(var item of source){
-            if(!hasValue){
+    if (typeof predicate === "undefined") {
+        for (var item of source) {
+            if (!hasValue) {
                 value = item;
                 hasValue = true;
             }
-            else{
+            else {
                 throw new TypeError("More than one element satisfies the condition in predicate.");
             }
         }
     }
-    else{
+    else {
         var index = 0;
-        for(var item of source){
-            if(predicate(item, index++)){
-                if(!hasValue){
+        for (var item of source) {
+            if (predicate(item, index++)) {
+                if (!hasValue) {
                     value = item;
                     hasValue = true;
                 }
-                else{
+                else {
                     throw new TypeError("More than one element satisfies the condition in predicate.");
                 }
             }
@@ -34,9 +34,9 @@ export function single<T>(source:Iterable<T>, predicate?:predicate<T>): T|undefi
 }
 declare module '../enumerable' {
     interface Enumerable<T> {
-        single(predicate?:predicate<T>): T|undefined;
+        single(predicate?: predicate<T>): T | undefined;
     }
 }
-Enumerable.prototype.single = function<T>(this:Enumerable<T>,predicate?:predicate<T>): T|undefined{
+Enumerable.prototype.single = function <T>(this: Enumerable<T>, predicate?: predicate<T>): T | undefined {
     return single(this, predicate);
 };

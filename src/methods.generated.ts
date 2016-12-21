@@ -1,3 +1,4 @@
+export * from "./operators/asiterable";
 export * from "./operators/average";
 export * from "./operators/cast";
 export * from "./operators/concat";
