@@ -80,6 +80,10 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
 
 
+//https://github.com/ReactiveX/IxJS/tree/master/iterable
+//https://github.com/Reactive-Extensions/IxJS/wiki/Enumerable
+
+
 // Filtering
 // - Where (filter)
 // - OfType (oftype)

@@ -6,6 +6,7 @@ export * from "./operators/count";
 export * from "./operators/defaultifempty";
 export * from "./operators/distinct";
 export * from "./operators/distinctuntilchanged";
+export * from "./operators/doo";
 export * from "./operators/elementat";
 export * from "./operators/every";
 export * from "./operators/except";
