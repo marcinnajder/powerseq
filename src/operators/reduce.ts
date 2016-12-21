@@ -6,7 +6,6 @@ export function reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumu
     var iterator = source[Symbol.iterator]();
     var value: IteratorResult<T>;
     var accumulator = seed;
-    var valueIsSet = typeof seed !== "undefined";
 
     if (typeof seed === "undefined") {
         value = iterator.next();

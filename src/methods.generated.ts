@@ -28,6 +28,7 @@ export * from "./operators/orderby";
 export * from "./operators/orderbydescending";
 export * from "./operators/reduce";
 export * from "./operators/reverse";
+export * from "./operators/scan";
 export * from "./operators/sequenceequal";
 export * from "./operators/single";
 export * from "./operators/skip";
