@@ -12,6 +12,7 @@ export * from "./operators/filter";
 export * from "./operators/find";
 export * from "./operators/findindex";
 export * from "./operators/flatmap";
+export * from "./operators/foreach";
 export * from "./operators/groupby";
 export * from "./operators/groupjoin";
 export * from "./operators/includes";
