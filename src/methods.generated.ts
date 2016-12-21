@@ -17,6 +17,7 @@ export * from "./operators/flatmap";
 export * from "./operators/foreach";
 export * from "./operators/groupby";
 export * from "./operators/groupjoin";
+export * from "./operators/ignoreelements";
 export * from "./operators/includes";
 export * from "./operators/intersect";
 export * from "./operators/join";
