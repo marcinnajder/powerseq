@@ -3,7 +3,7 @@ var fs = require("fs");
 var path = require("path");
 var os = require("os");
 
-global.it = global.describe = () => {}; // fake mocha methods
+global.it = global.describe = () => { }; // fake mocha methods
 var _maxColumns = 4;
 var _maxRows = 6;
 var enumerable = listMethods("./src/enumerable/*.ts");
@@ -15,7 +15,7 @@ var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAdd
 
 
 var readmeContent =
-`
+    `
 
 \`\`\`javascript
 import {Enumerable} from "powerseq";
@@ -36,7 +36,7 @@ operators
 ${operatorsTable}
 `
 
-fs.writeFileSync("./README.md",readmeContent);
+fs.writeFileSync("./README.md", readmeContent);
 console.log("./README.md", " file generated");
 
 
@@ -59,18 +59,20 @@ function findTableSize(columnCount, rowCount, methodCount) {
 
 function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOpertor) {
     var {rowCount, columnCount} = findTableSize(maxColumns, maxRows, methods.length);
-    var methodName, linq;
+    var methodName, unitTestModule, linq, samples;
     var content = "";
 
     for (var r = 0; r < rowCount; ++r) {
         content += "<tr>";
         for (var c = 0; c < columnCount; ++c) {
             methodName = methods[(rowCount * c) + r] || "";
-            if(methodName===""){
+            if (methodName === "") {
                 break;
             }
-            linq = require("../dist/test/"+enumerableOrOpertor+"/"+methodName+".js").linq;
-            content += `<td><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts">${methodName}${linq?" ("+linq+")":""}</a></td>`;
+
+            unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
+            linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
+            content += `<td><span><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
         }
         content += "</tr>";
     }
@@ -78,6 +80,25 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
     return `<table>${content}</table>`;
 }
 
+
+function formatSamplesTooltip(samples) {
+    if (typeof samples === "undefined") {
+        return "";
+    }
+
+    var samplesText = samples
+        .map(sampleFunc => {
+            var sampleBody = sampleFunc.toString();
+            sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 2);
+            sampleBody = sampleBody.replace("index_1.", "");
+            var sampleResult = sampleFunc();
+            return `${sampleBody} -> ${sampleResult[Symbol.iterator] ? Array.from(sampleResult) : sampleResult}`
+        })
+        .join("&#013;");
+
+    return `title="${samplesText}"`;
+
+}
 
 
 //https://github.com/ReactiveX/IxJS/tree/master/iterable

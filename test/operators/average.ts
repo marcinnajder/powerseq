@@ -9,3 +9,8 @@ it('average', function () {
 });
 
 export const linq = "Average";
+
+export const samples = [
+    () => average([1, 2, 3, 4]),
+    () => average(['a', 'aa', 'aaa'], s => s.length)
+];
