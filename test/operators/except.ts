@@ -8,3 +8,8 @@ it('except', function () {
 });
 
 export const linq = "except";
+
+export const samples = [
+    () => except([1, 2, 2, 3, 4], [2, 3]),
+    () => except(['a', 'b', 'ba', 'xde'], ['poc'], x => x.length),
+];

@@ -16,7 +16,7 @@ var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAdd
 
 var readmeContent =
     `
-
+    
 \`\`\`javascript
 import {Enumerable} from "powerseq";
 
@@ -72,7 +72,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
             unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
             linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
-            content += `<td><span><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
+            content += `<td><span><a class="tooltip" href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
         }
         content += "</tr>";
     }
@@ -92,12 +92,31 @@ function formatSamplesTooltip(samples) {
             sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 2);
             sampleBody = sampleBody.replace("index_1.", "");
             var sampleResult = sampleFunc();
-            return `${sampleBody} -> ${sampleResult[Symbol.iterator] ? Array.from(sampleResult) : sampleResult}`
+            // if(sampleBody.indexOf ("defaultifempty") !== -1) {
+            // }
+
+            return `${sampleBody} -> ${formatResultValue(sampleResult)}`
         })
         .join("&#013;");
+        //.join("</br>");
 
     return `title="${samplesText}"`;
 
+}
+
+function formatResultValue(value) {
+    if (typeof value === "undefined") {
+        return "undefined";
+    }
+    if (typeof value === "string") {
+        return `'${value}'`;
+    }
+    if (value[Symbol.iterator]) {
+        return "[" + Array.from(value).map(formatResultValue) + "]";
+    }
+
+
+    return value;
 }
 
 
@@ -183,3 +202,22 @@ function formatSamplesTooltip(samples) {
 // - findIndex
 
 
+
+
+
+// <style>
+//  [data-tooltip] {
+//       cursor: default;
+//       font: normal 1em sans-serif;
+//   }
+
+//   [data-tooltip]:hover:after {
+//       display: block;
+//       content: attr(data-tooltip);
+//       white-space: pre-wrap;
+//       color: #f00;
+//   }
+// </style>
+
+
+// <span data-tooltip="Sentence one here. Sentence&#xa;two here. Sentence three here.">See my CSS tooltip with HTML-entity &amp;#xa; line break:</span>

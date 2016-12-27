@@ -1,5 +1,6 @@
 export * from "./operators/asiterable";
 export * from "./operators/average";
+export * from "./operators/buffer";
 export * from "./operators/cast";
 export * from "./operators/concat";
 export * from "./operators/count";

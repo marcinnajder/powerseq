@@ -8,3 +8,8 @@ it('distinct', function () {
 });
 
 export const linq = "Distinct";
+
+export const samples = [
+    () => distinct([1, 2, 1, 3, 2]),
+    () => distinct(['a', 'aa', 'ab', 'abc'], x => x.length)
+];

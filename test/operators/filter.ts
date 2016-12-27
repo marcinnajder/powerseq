@@ -8,3 +8,8 @@ it('filter', function () {
 });
 
 export const linq = "Where";
+
+export const samples = [
+    () => filter([1, 2, 2, 3, 4], x => x > 2),
+    () => filter([1, 2, 2, 3, 4], (x, index) => x - 1 === index),
+];

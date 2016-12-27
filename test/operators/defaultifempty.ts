@@ -9,3 +9,9 @@ it('defaultifempty', function () {
 });
 
 export const linq = "DefaultIfEmpty";
+
+export const samples = [
+    () => defaultifempty([1, 2, 3]),
+    () => defaultifempty([]),
+    () => defaultifempty([], 10)
+];
