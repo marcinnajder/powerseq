@@ -41,6 +41,7 @@ export * from "./operators/skipwhile";
 export * from "./operators/some";
 export * from "./operators/sum";
 export * from "./operators/take";
+export * from "./operators/takelast";
 export * from "./operators/takewhile";
 export * from "./operators/thenby";
 export * from "./operators/thenbydescending";
