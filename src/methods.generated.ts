@@ -50,6 +50,7 @@ export * from "./operators/tomap";
 export * from "./operators/toobject";
 export * from "./operators/union";
 export * from "./operators/zip";
+export * from "./enumerable/defer";
 export * from "./enumerable/empty";
 export * from "./enumerable/entries";
 export * from "./enumerable/from";
