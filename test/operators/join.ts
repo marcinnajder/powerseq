@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable } from "../../src/index";
+import { Enumerable, join } from "../../src/index";
 
 it('join', function () {
     var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three_" }, { id: 3, name: "three__" }];
@@ -10,3 +10,7 @@ it('join', function () {
 });
 
 export const linq = "Join";
+
+export const samples = [
+    () => join([1, 2, 3], ['a', 'bb', 'x'], x => x, y => y.length, (x, y) => x + ':' + y)
+];

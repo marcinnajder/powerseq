@@ -8,3 +8,8 @@ it('map', function () {
 });
 
 export const linq = "Select";
+
+export const samples = [
+    () => map([1, 2, 3], x => x * 10),
+    () => map([1, 2, 3], (x, index) => x * 10 + index)
+];

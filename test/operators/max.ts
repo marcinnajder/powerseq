@@ -10,3 +10,8 @@ it('max', function () {
 });
 
 export const linq = "Max";
+
+export const samples = [
+    () => max([1, 2, 3, 1]),
+    () => max(['a', 'bb', 'rrr', 'd'], x => x.length)
+];

@@ -9,7 +9,6 @@ export function oftype<TResult>(source: Iterable<any>, type: Function) {
                 yield <TResult>item;
             }
         }
-
     });
 }
 declare module '../enumerable' {

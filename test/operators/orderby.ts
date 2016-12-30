@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, orderby, orderbydescending, thenby } from "../../src/index";
+import { Enumerable, OrderedEnumerable, orderby, orderbydescending, thenby } from "../../src/index";
 
 it('orderby', test);
 export const linq = "OrderBy";
@@ -33,3 +33,8 @@ export function test() {
         ]
     );
 }
+
+export const samples = [
+    () => orderby([1, 4, 2, 3, 5, 1], x => x),
+    () => orderby(['abc', 'dd', 'sdfe', 'f'], x => x.length)
+];

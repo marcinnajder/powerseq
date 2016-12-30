@@ -7,3 +7,7 @@ it('reverse', function () {
 });
 
 export const linq = "Reverse";
+
+export const samples = [
+    () => reverse([1, 2, 3])
+];

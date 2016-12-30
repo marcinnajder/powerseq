@@ -14,3 +14,8 @@ it('flatmap', function () {
 });
 
 export const linq = "SelectMany";
+
+export const samples = [
+    () => flatmap([{ ns: [1] }, { ns: [99, 10] }, { ns: [6, 3] }], x => x.ns),
+    () => flatmap(['abc', 'cd'], text => text, (text, char) => text + '-' + char)
+];

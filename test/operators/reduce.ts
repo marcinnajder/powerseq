@@ -14,3 +14,8 @@ it('reduce', function () {
 });
 
 export const linq = "Aggregate";
+
+export const samples = [
+    () => reduce([1, 2, 3], (a, x) => a + x),
+    () => reduce([1, 2, 3], (a, x) => a + (x * 10), '')
+];

@@ -7,3 +7,7 @@ it('maxby', function () {
     assert.deepEqual(Enumerable.from(items).maxby(x => x.id), { id: 3 });
     assert.deepEqual(Enumerable.from([]).maxby(x => x), undefined);
 });
+
+export const samples = [
+    () => maxby(['a', 'bb', 'rrr', 'd'], x => x.length)
+];

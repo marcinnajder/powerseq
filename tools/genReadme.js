@@ -41,7 +41,6 @@ console.log("./README.md", " file generated");
 
 
 
-
 function listMethods(globbingPattern) {
     return glob.sync(globbingPattern).map(p => path.basename(p, '.ts')).sort();
 }
@@ -90,7 +89,9 @@ function formatSamplesTooltip(samples) {
         .map(sampleFunc => {
             var sampleBody = sampleFunc.toString();
             sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 2);
-            sampleBody = sampleBody.replace("index_1.", "");
+
+            //sampleBody = sampleBody.replace("index_1.", "");
+            sampleBody = sampleBody.replace(/index_1\./g, "");
             var sampleResult = sampleFunc();
             // if(sampleBody.indexOf ("defaultifempty") !== -1) {
             // }
@@ -98,7 +99,7 @@ function formatSamplesTooltip(samples) {
             return `${sampleBody} -> ${formatResultValue(sampleResult)}`
         })
         .join("&#013;");
-        //.join("</br>");
+    //.join("</br>");
 
     return `title="${samplesText}"`;
 

@@ -8,13 +8,15 @@ export function intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelec
             keySelector = item => item;
         }
         var set = new Set<any>();
+        var resultSet= new Set<any>();
         for (var s of source) {
             set.add(keySelector(s));
         }
         var key;
         for (var item of source2) {
             key = keySelector(item);
-            if (set.has(key)) {
+            if (set.has(key) && !resultSet.has(key)) {
+                resultSet.add(key);
                 yield item;
             }
         }

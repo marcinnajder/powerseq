@@ -17,3 +17,7 @@ it('oftype', function () {
 });
 
 export const linq = "OfType";
+
+export const samples = [
+    () => oftype<number>([new Number(1), new Number(2), 's', false], Number),
+];
