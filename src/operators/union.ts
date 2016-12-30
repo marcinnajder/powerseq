@@ -1,26 +1,29 @@
 import { Enumerable } from "../enumerable";
 import { keySelector } from "../common/types";
+import wrap from "../common/wrap";
 
-export function* union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Iterable<T> {
-    if (typeof keySelector === "undefined") {
-        keySelector = item => item;
-    }
-    var set = new Set<any>();
-    var key;
-    for (var item of source) {
-        key = keySelector(item);
-        if (!set.has(key)) {
-            set.add(key);
-            yield item;
+export function union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
+    return wrap(function* () {
+        if (typeof keySelector === "undefined") {
+            keySelector = item => item;
         }
-    }
-    for (var item of source2) {
-        key = keySelector(item);
-        if (!set.has(key)) {
-            set.add(key);
-            yield item;
+        var set = new Set<any>();
+        var key;
+        for (var item of source) {
+            key = keySelector(item);
+            if (!set.has(key)) {
+                set.add(key);
+                yield item;
+            }
         }
-    }
+        for (var item of source2) {
+            key = keySelector(item);
+            if (!set.has(key)) {
+                set.add(key);
+                yield item;
+            }
+        }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

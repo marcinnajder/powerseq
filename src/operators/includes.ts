@@ -20,11 +20,6 @@ export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: n
             index++;
         }
 
-        // if (index > 0 && value.value === searchElement) {
-        //     console.log("Wbijam ", index, value.value)
-        //     return true;
-        // }
-
         while (true) {
             value = iterator.next();
             if (value.done) return false;

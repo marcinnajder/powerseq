@@ -1,8 +1,11 @@
 import { Enumerable } from "../enumerable";
+import wrap from "../common/wrap";
 
 export function* ignoreelements<T>(source: Iterable<T>): Iterable<T> {
-    for (var item of source) {
-    }
+    return wrap(function* () {
+        for (var item of source) {
+        }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

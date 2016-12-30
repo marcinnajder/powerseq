@@ -1,11 +1,14 @@
 import { Enumerable } from "../enumerable";
 import { selector } from "../common/types";
+import wrap from "../common/wrap";
 
-export function* map<T, TResult>(source: Iterable<T>, projection: selector<T, TResult>): Iterable<TResult> {
-    var index = 0;
-    for (var item of source) {
-        yield projection(item, index++);
-    }
+export function map<T, TResult>(source: Iterable<T>, projection: selector<T, TResult>) {
+    return wrap(function* () {
+        var index = 0;
+        for (var item of source) {
+            yield projection(item, index++);
+        }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

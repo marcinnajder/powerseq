@@ -1,12 +1,15 @@
 import { Enumerable } from "../enumerable";
+import wrap from "../common/wrap";
 
-export function* take<T>(source: Iterable<T>, count: number): Iterable<T> {
-    if (count > 0) {
-        for (var item of source) {
-            yield item;
-            if (--count === 0) break;
+export function take<T>(source: Iterable<T>, count: number) {
+    return wrap(function* () {
+        if (count > 0) {
+            for (var item of source) {
+                yield item;
+                if (--count === 0) break;
+            }
         }
-    }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

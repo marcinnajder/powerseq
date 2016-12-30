@@ -1,15 +1,19 @@
 import { predicate } from "../common/types";
 import { Enumerable } from "../enumerable";
+import wrap from "../common/wrap";
 
-export function* cast<TResult>(source: Iterable<any>, type: Function): Iterable<TResult> {
-    for (var item of source) {
-        if (item instanceof type) {
-            yield <TResult>item;
+
+export function cast<TResult>(source: Iterable<any>, type: Function) {
+    return wrap(function* () {
+        for (var item of source) {
+            if (item instanceof type) {
+                yield <TResult>item;
+            }
+            else {
+                throw TypeError("An element in the sequence cannot be cast to type TResult.");
+            }
         }
-        else {
-            throw TypeError("An element in the sequence cannot be cast to type TResult.");
-        }
-    }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

@@ -1,9 +1,12 @@
 import { Enumerable } from "../enumerable";
 import { OrderedEnumerable, OrderingState } from "../orderedEnumerable";
 import { keySelector, comparer } from "./types";
+import wrap from "./wrap";
 
-export function* ordebyImpl<T>(state: OrderingState<T>) {
-    yield* Array.from<T>(state.originalIterable).sort(buildComparer(state));
+export function ordebyImpl<T>(state: OrderingState<T>) {
+    return wrap(function* () {
+        yield* Array.from<T>(state.originalIterable).sort(buildComparer(state));
+    });
 }
 
 function buildComparer<T>(state: OrderingState<T>): comparer<T> {

@@ -1,14 +1,17 @@
 import { Enumerable } from "../enumerable";
 import { predicate } from "../common/types";
+import wrap from "../common/wrap";
 
-export function* takewhile<T>(source: Iterable<T>, predicate: predicate<T>): Iterable<T> {
-    let index = 0;
-    for (var item of source) {
-        if (!predicate(item, index++)) {
-            break;
+export function takewhile<T>(source: Iterable<T>, predicate: predicate<T>) {
+    return wrap(function* () {
+        let index = 0;
+        for (var item of source) {
+            if (!predicate(item, index++)) {
+                break;
+            }
+            yield item;
         }
-        yield item;
-    }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

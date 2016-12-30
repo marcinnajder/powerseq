@@ -1,24 +1,27 @@
 import { Enumerable } from "../enumerable";
 import { predicate } from "../common/types";
+import wrap from "../common/wrap";
 
-export function* skipwhile<T>(source: Iterable<T>, predicate: predicate<T>): Iterable<T> {
-    var iterator = source[Symbol.iterator]();
-    var value: IteratorResult<T>;
-    var index = 0;
+export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
+    return wrap(function* () {
+        var iterator = source[Symbol.iterator]();
+        var value: IteratorResult<T>;
+        var index = 0;
 
-    while (true) {
-        value = iterator.next();
-        if (value.done) return;
-        if (predicate(value.value, index++)) continue;
-        yield value.value;
-        break;
-    }
+        while (true) {
+            value = iterator.next();
+            if (value.done) return;
+            if (predicate(value.value, index++)) continue;
+            yield value.value;
+            break;
+        }
 
-    while (true) {
-        var value = iterator.next();
-        if (value.done) return;
-        yield value.value;
-    }
+        while (true) {
+            var value = iterator.next();
+            if (value.done) return;
+            yield value.value;
+        }
+    });
 }
 declare module '../enumerable' {
     interface Enumerable<T> {

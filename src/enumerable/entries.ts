@@ -1,5 +1,5 @@
 import { Enumerable } from "../enumerable";
-import { wrap } from "../common/utils";
+import wrap from "../common/wrap";
 
 export function entries<TValue>(obj) {
     return wrap<[string, TValue]>(function* () {

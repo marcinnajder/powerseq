@@ -1,5 +1,5 @@
 import { Enumerable } from "../enumerable";
-import { wrap } from "../common/utils";
+import wrap from "../common/wrap";
 
 export function empty<T>() {
     return wrap<T>(function* () {

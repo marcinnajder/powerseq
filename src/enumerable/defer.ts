@@ -1,6 +1,6 @@
 import { Enumerable } from "../enumerable";
 import { EIterable } from "../common/types";
-import { wrap } from "../common/utils";
+import wrap from "../common/wrap";
 
 export function defer<T>(factory: () => Iterable<T>) {
     return wrap(function* () {
