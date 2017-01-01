@@ -12,3 +12,8 @@ it('tomap', function () {
     assert.strictEqual(m2.get(1), "1");
     assert.strictEqual(m2.get(2), "2");
 });
+
+export const samples = [
+    () => tomap(['a', 'bb', 'ccc'], x => x.length),
+    () => tomap(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase())
+];

@@ -8,3 +8,8 @@ it('zip', function () {
 });
 
 export const linq = "Zip";
+
+export const samples = [
+    () => zip(['a', 'b', 'c'], [1, 2], (s, n) => s + n),
+    () => zip(['a', 'b', 'c'], [1, 2], [false], (s, n, b) => s + n + b),
+];

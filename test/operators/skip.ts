@@ -9,3 +9,7 @@ it('skip', function () {
 });
 
 export const linq = "Skip";
+
+export const samples = [
+    () => skip([1, 2, 3, 4, 5], 2)
+];

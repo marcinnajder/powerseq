@@ -9,3 +9,7 @@ it('toarray', function () {
 });
 
 export const linq = "ToArray";
+
+export const samples = [
+    () => toarray([1, 2, 2])    
+];

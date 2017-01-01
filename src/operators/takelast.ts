@@ -37,14 +37,14 @@ export function takelast<T>(source: Iterable<T>, count: number) {
             }
             result.push(value.value);
         }
-
+        
         // process other items
         var j = 0;
         while (true) {
             value = iterator.next();
             if (value.done) {
                 for (var k = 0; k < count; k++) {
-                    yield result[j + k % count];
+                    yield result[(j + k) % count];
                 }
                 return;
             }

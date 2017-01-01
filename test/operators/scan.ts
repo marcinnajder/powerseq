@@ -10,3 +10,8 @@ it('scan', function () {
     assert.deepEqual(Enumerable.from<number>([]).scan((p, c) => p + c, "").toarray(), []);
     assert.deepEqual(Enumerable.from<number>([1]).scan((p, c) => p + c, "").toarray(), ["" + 1]);
 });
+
+export const samples = [
+    () => scan([1, 2, 3], (a, x) => a + x),
+    () => scan([1, 2, 3], (a, x) => a + (x * 10), '')
+];

@@ -10,3 +10,7 @@ it('skipwhile', function () {
 });
 
 export const linq = "SkipWhile";
+
+export const samples = [
+    () => skipwhile([1, 2, 2, 3, 3, 4, 5], x => x < 3)
+];

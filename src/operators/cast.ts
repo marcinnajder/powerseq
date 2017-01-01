@@ -10,7 +10,7 @@ export function cast<TResult>(source: Iterable<any>, type: Function) {
                 yield <TResult>item;
             }
             else {
-                throw TypeError("An element in the sequence cannot be cast to type TResult.");
+                throw TypeError(`An element in the sequence cannot be cast to type '${type.name}'.`);
             }
         }
     });

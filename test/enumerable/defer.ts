@@ -14,3 +14,8 @@ it('defer', function () {
     assert.deepEqual(Array.from(iterable), [2, 2, 2]);
     assert.deepEqual(couter, 2);
 });
+
+
+export const samples = [
+    () => defer(() =>  [1, 2, 3] /* executed on demand */ )
+];

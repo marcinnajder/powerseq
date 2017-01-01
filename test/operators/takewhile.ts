@@ -10,3 +10,7 @@ it('takewhile', function () {
 });
 
 export const linq = "TakeWhile";
+
+export const samples = [
+    () => takewhile([1, 2, 2, 3, 3, 4, 5], x => x < 3)
+];

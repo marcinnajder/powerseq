@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable } from "../../src/index";
+import { Enumerable, range } from "../../src/index";
 
 it('range', function () {
     assert.deepEqual(Enumerable.range(0, 4).toarray(), [0, 1, 2, 3]);
@@ -8,3 +8,7 @@ it('range', function () {
 });
 
 export const linq = "Range";
+
+export const samples = [
+    () => range(10, 4)
+];

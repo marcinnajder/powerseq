@@ -1,6 +1,7 @@
 var glob = require("glob");
 var fs = require("fs");
 var path = require("path");
+var util = require("util");
 var os = require("os");
 
 global.it = global.describe = () => { }; // fake mocha methods
@@ -71,7 +72,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
             unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
             linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
-            content += `<td><span><a class="tooltip" href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
+            content += `<td><span><a class="tooltip" href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
         }
         content += "</tr>";
     }
@@ -80,8 +81,9 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 }
 
 
-function formatSamplesTooltip(samples) {
+function formatSamplesTooltip(methodName, samples) {
     if (typeof samples === "undefined") {
+        console.warn("no samples for operator: ", methodName);
         return "";
     }
 
@@ -90,11 +92,24 @@ function formatSamplesTooltip(samples) {
             var sampleBody = sampleFunc.toString();
             sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 2);
 
-            //sampleBody = sampleBody.replace("index_1.", "");
             sampleBody = sampleBody.replace(/index_1\./g, "");
-            var sampleResult = sampleFunc();
-            // if(sampleBody.indexOf ("defaultifempty") !== -1) {
-            // }
+            sampleBody = sampleBody.replace(/\"/g, "'");
+
+            var sampleResult;
+            try {
+                sampleResult = sampleFunc();
+
+                // try to catch any exception thrown during the iteration
+                if (sampleResult[Symbol.iterator]) {
+                    Array.from(sampleResult);
+                }
+
+                // if(sampleBody.indexOf ("defaultifempty") !== -1) {
+                // }
+            }
+            catch (err) {
+                sampleResult = formatResultValue(err);
+            }
 
             return `${sampleBody} -> ${formatResultValue(sampleResult)}`
         })
@@ -106,19 +121,35 @@ function formatSamplesTooltip(samples) {
 }
 
 function formatResultValue(value) {
+    if (value instanceof Error) {
+        return "error: " + value.message;
+    }
     if (typeof value === "undefined") {
         return "undefined";
     }
     if (typeof value === "string") {
         return `'${value}'`;
     }
+    if (Array.isArray(value)) {
+        return "[" + Array.from(value).map(formatResultValue).join(", ") + "]";
+    }
+    if (value instanceof Map) {
+        return `Map {${Array.from(value.entries()).map(([key, v]) => `${formatResultValue(key)} => ${formatResultValue(v)}`).join(", ")}}`;
+    }
+    if (value && value.constructor && (value.constructor.name === "Enumerable" || value.constructor.name === "OrderedEnumerable")) {
+        return "enumerable [" + Array.from(value).map(formatResultValue).join(", ") + "]";
+    }
     if (value[Symbol.iterator]) {
-        return "[" + Array.from(value).map(formatResultValue) + "]";
+        return "seq [" + Array.from(value).map(formatResultValue).join(", ") + "]";
     }
 
-
+    if (util.isObject(value)) {
+        return `{ ${Object.keys(value).map(key => `${key}:${value[key]}`).join(", ")} }`;
+    }
     return value;
 }
+
+
 
 
 //https://github.com/ReactiveX/IxJS/tree/master/iterable

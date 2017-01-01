@@ -14,3 +14,9 @@ it('single', function () {
 });
 
 export const linq = "Single";
+
+export const samples = [
+    () => single([1]),
+    () => single([1, 2, 3], x => x > 2),
+    () => single([1, 2, 3], x => x > 1)
+];

@@ -17,3 +17,7 @@ it('buffer', function () {
     assert.deepEqual(Array.from(buffer(from1to9, 10, 3)), [[1, 2, 3, 4, 5, 6, 7, 8, 9], [4, 5, 6, 7, 8, 9], [7, 8, 9]]);
 });
 
+export const samples = [
+    () => buffer([1, 2, 3, 4, 5, 6, 7], 2),
+    () => buffer([1, 2, 3, 4, 5, 6, 7], 2, /*skip*/4)
+];

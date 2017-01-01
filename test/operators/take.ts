@@ -9,3 +9,7 @@ it('take', function () {
 });
 
 export const linq = "Take";
+
+export const samples = [
+    () => take([1, 2, 3, 4, 5], 2)
+];

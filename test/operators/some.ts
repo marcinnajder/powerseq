@@ -9,3 +9,10 @@ it('some', function () {
 });
 
 export const linq = "Any";
+
+export const samples = [
+    () => some([1]),
+    () => some([]),
+    () => some([1, 2, 3], x => x > 2),
+    () => some([1, 2, 3], x => x > 3),
+];

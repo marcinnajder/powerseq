@@ -18,3 +18,7 @@ it('cast', function () {
 });
 
 export const linq = "Cast";
+
+export const samples = [
+    () => cast<number>([new Number(1), new Number(2), 's', false], Number),
+];

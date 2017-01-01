@@ -9,3 +9,8 @@ it('sum', function () {
 });
 
 export const linq = "Sum";
+
+export const samples = [
+    () => sum([1, 2, 3]),
+    () => sum(['a', 'asd', 'yy'], x => x.length)
+];

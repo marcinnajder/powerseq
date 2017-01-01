@@ -12,3 +12,7 @@ it('doo', function () {
 
     assert.deepEqual(items, [1 + 0, 2 + 1, 3 + 2]);
 });
+
+export const samples = [
+    () => doo([1, 2, 3,], (x) => { /* executed during iteration */; }),
+];

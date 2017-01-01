@@ -8,3 +8,8 @@ it('union', function () {
 });
 
 export const linq = "Union";
+
+export const samples = [
+    () => union([1, 2, 2], [2, 3, 3, 4]),
+    () => union(['a', 'c', 'ddd'], ['r', 'ww', 'ttt', 'oooo'], x => x.length)
+];

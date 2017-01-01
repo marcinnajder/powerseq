@@ -12,3 +12,8 @@ it('toobject', function () {
     assert.strictEqual(o2[1], "1");
     assert.strictEqual(o2[2], "2");
 });
+
+export const samples = [
+    () => toobject(['a', 'bb', 'ccc'], x => x.length),
+    () => toobject(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase())
+];
