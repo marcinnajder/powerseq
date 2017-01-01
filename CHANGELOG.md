@@ -1,4 +1,13 @@
 
+
+<a name="0.0.7"></a>
+# [0.0.7](https://github.com/marcinnajder/powerseq/releases/tag/0.0.7) (2017-01-01)
+
+* new operators: asiterable, scan, foreach, distinctuntilchanged, doo, ignoreelements, takelast, defer, buffer
+* type inference improvements
+* truly lazy execution (like LINQ or F# seq module, each new iteration starts from the beginning)
+* bug fixes (no duplicates returned by intersect operator)
+
 <a name="0.0.6"></a>
 # [0.0.6](https://github.com/marcinnajder/powerseq/releases/tag/0.0.6) (2016-12-21)
 
