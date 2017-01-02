@@ -21,6 +21,7 @@ export * from "./operators/groupjoin";
 export * from "./operators/ignoreelements";
 export * from "./operators/includes";
 export * from "./operators/intersect";
+export * from "./operators/isempty";
 export * from "./operators/join";
 export * from "./operators/last";
 export * from "./operators/map";
