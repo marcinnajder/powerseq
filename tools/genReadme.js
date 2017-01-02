@@ -11,6 +11,8 @@ var enumerable = listMethods("./src/enumerable/*.ts");
 var operators = listMethods("./src/operators/*.ts");
 var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master/test";
 
+
+console.log()
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
 

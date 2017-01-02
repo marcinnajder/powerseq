@@ -54,6 +54,7 @@ export * from "./enumerable/defer";
 export * from "./enumerable/empty";
 export * from "./enumerable/entries";
 export * from "./enumerable/from";
+export * from "./enumerable/generate";
 export * from "./enumerable/of";
 export * from "./enumerable/range";
 export * from "./enumerable/repeatvalue";
