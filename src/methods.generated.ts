@@ -59,3 +59,4 @@ export * from "./enumerable/generate";
 export * from "./enumerable/of";
 export * from "./enumerable/range";
 export * from "./enumerable/repeatvalue";
+export * from "./enumerable/throww";

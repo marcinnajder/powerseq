@@ -91,6 +91,7 @@ function formatSamplesTooltip(methodName, samples) {
 
     var samplesText = samples
         .map(sampleFunc => {
+            var error;
             var sampleBody = sampleFunc.toString();
             sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 2);
 
@@ -110,10 +111,10 @@ function formatSamplesTooltip(methodName, samples) {
                 // }
             }
             catch (err) {
-                sampleResult = formatResultValue(err);
+                error = err;
             }
 
-            return `${sampleBody} -> ${formatResultValue(sampleResult)}`
+            return `${sampleBody} -> ${formatResultValue(error || sampleResult)}`
         })
         .join("&#013;");
     //.join("</br>");
