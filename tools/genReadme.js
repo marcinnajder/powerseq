@@ -19,63 +19,6 @@ var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAdd
 
 var readmeContent =
     `
-<style>
-    .wrapper {
-      color: #555;
-      position: relative;
-    }
-
-    .wrapper .tooltip {
-      width: 300px;
-      z-index: 1;
-      background: lightgray;
-      color: black;
-      white-space: pre-line;
-      /* widać białe znaki */
-      top: 100%;
-      display: block;
-      margin-top: 10px;
-      opacity: 0;
-      padding: 10px;
-      pointer-events: none;
-      position: absolute;
-      transition: all 0.2s ease;
-    }
-
-    /*This bridges the gap so you can mouse into the tooltip without it disappearing */
-    /*
-    .wrapper .tooltip:before {
-      top: -10px;
-      content: " ";
-      display: block;
-      height: 10px;
-      left: 0;
-      position: absolute;
-      width: 100%;
-    }
-    */
-    
-    .wrapper .tooltip:after {
-      /*strzałka*/
-      border-left: solid transparent 7px;
-      border-right: solid transparent 7px;
-      border-bottom: solid lightgray 7px;
-      top: -7px;
-      margin-left: -7px;
-      content: " ";
-      height: 0;
-      left: 14px;
-      position: absolute;
-      width: 0;
-    }
-    
-    .wrapper:hover .tooltip {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  </style>
-
-    
 \`\`\`javascript
 import {Enumerable} from "powerseq";
 
@@ -130,9 +73,8 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
             unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
             linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
-            //content += `<td><span><a class="tooltip" href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
-
-            content += `<td><div class="wrapper"><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts">${methodName}</a> <div class="tooltip">${formatSamplesTooltip(methodName, unitTestModule.samples)}</div> ${linq}</div></td>`;
+            content += `<td><span><a class="tooltip" href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
+            //content += `<td><div class="wrapper"><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts">${methodName}</a> <div class="tooltip">${formatSamplesTooltip(methodName, unitTestModule.samples)}</div> ${linq}</div></td>`;
         }
         content += "</tr>";
     }
@@ -177,7 +119,7 @@ function formatSamplesTooltip(methodName, samples) {
         .join("&#013;");
         //.join("</br>");
 
-    return `${samplesText}`;
+    return `title="${samplesText}"`;
 }
 
 
@@ -211,6 +153,65 @@ function formatResultValue(value) {
     }
     return value;
 }
+
+
+
+
+// <style>
+//     .wrapper {
+//       color: #555;
+//       position: relative;
+//     }
+
+//     .wrapper .tooltip {
+//       width: 300px;
+//       z-index: 1;
+//       background: lightgray;
+//       color: black;
+//       white-space: pre-line;
+//       /* widać białe znaki */
+//       top: 100%;
+//       display: block;
+//       margin-top: 10px;
+//       opacity: 0;
+//       padding: 10px;
+//       pointer-events: none;
+//       position: absolute;
+//       transition: all 0.2s ease;
+//     }
+
+//     /*This bridges the gap so you can mouse into the tooltip without it disappearing */
+//     /*
+//     .wrapper .tooltip:before {
+//       top: -10px;
+//       content: " ";
+//       display: block;
+//       height: 10px;
+//       left: 0;
+//       position: absolute;
+//       width: 100%;
+//     }
+//     */
+    
+//     .wrapper .tooltip:after {
+//       /*strzałka*/
+//       border-left: solid transparent 7px;
+//       border-right: solid transparent 7px;
+//       border-bottom: solid lightgray 7px;
+//       top: -7px;
+//       margin-left: -7px;
+//       content: " ";
+//       height: 0;
+//       left: 14px;
+//       position: absolute;
+//       width: 0;
+//     }
+    
+//     .wrapper:hover .tooltip {
+//       opacity: 1;
+//       pointer-events: auto;
+//     }
+//   </style>
 
 
 
