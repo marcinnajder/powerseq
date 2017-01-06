@@ -11,19 +11,23 @@ var enumerable = listMethods("./src/enumerable/*.ts");
 var operators = listMethods("./src/operators/*.ts");
 var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master/test";
 
-var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
-var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
-
 var otherLibs = {
     "linq": "https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx",
     "jsarray": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
-    "lodash": "",
+    "lodash": "https://lodash.com/docs/4.17.2",
     "rxjs": "http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html",
     "ixjs": "...",
     "fsharp": "",
     "scala": "",
     "java": "",
 }
+
+var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
+var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
+var operatorsTableWithCounterparts = generateTableWithCounterparts(operators, githubAddressPrefix, "operators", ["jsarray", "linq"]);
+var enumerableTableWithCounterparts = generateTableWithCounterparts(enumerable, githubAddressPrefix, "enumerable", ["jsarray", "linq"]);
+
+
 
 
 
@@ -48,7 +52,12 @@ ${enumerableTable}
 
 operators
 ${operatorsTable}
+
 `
+
+//${operatorsTableWithCounterparts}
+
+//${enumerableTableWithCounterparts}
 
 fs.writeFileSync("./README.md", readmeContent);
 console.log("./README.md", " file generated");
@@ -93,6 +102,30 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
     return `<table>${content}</table>`;
 }
+
+
+
+
+function generateTableWithCounterparts(methods, urlPrefix, enumerableOrOpertor, counterparts) {
+
+    var methodName, unitTestModule, samples;
+    var content = "";
+
+    // header
+    content += "|" + ["powerseq"].concat(counterparts).join("|") + "|" + os.EOL;
+    content += "|" + ["powerseq"].concat(counterparts).map(_ => "---").join("|") + "|" + os.EOL;
+
+    // content
+    for (var methodName of methods) {
+        unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
+        content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c] || "")).join("|") + "|" + os.EOL;
+    }
+
+    return content;
+}
+
+
+
 
 
 function formatSamplesTooltip(methodName, samples) {
