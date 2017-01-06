@@ -12,3 +12,5 @@ export const samples = [
     () => Enumerable.from((function* () { yield 1; })())
 ];
 
+
+export const jsarray = "from";

@@ -12,3 +12,5 @@ export const linq = "Concat";
 export const samples = [
     () => concat([1, 2], [3, 5], [6])
 ];
+
+export const jsarray = "concat";

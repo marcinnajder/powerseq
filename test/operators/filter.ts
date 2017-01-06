@@ -7,9 +7,12 @@ it('filter', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).filter((x, index) => index % 2 === 0).toarray(), [1, 3]);
 });
 
-export const linq = "Where";
+
 
 export const samples = [
     () => filter([1, 2, 2, 3, 4], x => x > 2),
     () => filter([1, 2, 2, 3, 4], (x, index) => x - 1 === index),
 ];
+
+export const jsarray = "filter";
+export const linq = "Where";

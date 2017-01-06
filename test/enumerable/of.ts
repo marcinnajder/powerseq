@@ -10,3 +10,5 @@ it('of', function () {
 export const samples = [
     () => of<any>(1, 2, true, 'abc')
 ];
+
+export const jsarray = "of";

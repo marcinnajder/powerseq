@@ -13,9 +13,10 @@ it('reduce', function () {
     assert.deepEqual(Enumerable.from([]).reduce((p, c) => { throw new Error(); }, { text: "-" }), { text: "-" });
 });
 
-export const linq = "Aggregate";
-
 export const samples = [
     () => reduce([1, 2, 3], (a, x) => a + x),
     () => reduce([1, 2, 3], (a, x) => a + (x * 10), '')
 ];
+
+export const jsarray = "reduce";
+export const linq = "Aggregate";

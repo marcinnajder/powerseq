@@ -11,9 +11,22 @@ var enumerable = listMethods("./src/enumerable/*.ts");
 var operators = listMethods("./src/operators/*.ts");
 var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master/test";
 
-
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
+
+var otherLibs = {
+    "linq": "https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx",
+    "jsarray": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "lodash": "",
+    "rxjs": "http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html",
+    "ixjs": "...",
+    "fsharp": "",
+    "scala": "",
+    "java": "",
+}
+
+
+
 
 
 var readmeContent =
@@ -155,6 +168,29 @@ function formatResultValue(value) {
 
 
 
+// ** JS Array
+// copyWithin
+// fill
+// ?? indexOf
+// ?? join 
+// keys
+// ?? lastIndexOf
+// pop
+// push
+// ?? reduceRight
+// shift
+// slice
+// splice
+// toLocalString
+// toSource
+// toString
+// unshift
+// values
+
+// ** LINQ
+// ToLookup
+// AsEnumerable, AsQueryable
+
 
 // <style>
 //     .wrapper {
@@ -244,7 +280,7 @@ function formatResultValue(value) {
 // Ordering
 // - OrderBy, OrderByDescending (sort)
 // - Reverse (reverse)
-// - ThenBy, ThenByDescending
+// - ThenBy, ThenByDescending (sort)
 
 // Grouping
 // - GroupBy (groupby)

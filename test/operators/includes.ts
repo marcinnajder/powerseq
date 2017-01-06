@@ -12,10 +12,11 @@ it('includes', function () {
     assert.deepEqual(Enumerable.from([0, 1, 2, 3, 4]).includes(4, 4), true);
 });
 
-export const linq = "Contains";
-
 export const samples = [
     () => includes([1, 2, 3], 2),
     () => includes([1, 2, 3], 5),
     () => includes([1, 2, 3], 3, /*fromIndex*/ 4)
 ];
+
+export const jsarray = "includes";
+export const linq = "Contains";

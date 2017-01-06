@@ -6,8 +6,9 @@ it('reverse', function () {
     assert.deepEqual(Enumerable.from(["b", "c", "a"]).reverse().toarray(), ["a", "c", "b"]);
 });
 
-export const linq = "Reverse";
-
 export const samples = [
     () => reverse([1, 2, 3])
 ];
+
+export const jsarray = "reverse";
+export const linq = "Reverse";

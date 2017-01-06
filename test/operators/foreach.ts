@@ -25,3 +25,5 @@ it('foreach', function () {
 export const samples = [
     () => foreach([1, 2, 3], x => { /* some action */; })
 ];
+
+export const jsarray = "forEach";

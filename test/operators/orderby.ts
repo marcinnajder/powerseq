@@ -2,8 +2,6 @@ import * as assert from "assert";
 import { Enumerable, OrderedEnumerable, orderby, orderbydescending, thenby } from "../../src/index";
 
 it('orderby', test);
-export const linq = "OrderBy";
-
 export function test() {
     var numers = [1, 5, 4, 3, 5, 6, 8, 1];
     assert.deepEqual(Array.from(orderby(numers, x => x)), numers.sort());
@@ -38,3 +36,7 @@ export const samples = [
     () => orderby([1, 4, 2, 3, 5, 1], x => x),
     () => orderby(['abc', 'dd', 'sdfe', 'f'], x => x.length)
 ];
+
+export const jsarray = "sort";
+export const linq = "OrderBy";
+

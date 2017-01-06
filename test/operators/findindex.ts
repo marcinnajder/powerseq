@@ -12,3 +12,5 @@ export const samples = [
     () => findindex([1, 2, 2, 3, 4], x => x > 1),
     () => findindex([1, 2, 2, 3, 4], (x, index) => x > 1 && index > 2)
 ];
+
+export const jsarray = "findIndex";

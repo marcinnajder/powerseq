@@ -8,11 +8,12 @@ it('some', function () {
     assert.deepEqual(Enumerable.from([1, 2]).some(x => x > 1), true);
 });
 
-export const linq = "Any";
-
 export const samples = [
     () => some([1]),
     () => some([]),
     () => some([1, 2, 3], x => x > 2),
     () => some([1, 2, 3], x => x > 3),
 ];
+
+export const jsarray = "some";
+export const linq = "Any";
