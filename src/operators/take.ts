@@ -3,10 +3,11 @@ import wrap from "../common/wrap";
 
 export function take<T>(source: Iterable<T>, count: number) {
     return wrap(function* () {
-        if (count > 0) {
+        var countInstance = count;
+        if (countInstance > 0) {
             for (var item of source) {
                 yield item;
-                if (--count === 0) break;
+                if (--countInstance === 0) break;
             }
         }
     });

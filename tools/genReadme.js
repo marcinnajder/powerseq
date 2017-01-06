@@ -12,7 +12,6 @@ var operators = listMethods("./src/operators/*.ts");
 var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master/test";
 
 
-console.log()
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
 
@@ -107,7 +106,7 @@ function formatSamplesTooltip(methodName, samples) {
                     Array.from(sampleResult);
                 }
 
-                // if(sampleBody.indexOf ("defaultifempty") !== -1) {
+                // if(sampleBody.indexOf ("take") !== -1 && sampleBody.indexOf ("repeat") !== -1) {
                 // }
             }
             catch (err) {
@@ -117,7 +116,7 @@ function formatSamplesTooltip(methodName, samples) {
             return `${sampleBody} -> ${formatResultValue(error || sampleResult)}`
         })
         .join("&#013;");
-        //.join("</br>");
+    //.join("</br>");
 
     return `title="${samplesText}"`;
 }
@@ -192,7 +191,7 @@ function formatResultValue(value) {
 //       width: 100%;
 //     }
 //     */
-    
+
 //     .wrapper .tooltip:after {
 //       /*strzałka*/
 //       border-left: solid transparent 7px;
@@ -206,7 +205,7 @@ function formatResultValue(value) {
 //       position: absolute;
 //       width: 0;
 //     }
-    
+
 //     .wrapper:hover .tooltip {
 //       opacity: 1;
 //       pointer-events: auto;
