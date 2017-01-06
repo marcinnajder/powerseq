@@ -11,6 +11,7 @@ export * from "./operators/doo";
 export * from "./operators/elementat";
 export * from "./operators/every";
 export * from "./operators/except";
+export * from "./operators/expand";
 export * from "./operators/filter";
 export * from "./operators/find";
 export * from "./operators/findindex";
