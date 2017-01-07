@@ -9,8 +9,9 @@ it('takewhile', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile((x, index) => index < 3).toarray(), [1, 2, 3]);
 });
 
-export const linq = "TakeWhile";
-
 export const samples = [
     () => takewhile([1, 2, 2, 3, 3, 4, 5], x => x < 3)
 ];
+
+export const linq = "TakeWhile";
+export const lodash = "takeWhile";

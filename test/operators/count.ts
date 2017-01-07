@@ -9,9 +9,10 @@ it('count', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3]).count(x => x > 1), 2);
 });
 
-export const linq = "Count";
-
 export const samples = [
     () => count([2, 2, 2]),
     () => count([2, 4, 6], x => x > 2)
 ];
+
+export const linq = "Count";
+export const lodash = "size";

@@ -16,3 +16,4 @@ export const samples = [
 
 export const jsarray = "filter";
 export const linq = "Where";
+export const lodash = "filter";

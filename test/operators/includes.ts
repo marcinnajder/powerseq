@@ -20,3 +20,4 @@ export const samples = [
 
 export const jsarray = "includes";
 export const linq = "Contains";
+export const lodash = "includes";

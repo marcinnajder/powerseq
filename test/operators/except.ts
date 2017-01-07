@@ -7,9 +7,10 @@ it('except', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4, 2, 4]).except([4, 6], x => x % 3).toarray(), [2]);
 });
 
-export const linq = "except";
-
 export const samples = [
     () => except([1, 2, 2, 3, 4], [2, 3]),
     () => except(['a', 'b', 'ba', 'xde'], ['poc'], x => x.length),
 ];
+
+export const linq = "except";
+export const lodash = ["difference", "differenceBy", "differenceWith", "without"];

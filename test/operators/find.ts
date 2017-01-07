@@ -18,3 +18,4 @@ export const samples = [
 
 export const jsarray = "find";
 export const linq = "First";
+export const lodash = ["first", "head", "find"];

@@ -7,9 +7,13 @@ it('distinct', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4, 2, 4]).distinct(x => x % 3).toarray(), [1, 2, 3]);
 });
 
-export const linq = "Distinct";
-
 export const samples = [
     () => distinct([1, 2, 1, 3, 2]),
     () => distinct(['a', 'aa', 'ab', 'abc'], x => x.length)
 ];
+
+export const linq = "Distinct";
+export const lodash = ["uniq", "uniqBy", "uniqWith"];
+
+
+

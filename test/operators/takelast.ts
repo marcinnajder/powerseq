@@ -14,3 +14,5 @@ export const samples = [
     () => takelast([1, 2, 3], 0),
     () => takelast([1, 2, 3], 5)
 ];
+
+export const lodash = ["last", "takeRight"];

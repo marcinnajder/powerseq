@@ -14,3 +14,4 @@ export const samples = [
 ];
 
 export const jsarray = "findIndex";
+export const lodash = "findIndex";

@@ -17,3 +17,4 @@ export const samples = [
 
 export const jsarray = "some";
 export const linq = "Any";
+export const lodash = "some";

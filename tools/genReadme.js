@@ -9,12 +9,12 @@ var _maxColumns = 4;
 var _maxRows = 6;
 var enumerable = listMethods("./src/enumerable/*.ts");
 var operators = listMethods("./src/operators/*.ts");
-var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master/test";
+var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master";
 
 var otherLibs = {
-    "linq": "https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx",
-    "jsarray": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
-    "lodash": "https://lodash.com/docs/4.17.2",
+    "linq": "[LINQ](https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx)",
+    "jsarray": "[JS Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)",
+    "lodash": "[lodash](https://lodash.com/docs/4.17.2)",
     "rxjs": "http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html",
     "ixjs": "...",
     "fsharp": "",
@@ -22,20 +22,19 @@ var otherLibs = {
     "java": "",
 }
 
+
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
-var operatorsTableWithCounterparts = generateTableWithCounterparts(operators, githubAddressPrefix, "operators", ["jsarray", "linq"]);
-var enumerableTableWithCounterparts = generateTableWithCounterparts(enumerable, githubAddressPrefix, "enumerable", ["jsarray", "linq"]);
-
-
-
-
-
+var counterparts = ["linq", "jsarray", "lodash"];
+var mappingTable = generateMappingTable(operators.concat(enumerable).sort(), githubAddressPrefix, counterparts);
 
 
 var readmeContent =
     `
+[operators](#operators) | [installation](#installation) | [key featues](#key-featues)
+
 \`\`\`javascript
+// chaining many operators
 import {Enumerable} from "powerseq";
 
 var q = Enumerable
@@ -45,22 +44,47 @@ var q = Enumerable
     .reverse();
 
 console.log(q.toarray());
+
+// execute single operator
+import {map} from "powerseq";
+
+for(var item of map([1,2,3,4,5], x => x % 2 === 0)){
+    console.log(item);
+}
+
+// bundle only used operators (tree-shaking)
+import {Enumerable} from "powerseq/enumerable";
+import {range} from "powerseq/enumerable/range";
+import {filter} from "powerseq/operators/filter";
+import {toarray} from "powerseq/operators/toarray";
+
+console.log(Enumerable.range(1,10).filter(x => x % 2 === 0).toarray());
 \`\`\`
+
+## operators
+- don't miss tooltip over operator
+- [click](${githubAddressPrefix}/docs/mapping.md) to see mapping powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
 
 enumerable
 ${enumerableTable}
-
 operators
 ${operatorsTable}
 
+## installation
+## key featues
 `
-
-//${operatorsTableWithCounterparts}
-
-//${enumerableTableWithCounterparts}
-
 fs.writeFileSync("./README.md", readmeContent);
 console.log("./README.md", " file generated");
+
+
+var mappingContent =
+    `
+${mappingTable}
+`
+fs.writeFileSync("./docs/mapping.md", mappingContent);
+console.log("./docs/mapping.md", " file generated");
+
+
 
 
 
@@ -93,9 +117,11 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
             }
 
             unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
-            linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
-            content += `<td><span><a class="tooltip" href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
-            //content += `<td><div class="wrapper"><a href="${urlPrefix}/${enumerableOrOpertor}/${methodName}.ts">${methodName}</a> <div class="tooltip">${formatSamplesTooltip(methodName, unitTestModule.samples)}</div> ${linq}</div></td>`;
+
+            // linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
+            // content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
+            content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a></span></td>`;
+            //content += `<td><div class="wrapper"><a href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts">${methodName}</a> <div class="tooltip">${formatSamplesTooltip(methodName, unitTestModule.samples)}</div> ${linq}</div></td>`;
         }
         content += "</tr>";
     }
@@ -106,27 +132,23 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
 
 
-function generateTableWithCounterparts(methods, urlPrefix, enumerableOrOpertor, counterparts) {
-
-    var methodName, unitTestModule, samples;
+function generateMappingTable(methods, urlPrefix, counterparts) {
+    var methodName, unitTestModule, unitTestModulePath;
     var content = "";
 
     // header
-    content += "|" + ["powerseq"].concat(counterparts).join("|") + "|" + os.EOL;
+    content += "|" + ["powerseq"].concat(counterparts.map(n => otherLibs[n])).join("|") + "|" + os.EOL;
     content += "|" + ["powerseq"].concat(counterparts).map(_ => "---").join("|") + "|" + os.EOL;
 
     // content
     for (var methodName of methods) {
-        unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
+        var unitTestModulePath = ["/operators", "/enumerable"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
+        unitTestModule = require(unitTestModulePath);
         content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c] || "")).join("|") + "|" + os.EOL;
     }
 
     return content;
 }
-
-
-
-
 
 function formatSamplesTooltip(methodName, samples) {
     if (typeof samples === "undefined") {
@@ -223,6 +245,61 @@ function formatResultValue(value) {
 // ** LINQ
 // ToLookup
 // AsEnumerable, AsQueryable
+
+
+// ** lodash
+// ?? compact (usuwa falsy)
+// _.dropRight               -> skiplast !!! pasuje analogicznie do take...
+// _.dropRightWhile
+// _.fill
+// _.findLastIndex
+// _.flatten
+// _.flattenDeep
+// _.flattenDepth
+// _.indexOf          -> juz zdaje sie drugi raz
+// _.initial(array)         -> ale jak dopisze sie skiplast to bedzie to mozna do niego
+// _.join 				-> moze dopisac cos takieg joinwithseparator ?? w tablicy takze jest_
+// _.lastIndexOf       -> jak powstanie indexof to pewnie warto takze lastindexof
+//   _.nth -> niby jest elementat ale nie potrafi liczby od konca, pytanie jak jest w F# i , w collection jest
+
+// _.pull (modyfikuje istniejaca kolekcje)
+// _.pullAll
+// _.pullAllBy
+// _.pullAllWith
+// _.pullAt
+// _.remove
+// _.slice
+// _.sortedIndex (wylicza indeks do wstawienia)
+// _.sortedIndexBy
+// _.sortedIndexOf
+// _.sortedLastIndex
+// _.sortedLastIndexBy
+// _.sortedLastIndexOf
+// _.sortedUniq (dziala jak unique, ale zoptymalizowane pod posortowane kolekcje)
+// _.sortedUniqBy
+// _.takeRightWhile
+// _.unzip
+// _.unzipWith
+// _.xorBy
+// _.xorWith
+// _.zipObject
+// _.zipObjectDeep
+// ^^collection^^
+// _.countBy
+// _.eachRight -> forEachRight
+// _.findLast
+// _.flatMapDeep
+// _.flatMapDepth
+// _.invokeMap
+// _.partition
+// _.reduceRight
+// _.reject
+// _.sample
+// _.sampleSize
+// _.shuffle
+
+
+
 
 
 // <style>

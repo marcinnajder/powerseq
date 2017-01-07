@@ -7,11 +7,13 @@ it('every', function () {
     assert.deepEqual(Enumerable.from([1, 2]).every(x => x > 1), false);
 });
 
-export const linq = "All";
+
 
 export const samples = [
     () => every([1, 2, 12, 15], x => x > 0),
     () => every([1, 2, 12, 15], x => x < 10),
 ];
 
+export const linq = "All";
 export const jsarray = "every";
+export const lodash = "every";

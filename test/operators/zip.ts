@@ -7,9 +7,10 @@ it('zip', function () {
     assert.deepEqual(Enumerable.from(["a", "b", "c"]).zip([1, 2, 3, 4, 5], [false, true], (s, n, b) => s + n + b).toarray(), ["a1false", "b2true"]);
 });
 
-export const linq = "Zip";
-
 export const samples = [
     () => zip(['a', 'b', 'c'], [1, 2], (s, n) => s + n),
     () => zip(['a', 'b', 'c'], [1, 2], [false], (s, n, b) => s + n + b),
 ];
+
+export const linq = "Zip";
+export const lodash = ["zip", "zipWith"];

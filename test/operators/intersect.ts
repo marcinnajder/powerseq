@@ -7,9 +7,12 @@ it('intersect', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4, 2, 4]).intersect([4, 6], x => x % 3).toarray(), [4, 6]);
 });
 
-export const linq = "Intersect";
+
 
 export const samples = [
     () => intersect([1, 2, 2, 3], [3, 3, 1]),
     () => intersect(['a', 'c', 'ddd'], ['r', 'ww', 'ttt', 'oooo'], x => x.length)
 ];
+
+export const linq = "Intersect";
+export const lodash = ["intersection", "intersectionBy", "intersectionWith"];

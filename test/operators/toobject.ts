@@ -17,3 +17,5 @@ export const samples = [
     () => toobject(['a', 'bb', 'ccc'], x => x.length),
     () => toobject(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase())
 ];
+
+export const lodash = ["fromPairs", "keyBy"];

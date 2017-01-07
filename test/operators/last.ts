@@ -10,11 +10,12 @@ it('last', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).find(x => x > 4), undefined);
 });
 
-export const linq = "Last";
-
 export const samples = [
     () => last([1, 2, 3]),
     () => last([]),
     () => last([1, 2, 3, 4, 5], x => x > 2),
     () => last([1, 2, 3, 4, 5], (x, index) => x > 2 && index < 4)
 ];
+
+export const linq = "Last";
+export const lodash = "findLast";

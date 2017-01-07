@@ -20,3 +20,4 @@ export const samples = [
 
 export const jsarray = "reduce";
 export const linq = "Aggregate";
+export const lodash = "reduce";

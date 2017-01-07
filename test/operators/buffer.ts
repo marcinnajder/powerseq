@@ -21,3 +21,6 @@ export const samples = [
     () => buffer([1, 2, 3, 4, 5, 6, 7], 2),
     () => buffer([1, 2, 3, 4, 5, 6, 7], 2, /*skip*/4)
 ];
+
+
+export const lodash = "chunk";

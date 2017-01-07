@@ -8,8 +8,10 @@ it('skip', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skip(5).toarray(), []);
 });
 
-export const linq = "Skip";
-
 export const samples = [
     () => skip([1, 2, 3, 4, 5], 2)
 ];
+
+export const linq = "Skip";
+export const lodash = ["drop", "tail"];
+

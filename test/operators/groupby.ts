@@ -20,9 +20,12 @@ function groupToString<TKey, TElement>(group: EnumerableGroup<TKey, TElement>) {
     return group.key + ":" + Array.from<TElement>(group).join(",")
 }
 
-export const linq = "GroupBy";
-
 export const samples = [
     () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length),
     () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, x => x.toUpperCase())
 ];
+
+export const linq = "GroupBy";
+export const lodash = "groupBy";
+
+

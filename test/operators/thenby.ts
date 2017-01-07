@@ -11,3 +11,4 @@ export const samples = [
 
 export const jsarray = "sort";
 export const linq = "ThenBy";
+export const lodash = ["orderBy", "sortBy"];
