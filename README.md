@@ -1,8 +1,8 @@
 
 [operators](#operators) | [installation](#installation) | [key featues](#key-featues)
 
+chaining many operators
 ```javascript
-// chaining many operators
 import {Enumerable} from "powerseq";
 
 var q = Enumerable
@@ -12,15 +12,21 @@ var q = Enumerable
     .reverse();
 
 console.log(q.toarray());
+```
 
-// execute single operator
-import {map} from "powerseq";
+execute single operator
 
-for(var item of map([1,2,3,4,5], x => x % 2 === 0)){
+```javascript 
+import {filter} from "powerseq";
+
+for(var item of filter([1,2,3,4,5], x => x % 2 === 0)){
     console.log(item);
 }
+```
 
-// bundle only used operators (tree-shaking)
+bundle only used operators (tree-shaking)
+
+```javascript
 import {Enumerable} from "powerseq/enumerable";
 import {range} from "powerseq/enumerable/range";
 import {filter} from "powerseq/operators/filter";
