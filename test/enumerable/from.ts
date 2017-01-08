@@ -14,3 +14,4 @@ export const samples = [
 
 
 export const jsarray = "from";
+export const rxjs = "from";

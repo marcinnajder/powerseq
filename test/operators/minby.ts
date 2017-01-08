@@ -11,3 +11,5 @@ it('minby', function () {
 export const samples = [
     () => minby(['a', 'bb', 'rrr', 'd'], x => x.length)
 ];
+
+export const lodash = "minBy";

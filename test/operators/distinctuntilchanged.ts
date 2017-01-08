@@ -9,3 +9,5 @@ it('distinctuntilchanged', function () {
 export const samples = [
     () => distinctuntilchanged([1, 1, 2, 2, 2, 1, 3, 3]),
 ];
+
+export const rxjs = ["distinctUntilChanged", "distinctUntilKeyChanged"];

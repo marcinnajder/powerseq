@@ -17,3 +17,4 @@ export const samples = [
 export const linq = "All";
 export const jsarray = "every";
 export const lodash = "every";
+export const rxjs = "every";

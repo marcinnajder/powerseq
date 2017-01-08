@@ -12,3 +12,4 @@ export const samples = [
 ];
 
 export const jsarray = "of";
+export const rxjs = "of";

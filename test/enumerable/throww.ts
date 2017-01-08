@@ -10,3 +10,5 @@ it('throww', function () {
 export const samples = [
     () => throww(new Error("exception ..."))
 ];
+
+export const rxjs = "throw";

@@ -19,3 +19,4 @@ export const samples = [
 
 export const linq = "Last";
 export const lodash = "findLast";
+export const rxjs = "last";

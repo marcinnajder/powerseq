@@ -9,3 +9,5 @@ it('ignoreelements', function () {
 export const samples = [
     () => ignoreelements([1, 3, 2])
 ];
+
+export const rxjs = "ignoreElements";

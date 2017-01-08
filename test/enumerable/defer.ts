@@ -17,5 +17,7 @@ it('defer', function () {
 
 
 export const samples = [
-    () => defer(() =>  [1, 2, 3] /* executed on demand */ )
+    () => defer(() => [1, 2, 3] /* executed on demand */)
 ];
+
+export const rxjs = "defer";

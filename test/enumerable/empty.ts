@@ -9,3 +9,5 @@ it('empty', function () {
 export const samples = [
     () => empty<number>()
 ];
+
+export const rxjs = "empty";

@@ -15,3 +15,4 @@ export const samples = [
 
 export const linq = "TakeWhile";
 export const lodash = "takeWhile";
+export const rxjs = "takeWhile";

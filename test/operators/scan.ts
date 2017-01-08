@@ -15,3 +15,5 @@ export const samples = [
     () => scan([1, 2, 3], (a, x) => a + x),
     () => scan([1, 2, 3], (a, x) => a + (x * 10), '')
 ];
+
+export const rxjs = "scan";

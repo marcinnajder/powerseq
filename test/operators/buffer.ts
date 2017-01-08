@@ -24,3 +24,4 @@ export const samples = [
 
 
 export const lodash = "chunk";
+export const rxjs = "bufferCount";

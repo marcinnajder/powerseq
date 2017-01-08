@@ -9,9 +9,11 @@ it('min', function () {
     assert.deepEqual(Enumerable.from([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }]).min(x => x.id), 1);
 });
 
-export const linq = "Min";
-
 export const samples = [
     () => min([1, 2, 3, 1]),
     () => min(['a', 'bb', 'rrr', 'd'], x => x.length)
 ];
+
+export const linq = "Min";
+export const lodash = "min";
+export const rxjs = "min";

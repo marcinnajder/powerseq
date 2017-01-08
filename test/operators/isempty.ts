@@ -10,3 +10,5 @@ export const samples = [
     () => isempty([]),
     () => isempty([1, 2])
 ];
+
+export const rxjs = "isEmpty";

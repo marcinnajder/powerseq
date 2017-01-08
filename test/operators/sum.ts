@@ -8,9 +8,10 @@ it('sum', function () {
     assert.deepEqual(Enumerable.from(["a", "aa", "aaa"]).sum(s => s.length), 6);
 });
 
-export const linq = "Sum";
-
 export const samples = [
     () => sum([1, 2, 3]),
     () => sum(['a', 'asd', 'yy'], x => x.length)
 ];
+
+export const linq = "Sum";
+export const lodash = ["sum", "sumBy"];

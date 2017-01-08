@@ -14,5 +14,5 @@ export const samples = [
 ];
 
 export const jsarray = "concat";
-
 export const lodash = "concat";
+export const rxjs = "concat";

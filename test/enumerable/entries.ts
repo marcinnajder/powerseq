@@ -12,3 +12,4 @@ export const samples = [
 ];
 
 export const jsarray = "entries";
+export const rxjs = "pairs";

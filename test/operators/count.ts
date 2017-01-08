@@ -16,3 +16,4 @@ export const samples = [
 
 export const linq = "Count";
 export const lodash = "size";
+export const rxjs = "count";

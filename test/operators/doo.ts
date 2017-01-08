@@ -16,3 +16,5 @@ it('doo', function () {
 export const samples = [
     () => doo([1, 2, 3,], (x) => { /* executed during iteration */; }),
 ];
+
+export const rxjs = "do";

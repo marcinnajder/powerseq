@@ -14,4 +14,5 @@ export const samples = [
 
 export const linq = "Skip";
 export const lodash = ["drop", "tail"];
+export const rxjs = "skip";
 

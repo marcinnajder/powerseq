@@ -11,3 +11,5 @@ it('maxby', function () {
 export const samples = [
     () => maxby(['a', 'bb', 'rrr', 'd'], x => x.length)
 ];
+
+export const lodash = "maxBy";

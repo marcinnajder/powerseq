@@ -7,8 +7,10 @@ it('range', function () {
     assert.deepEqual(Enumerable.range(0, -2).toarray(), []);
 });
 
-export const linq = "Range";
-
 export const samples = [
     () => range(10, 4)
 ];
+
+export const linq = "Range";
+export const lodash = "range";
+export const rxjs = "range";

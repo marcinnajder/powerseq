@@ -14,6 +14,7 @@ export const samples = [
 
 export const linq = "Distinct";
 export const lodash = ["uniq", "uniqBy", "uniqWith"];
+export const rxjs = "distinct";
 
 
 

@@ -16,3 +16,4 @@ export const samples = [
 ];
 
 export const lodash = ["last", "takeRight"];
+export const rxjs = "takeLast";

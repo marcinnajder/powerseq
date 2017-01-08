@@ -14,3 +14,4 @@ export const samples = [
 
 export const linq = "Zip";
 export const lodash = ["zip", "zipWith"];
+export const rxjs = "zip";

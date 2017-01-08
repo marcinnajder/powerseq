@@ -15,3 +15,4 @@ export const samples = [
 
 export const linq = "SkipWhile";
 export const lodash = "dropWhile";
+export const rxjs  = "skipWhile";

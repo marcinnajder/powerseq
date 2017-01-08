@@ -8,10 +8,11 @@ it('defaultifempty', function () {
     assert.deepEqual(Enumerable.from([]).defaultifempty(4).toarray(), [4]);
 });
 
-export const linq = "DefaultIfEmpty";
-
 export const samples = [
     () => defaultifempty([1, 2, 3]),
     () => defaultifempty([]),
     () => defaultifempty([], 10)
 ];
+
+export const linq = "DefaultIfEmpty";
+export const rxjs = "defaultIfEmpty";

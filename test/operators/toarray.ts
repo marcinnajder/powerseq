@@ -8,8 +8,8 @@ it('toarray', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3]).toarray(), [1, 2, 3]);
 });
 
-export const linq = "ToArray";
-
 export const samples = [
     () => toarray([1, 2, 2])    
 ];
+
+export const linq = "ToArray";

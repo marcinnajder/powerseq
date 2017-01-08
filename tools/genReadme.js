@@ -15,17 +15,16 @@ var otherLibs = {
     "linq": "[LINQ](https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx)",
     "jsarray": "[JS Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)",
     "lodash": "[lodash](https://lodash.com/docs/4.17.2)",
-    "rxjs": "http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html",
-    "ixjs": "...",
+    "rxjs": "[RxJS](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html)",
+    "ixjs/ix.net": "?",
     "fsharp": "",
     "scala": "",
     "java": "",
 }
 
-
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
-var counterparts = ["linq", "jsarray", "lodash"];
+var counterparts = ["linq", "rxjs", "jsarray", "lodash"];
 var mappingTable = generateMappingTable(operators.concat(enumerable).sort(), githubAddressPrefix, counterparts);
 
 
@@ -150,11 +149,39 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
     for (var methodName of methods) {
         var unitTestModulePath = ["/operators", "/enumerable"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
         unitTestModule = require(unitTestModulePath);
-        content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c] || "")).join("|") + "|" + os.EOL;
+
+        var maxMatchingOperators = counterparts.map(c => unitTestModule[c]).filter(ops => Array.isArray(ops)).reduce((p, c) => Math.max(p, c.length), 0);
+        content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c])).map(o => formatOperators(o, maxMatchingOperators)).join("|") + "|" + os.EOL;
+        //content += "|" + [methodName].concat(counterparts.map(c => (unitTestModule[c] || "").toString().replace(/\,/g, "</br>"))).join("|") + "|" + os.EOL;
     }
 
     return content;
 }
+
+
+function formatOperators(items, maxMatchingOperators) {
+    if (typeof items === undefined) {
+        return "";
+    }
+
+    var items = fillWithEmptyStringsUpToXItems(items, maxMatchingOperators);
+    return items.toString().replace(/\,/g, "</br>");
+
+
+    function fillWithEmptyStringsUpToXItems(items, x) {
+        if (!Array.isArray(items)) {
+            items = [items];
+        }
+        if (items.length === x) {
+            return items;
+        }
+        for (var i = items.length; i < x + 1; i++) { // x + 1 
+            items.push("");
+        }
+        return items;
+    }
+}
+
 
 function formatSamplesTooltip(methodName, samples) {
     if (typeof samples === "undefined") {
@@ -267,7 +294,6 @@ function formatResultValue(value) {
 // _.join 				-> moze dopisac cos takieg joinwithseparator ?? w tablicy takze jest_
 // _.lastIndexOf       -> jak powstanie indexof to pewnie warto takze lastindexof
 //   _.nth -> niby jest elementat ale nie potrafi liczby od konca, pytanie jak jest w F# i , w collection jest
-
 // _.pull (modyfikuje istniejaca kolekcje)
 // _.pullAll
 // _.pullAllBy
@@ -305,6 +331,15 @@ function formatResultValue(value) {
 // _.shuffle
 
 
+
+
+// ** Rx JS
+// - catch(selector: function): Observable
+// Catches errors on the observable to be handled by returning a new observable or throwing an error.
+// - pairwise -> dopisac taki, takze ma taki F#
+// - partition -> to mial lodash i 
+// - share -> to takze jest w Ix.net
+// - retry -> jesli moze znajdzie sie jakis fajny case rzeczywistego uzycia? (generalnie inne takze do wyjatkow moze byc fajne jesli sie znajdzie przypadek)
 
 
 

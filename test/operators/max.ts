@@ -9,9 +9,11 @@ it('max', function () {
     assert.deepEqual(Enumerable.from([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }]).max(x => x.id), 3);
 });
 
-export const linq = "Max";
-
 export const samples = [
     () => max([1, 2, 3, 1]),
     () => max(['a', 'bb', 'rrr', 'd'], x => x.length)
 ];
+
+export const linq = "Max";
+export const lodash = "max";
+export const rxjs = "max";

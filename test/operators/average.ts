@@ -8,9 +8,10 @@ it('average', function () {
     assert.deepEqual(Enumerable.from(["a", "aa", "aaa"]).average(s => s.length), 2);
 });
 
-export const linq = "Average";
-
 export const samples = [
     () => average([1, 2, 3, 4]),
     () => average(['a', 'aa', 'aaa'], s => s.length)
 ];
+
+export const linq = "Average";
+export const lodash = ["mean", "meanBy"];
