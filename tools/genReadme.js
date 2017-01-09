@@ -16,15 +16,15 @@ var otherLibs = {
     "jsarray": "[JS Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)",
     "lodash": "[lodash](https://lodash.com/docs/4.17.2)",
     "rxjs": "[RxJS](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html)",
+    "fsharp": "[F#](https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.seq-module-%5bfsharp%5d)",
     "ixjs/ix.net": "?",
-    "fsharp": "",
     "scala": "",
     "java": "",
 }
 
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
-var counterparts = ["linq", "rxjs", "jsarray", "lodash"];
+var counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp"];
 var mappingTable = generateMappingTable(operators.concat(enumerable).sort(), githubAddressPrefix, counterparts);
 
 
@@ -67,7 +67,7 @@ console.log(Enumerable.range(1,10).filter(x => x % 2 === 0).toarray());
 \`\`\`
 
 ## operators
-- don't miss tooltip over operator
+- each operator below has tooltip that contains examples
 - [click](${githubAddressPrefix}/docs/mapping.md) to see mapping powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
 
 enumerable
@@ -340,6 +340,35 @@ function formatResultValue(value) {
 // - partition -> to mial lodash i 
 // - share -> to takze jest w Ix.net
 // - retry -> jesli moze znajdzie sie jakis fajny case rzeczywistego uzycia? (generalnie inne takze do wyjatkow moze byc fajne jesli sie znajdzie przypadek)
+
+
+
+
+// -----> F#
+// - cache -> taki memoize zdaje sie, ale niby poki idziem po nim to keszuje, ale jak dojdziemy do konca to czysci
+// - choose
+// - compareWith - ciekawa metoda ktora dziala jak comparator (zwraca -1,0,1) ale dziala dla calej kolekcji, moze warto zaimplementowac :) choc tutaj zadna metoda powerseq nie przujmuje comparatora ale moze dla keySelectora warto zaimplementowac
+// - concat -> tutaj 2 F# to jakby flatten czyli z [[T],[T]] robi [T,T], to samo mozna osiagnac flatmap
+// - countBy -> czyli zliczania tworzac grupy, takie cos mial takze lodash, tutaj mozna groupby i count zrobic
+// - exists2 -> to mozna zaimplementowac robiax zip(...).some(...)
+// - forall2 -> anlogicznie do tego wyzej zip(...).every(...)
+// - init -> mozna zrobic range(1,5).map(x=>...) lub lepiej za pomoca generate
+// - initInfinite -> to takze mozna za pomoca generate
+// - iter2 -> zip(...).foreach(...)
+// - map2 -> to jak zip
+// - ofArray - to jest konwersja z tablicy do sekwencji, tutaj niepotrzebne bo mamy Enumerable.from
+// - ofList -> to samo co wyzej
+// - pairwise -> moze warto to dodac, rxjs takze to ma
+// - pick -> odpowiednil choose, tak jak find jest odpowiednikiem filter, gdybym pisal choose to pewnie warto takze pick
+// - readonly -> chodzi o to aby opakowac jakas istniejaca sekwencje gdy jest to np tablica aby nie miec dostepu do oryginalnego obiektu
+// - tryPick
+// - unfold -> ciekawa w sumie odwrotnosc fold, byc moze warto zaimplementowac (tyle ze tutaj metoda nazywa sie reduce)
+
+
+
+
+
+
 
 
 

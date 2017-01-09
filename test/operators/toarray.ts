@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { Enumerable, toarray } from "../../src/index";
-import { return123Iterator} from "../common";
+import { return123Iterator } from "../common";
 
 it('toarray', function () {
     assert.deepEqual(toarray(return123Iterator()), [1, 2, 3]);
@@ -9,7 +9,8 @@ it('toarray', function () {
 });
 
 export const samples = [
-    () => toarray([1, 2, 2])    
+    () => toarray([1, 2, 2])
 ];
 
 export const linq = "ToArray";
+export const fsharp = "toArray";

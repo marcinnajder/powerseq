@@ -13,3 +13,4 @@ export const samples = [
 ];
 
 export const lodash = "maxBy";
+export const fsharp = "maxBy";

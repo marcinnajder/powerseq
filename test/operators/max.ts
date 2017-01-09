@@ -17,3 +17,4 @@ export const samples = [
 export const linq = "Max";
 export const lodash = "max";
 export const rxjs = "max";
+export const fsharp = "max";

@@ -17,3 +17,4 @@ export const samples = [
 export const linq = "Min";
 export const lodash = "min";
 export const rxjs = "min";
+export const fsharp = "min";

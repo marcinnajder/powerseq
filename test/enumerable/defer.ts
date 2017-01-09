@@ -21,3 +21,4 @@ export const samples = [
 ];
 
 export const rxjs = "defer";
+export const fsharp = "delay";

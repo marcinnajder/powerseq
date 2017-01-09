@@ -40,4 +40,5 @@ export const samples = [
 export const jsarray = "sort";
 export const linq = "OrderBy";
 export const lodash = ["orderBy", "sortBy"];
+export const fsharp = ["sort", "sortBy"];
 

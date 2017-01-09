@@ -28,3 +28,4 @@ export const samples = [
 
 export const jsarray = "forEach";
 export const lodash = ["each", "forEach"];
+export const fsharp = ["iter", "iteri"];

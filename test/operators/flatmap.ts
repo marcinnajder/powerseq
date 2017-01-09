@@ -21,4 +21,5 @@ export const samples = [
 
 export const linq = "SelectMany";
 export const lodash = ["flatten", "flatMap"];
+export const fsharp = "collect";
 

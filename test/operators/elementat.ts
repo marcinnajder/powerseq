@@ -16,3 +16,4 @@ export const samples = [
 
 export const lodash = "nth";
 export const rxjs = "elementAt";
+export const fsharp = "nth";

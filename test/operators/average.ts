@@ -15,3 +15,4 @@ export const samples = [
 
 export const linq = "Average";
 export const lodash = ["mean", "meanBy"];
+export const fsharp = ["average", "averageBy"];

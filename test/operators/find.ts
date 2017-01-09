@@ -22,3 +22,4 @@ export const jsarray = "find";
 export const linq = "First";
 export const lodash = ["first", "head", "find"];
 export const rxjs = ["find", "first"];
+export const fsharp = ["find~", "tryFind","head"];

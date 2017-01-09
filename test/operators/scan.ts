@@ -17,3 +17,4 @@ export const samples = [
 ];
 
 export const rxjs = "scan";
+export const fsharp = "scan";

@@ -4,6 +4,9 @@ import {Enumerable} from "../enumerable";
 export function count<T>(source:Iterable<T>, predicate?:predicate<T>): number{
     var count = 0;
     if(typeof predicate === "undefined"){
+        if(Array.isArray(source)){
+            return source.length;
+        }
         for(var item of source){
             count++;
         }

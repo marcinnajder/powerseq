@@ -13,3 +13,4 @@ export const samples = [
 ];
 
 export const lodash = "minBy";
+export const fsharp = "minBy";

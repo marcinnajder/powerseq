@@ -28,5 +28,6 @@ export const samples = [
 export const linq = "GroupBy";
 export const lodash = "groupBy";
 export const rxjs = "groupBy";
+export const fsharp = "groupBy";
 
 

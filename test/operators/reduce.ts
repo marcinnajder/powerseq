@@ -22,3 +22,4 @@ export const jsarray = "reduce";
 export const linq = "Aggregate";
 export const lodash = "reduce";
 export const rxjs = "reduce";
+export const fsharp = ["fold", "reduce"];

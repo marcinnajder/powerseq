@@ -17,8 +17,10 @@ it('cast', function () {
     }, "An element in the sequence cannot be cast to type TResult.")
 });
 
-export const linq = "Cast";
 
 export const samples = [
     () => cast<number>([new Number(1), new Number(2), 's', false], Number),
 ];
+
+export const linq = "Cast";
+export const fsharp = "cast";

@@ -15,3 +15,4 @@ export const samples = [
 export const linq = "Take";
 export const lodash = "take";
 export const rxjs = "take";
+export const fsharp = ["truncate", "~take"];

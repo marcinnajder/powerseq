@@ -11,3 +11,4 @@ export const samples = [
 ];
 
 export const rxjs = "empty";
+export const fsharp = "empty";

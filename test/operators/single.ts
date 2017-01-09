@@ -21,3 +21,4 @@ export const samples = [
 
 export const linq = "Single";
 export const rxjs = "single";
+export const fsharp = "exactlyOne";

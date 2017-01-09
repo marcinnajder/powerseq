@@ -16,3 +16,4 @@ export const jsarray = "filter";
 export const linq = "Where";
 export const lodash = "filter";
 export const rxjs = "filter";
+export const fsharp = ["filter", "where"];

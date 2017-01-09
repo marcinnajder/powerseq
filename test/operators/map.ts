@@ -16,3 +16,4 @@ export const jsarray = "map";
 export const linq = "Select";
 export const lodash = "map";
 export const rxjs = "map";
+export const fsharp = "map";

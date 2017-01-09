@@ -15,3 +15,4 @@ export const samples = [
 
 export const linq = "Sum";
 export const lodash = ["sum", "sumBy"];
+export const fsharp = ["sum", "sumBy"];
