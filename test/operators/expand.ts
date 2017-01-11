@@ -19,3 +19,5 @@ it('expand', function () {
 export const samples = [
     () => expand([1], x => x > 8 ? [] : [10, x * 2])
 ];
+
+export const rxjs = "expand";

@@ -17,7 +17,7 @@
 |entries||pairs|entries|||
 |every|All|every|every|every|forall|
 |except</br></br></br></br>|except</br></br></br></br>|</br></br></br></br>|</br></br></br></br>|difference</br>differenceBy</br>differenceWith</br>without|</br></br></br></br>|
-|expand||||||
+|expand||expand||||
 |filter</br></br>|Where</br></br>|filter</br></br>|filter</br></br>|filter</br></br>|filter</br>where|
 |find</br></br></br>|First</br></br></br>|find</br>first</br></br>|find</br></br></br>|first</br>head</br>find|find~</br>tryFind</br>head|
 |findindex</br></br>|</br></br>|findIndex</br></br>|findIndex</br></br>|findIndex</br></br>|findIndex~</br>tryFindIndex|
