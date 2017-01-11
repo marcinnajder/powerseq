@@ -3,7 +3,7 @@
 - new IX operators
 - mapping operators for: JS Arrays, lodash, LINQ, RX/IX, F#, scala, Java?, 
 - better doc (installation, wepack configuration, key features)
-
+- explain wrap method
 
 
 // - chodzi na ES6

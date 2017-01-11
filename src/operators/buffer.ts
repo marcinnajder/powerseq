@@ -2,7 +2,7 @@ import { predicate } from "../common/types";
 import { Enumerable } from "../enumerable";
 import wrap from "../common/wrap";
 
-export function buffer<T>(source: Iterable<any>, count: number, skip?: number) {
+export function buffer<T>(source: Iterable<T>, count: number, skip?: number) {
     return wrap(function* () {
         if (typeof count === "undefined" || count < 0) {
             return;
