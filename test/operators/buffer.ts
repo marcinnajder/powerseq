@@ -24,5 +24,5 @@ export const samples = [
 
 
 export const lodash = "chunk";
-export const rxjs = "bufferCount";
-export const fsharp = "windowed";
+export const rxjs = ["bufferCount", "pairwise"];
+export const fsharp = ["windowed", "pairwise"];
