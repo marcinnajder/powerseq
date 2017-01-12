@@ -3,7 +3,7 @@
 |---|---|---|---|---|---|
 |asiterable||||||
 |average</br></br>|Average</br></br>|</br></br>|</br></br>|mean</br>meanBy|average</br>averageBy|
-|buffer||bufferCount||chunk|windowed|
+|buffer</br></br>|</br></br>|bufferCount</br>pairwise|</br></br>|chunk</br></br>|windowed</br>pairwise|
 |cast|Cast||||cast|
 |concat|Concat|concat|concat|concat|append|
 |count|Count|count||size|length|
@@ -51,7 +51,7 @@
 |sequenceequal|SequenceEqual|sequenceEqual||||
 |single|Single|single|||exactlyOne|
 |skip</br></br>|Skip</br></br>|skip</br></br>|</br></br>|drop</br>tail|skip~</br></br>|
-|skiplast||||dropRight||
+|skiplast</br></br>|</br></br>|</br></br>|</br></br>|dropRight</br>initial|</br></br>|
 |skipwhile|SkipWhile|skipWhile||dropWhile|skipWhile|
 |some|Any||some|some|exists|
 |sum</br></br>|Sum</br></br>|</br></br>|</br></br>|sum</br>sumBy|sum</br>sumBy|

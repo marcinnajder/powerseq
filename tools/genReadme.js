@@ -279,7 +279,6 @@ function formatResultValue(value) {
 // ToLookup
 // AsEnumerable, AsQueryable
 
-
 // ** lodash
 // ?? compact (usuwa falsy)
 // _.dropRightWhile
@@ -289,7 +288,6 @@ function formatResultValue(value) {
 // _.flattenDeep
 // _.flattenDepth
 // _.indexOf          -> juz zdaje sie drugi raz
-// _.initial(array)         -> ale jak dopisze sie skiplast to bedzie to mozna do niego
 // _.join 				-> moze dopisac cos takieg joinwithseparator ?? w tablicy takze jest_
 // _.lastIndexOf       -> jak powstanie indexof to pewnie warto takze lastindexof
 //   _.nth -> niby jest elementat ale nie potrafi liczby od konca, pytanie jak jest w F# i , w collection jest
@@ -318,7 +316,6 @@ function formatResultValue(value) {
 // ^^collection^^
 // _.countBy
 // _.eachRight -> forEachRight
-// _.findLast
 // _.flatMapDeep
 // _.flatMapDepth
 // _.invokeMap
@@ -335,7 +332,6 @@ function formatResultValue(value) {
 // ** Rx JS
 // - catch(selector: function): Observable
 // Catches errors on the observable to be handled by returning a new observable or throwing an error.
-// - pairwise -> dopisac taki, takze ma taki F#
 // - partition -> to mial lodash i 
 // - share -> to takze jest w Ix.net
 // - retry -> jesli moze znajdzie sie jakis fajny case rzeczywistego uzycia? (generalnie inne takze do wyjatkow moze byc fajne jesli sie znajdzie przypadek)
@@ -357,7 +353,6 @@ function formatResultValue(value) {
 // - map2 -> to jak zip
 // - ofArray - to jest konwersja z tablicy do sekwencji, tutaj niepotrzebne bo mamy Enumerable.from
 // - ofList -> to samo co wyzej
-// - pairwise -> moze warto to dodac, rxjs takze to ma
 // - pick -> odpowiednil choose, tak jak find jest odpowiednikiem filter, gdybym pisal choose to pewnie warto takze pick
 // - readonly -> chodzi o to aby opakowac jakas istniejaca sekwencje gdy jest to np tablica aby nie miec dostepu do oryginalnego obiektu
 // - tryPick
