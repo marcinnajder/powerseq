@@ -12,5 +12,5 @@ export const samples = [
     () => except(['a', 'b', 'ba', 'xde'], ['poc'], x => x.length),
 ];
 
-export const linq = "except";
+export const linq = "Except";
 export const lodash = ["difference", "differenceBy", "differenceWith", "without"];
