@@ -4,7 +4,7 @@ import wrap from "../common/wrap";
 
 export function takelast<T>(source: Iterable<T>, count: number) {
     return wrap(function* () {
-        if (typeof count === "undefined" || count < 0) {
+        if (typeof count === "undefined" || count <= 0) {
             return;
         }
 

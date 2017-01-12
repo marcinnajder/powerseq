@@ -16,7 +16,7 @@
 |empty||empty|||empty|
 |entries||pairs|entries|||
 |every|All|every|every|every|forall|
-|except</br></br></br></br>|except</br></br></br></br>|</br></br></br></br>|</br></br></br></br>|difference</br>differenceBy</br>differenceWith</br>without|</br></br></br></br>|
+|except</br></br></br></br>|Except</br></br></br></br>|</br></br></br></br>|</br></br></br></br>|difference</br>differenceBy</br>differenceWith</br>without|</br></br></br></br>|
 |expand||expand||||
 |filter</br></br>|Where</br></br>|filter</br></br>|filter</br></br>|filter</br></br>|filter</br>where|
 |find</br></br></br>|First</br></br></br>|find</br>first</br></br>|find</br></br></br>|first</br>head</br>find|find~</br>tryFind</br>head|
@@ -51,6 +51,7 @@
 |sequenceequal|SequenceEqual|sequenceEqual||||
 |single|Single|single|||exactlyOne|
 |skip</br></br>|Skip</br></br>|skip</br></br>|</br></br>|drop</br>tail|skip~</br></br>|
+|skiplast||||dropRight||
 |skipwhile|SkipWhile|skipWhile||dropWhile|skipWhile|
 |some|Any||some|some|exists|
 |sum</br></br>|Sum</br></br>|</br></br>|</br></br>|sum</br>sumBy|sum</br>sumBy|

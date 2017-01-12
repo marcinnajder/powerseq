@@ -282,7 +282,6 @@ function formatResultValue(value) {
 
 // ** lodash
 // ?? compact (usuwa falsy)
-// _.dropRight               -> skiplast !!! pasuje analogicznie do take...
 // _.dropRightWhile
 // _.fill
 // _.findLastIndex
@@ -505,12 +504,6 @@ function formatResultValue(value) {
 // - Min (min)
 // - Sum (sum)
 // - Average (average)
-
-// Others
-// - of
-// - entries 
-// - toobject
-// - findIndex
 
 
 

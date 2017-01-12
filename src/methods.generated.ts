@@ -40,6 +40,7 @@ export * from "./operators/scan";
 export * from "./operators/sequenceequal";
 export * from "./operators/single";
 export * from "./operators/skip";
+export * from "./operators/skiplast";
 export * from "./operators/skipwhile";
 export * from "./operators/some";
 export * from "./operators/sum";
