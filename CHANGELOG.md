@@ -1,5 +1,13 @@
 
 
+<a name="0.0.8"></a>
+# [0.0.8](https://github.com/marcinnajder/powerseq/releases/tag/0.0.8) (2017-01-13)
+
+* new operators: generate, isempty, throww, expand, repeat, skiplast
+* add documentation showing mapping between powerseq operators and LINQ, RxJS, JS Array, lodash, F# operators
+* bug fixes
+
+
 <a name="0.0.7"></a>
 # [0.0.7](https://github.com/marcinnajder/powerseq/releases/tag/0.0.7) (2017-01-01)
 
