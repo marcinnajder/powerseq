@@ -6,6 +6,26 @@
 - explain wrap method
 
 
+- http://blog.mgechev.com/2017/01/21/distributing-an-angular-library-aot-ngc-types/#checklist
+-- 2 ways od bubdling; Distribute it in two directories OR Distribute the packages with esm and also provide ES5 UMD bundle.
+-- package.json
+{
+  ...
+  "main": "ngresizable.bundle.js",
+  "jsnext:main": "ngresizable.module.js",
+  "types": "ngresizable.module.d.ts",
+  ...
+}
+-- but still problem because powerseq code is distributed as ES6 code, not ES5 with ESM
+
+
+- check out swift sequence https://developer.apple.com/reference/swift/sequence
+
+
+
+
+
+
 // - chodzi na ES6
 // - https://github.com/ReactiveX/IxJS/tree/master/iterable
 // https://github.com/Reactive-Extensions/Rx.NET/tree/master/Ix.NET/Source/System.Interactive

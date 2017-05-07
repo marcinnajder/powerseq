@@ -11,7 +11,8 @@
         "declaration": true,
         "outDir": "./dist",
         "rootDir": "./",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "downlevelIteration": true
     },
     "exclude": [
         "node_modules/**",
