@@ -24,5 +24,3 @@ Enumerable.prototype.repeat = function <T>(this: Enumerable<T>, count?: number) 
     return new Enumerable<T>(repeat<T>(this, count));
 };
 
-export const rxjs = "repeat";
-

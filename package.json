@@ -19,10 +19,11 @@
     "bundle-umd": "node ./tools/make-umd-bundle.js",
     "babel": "./node_modules/.bin/mkdirp ./npmpackage/bundles && ./node_modules/.bin/babel ./dist/es6/powerseq.es6.js -o ./npmpackage/bundles/powerseq.es5.js",
     "bundles": "npm-run-all tsc-es6 bundle-umd babel",
-    "build-npmpackage": "npm-run-all rebuild copy-src-npmpackage copy-compiled-src-npmpackage gen-readme-md gen-package-json bundles" 
+    "build-npmpackage": "npm-run-all rebuild copy-src-npmpackage copy-compiled-src-npmpackage gen-readme-md gen-package-json bundles"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
+  },
+  "devDependencies": {    
     "@types/glob": "^5.0.30",
     "@types/mocha": "^2.2.33",
     "@types/node": "0.0.2",
@@ -36,7 +37,8 @@
     "rollup": "^0.37.0",
     "shx": "^0.2.1",
     "tslib": "^1.0.0",
-    "typescript": "2.3.0"
+    "typescript": "2.3.0",
+    "minimatch": "^3.0.4"
   },
   "author": "Marcin Najder <marcin.najder@gmail.com>",
   "license": "MIT",

@@ -1,7 +1,7 @@
-export class Enumerable<T> implements Iterable<T>{
-    constructor(public _iterable:Iterable<T>){
+export class /**Async**/Enumerable<T> implements /**Async**/Iterable<T>{
+    constructor(public _iterable:/**Async**/Iterable<T>){
     }
-    [Symbol.iterator] = function(){
-        return this._iterable[Symbol.iterator]();
+    [Symbol./**! iterator asyncIterator**/iterator] = function(){
+        return this._iterable[Symbol./**replace:iterator-asyncIterator**/iterator]();
     };
 }
