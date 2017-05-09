@@ -15,19 +15,17 @@
     "rebuild": "npm-run-all del gen-methods tsc",
     "copy-src-npmpackage": "mkdirp ./npmpackage/src/ && shx cp -r ./src/* ./npmpackage/src",
     "copy-compiled-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/src/* ./npmpackage",
-    "tsc-es6": "./node_modules/.bin/tsc -p ./tsconfig.es6.json",
-    "bundle-umd": "node ./tools/make-umd-bundle.js",
-    "babel": "./node_modules/.bin/mkdirp ./npmpackage/bundles && ./node_modules/.bin/babel ./dist/es6/powerseq.es6.js -o ./npmpackage/bundles/powerseq.es5.js",
-    "bundles": "npm-run-all tsc-es6 bundle-umd babel",
-    "build-npmpackage": "npm-run-all rebuild copy-src-npmpackage copy-compiled-src-npmpackage gen-readme-md gen-package-json bundles" 
+    "copy-esm-src-npmpackage": "mkdirp ./npmpackage/esm && shx cp -r ./dist/esm/src/* ./npmpackage/esm",
+    "tsc-esm": "./node_modules/.bin/tsc -p ./tsconfig.esm.json",
+    "tsc-esm-nohelpers": "./node_modules/.bin/tsc -p ./tsconfig.esm.nohelpers.json",         
+    "bundles": "npm run tsc-esm-nohelpers && ./node_modules/.bin/mkdirp ./npmpackage/bundles && node ./tools/make-umd-bundle.js",
+    "build-npmpackage": "npm-run-all rebuild tsc-esm copy-src-npmpackage copy-compiled-src-npmpackage copy-esm-src-npmpackage gen-readme-md gen-package-json bundles" 
   },
   "dependencies": {},
   "devDependencies": {
     "@types/glob": "^5.0.30",
     "@types/mocha": "^2.2.33",
     "@types/node": "0.0.2",
-    "babel-cli": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0",
     "glob": "^7.1.1",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
@@ -35,7 +33,7 @@
     "npm-scripts-info": "^0.3.6",
     "rollup": "^0.37.0",
     "shx": "^0.2.1",
-    "tslib": "^1.0.0",
+    "tslib": "1.7.0",
     "typescript": "2.3.0"
   },
   "author": "Marcin Najder <marcin.najder@gmail.com>",

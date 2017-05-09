@@ -28,9 +28,9 @@ bundle only used operators (tree-shaking)
 
 ```javascript
 import {Enumerable} from "powerseq/enumerable";
-import {range} from "powerseq/enumerable/range";
-import {filter} from "powerseq/operators/filter";
-import {toarray} from "powerseq/operators/toarray";
+import "powerseq/enumerable/range";
+import "powerseq/operators/filter";
+import "powerseq/operators/toarray";
 
 console.log(Enumerable.range(1,10).filter(x => x % 2 === 0).toarray());
 ```

@@ -21,6 +21,9 @@ var pkg = require('../package.json');
 // "main": "Rx.js",
 // "typings": "Rx.d.ts",
 
+
+pkg.module = "esm/index.js"; // for tools like webpack2, rollup
+
 delete pkg.scripts;
 
 var filePath = "./npmpackage/package.json";
