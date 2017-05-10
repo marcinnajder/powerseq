@@ -22,7 +22,8 @@ var pkg = require('../package.json');
 // "typings": "Rx.d.ts",
 
 
-pkg.module = "esm/index.js"; // for tools like webpack2, rollup
+pkg.main = "es6/index.js"; // for node.js
+pkg.module = "index.js"; // for tools like webpack2, rollup
 
 delete pkg.scripts;
 

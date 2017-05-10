@@ -1,22 +1,9 @@
 {
-  "compilerOptions": {
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
         "module": "es2015",
         "target": "es5",
-        "noImplicitAny": false,
-        "sourceMap": true,
-        "lib": [
-            "es2015"        
-        ],
-        "allowJs": false,
-        "declaration": true,
         "outDir": "./dist/esm",
-        "rootDir": "./",
-        "moduleResolution": "node",        
-        "downlevelIteration": true,
-        "noEmitHelpers": false
-    },
-    "include": [
-        "src/**/*.ts",
-        "test/**/*.ts"
-    ]
+        "noEmitHelpers": true
+    }
 }
