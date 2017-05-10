@@ -8,5 +8,6 @@
         "npm-debug.log":true,
         "**/*.js": {"when": "$(basename).ts"},
         "**/*.d.js": {"when": "$(basename).d.ts"}
-    }
+    },
+    "editor.formatOnSave": true
 }

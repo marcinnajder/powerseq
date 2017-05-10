@@ -1,11 +1,11 @@
 import { predicate } from "../common/types";
-import { Enumerable } from "../enumerable";
+import { /**Async**/Enumerable } from "../enumerable";
 import wrap from "../common/wrap";
 
-export function filter<T>(source: Iterable<T>, predicate: predicate<T>) {
-    return wrap(function* () {
+export function filter<T>(source: /**Async**/Iterable<T>, predicate: predicate<T>) {
+    return wrap(/**async**/function* () {
         var index = 0;
-        for (var item of source) {
+        for /**await**/(var item of source) {
             if (predicate(item, index++)) {
                 yield item;
             }
@@ -13,11 +13,11 @@ export function filter<T>(source: Iterable<T>, predicate: predicate<T>) {
     });
 }
 declare module '../enumerable' {
-    interface Enumerable<T> {
-        filter(predicate: predicate<T>): Enumerable<T>;
+    interface /**Async**/Enumerable<T> {
+        filter(predicate: predicate<T>): /**Async**/Enumerable<T>;
     }
 }
-Enumerable.prototype.filter = function <T>(this: Enumerable<T>, predicate: predicate<T>) {
-    return new Enumerable<T>(filter(this, predicate));
+/**Async**/Enumerable.prototype.filter = function <T>(this: /**Async**/Enumerable<T>, predicate: predicate<T>) {
+    return new /**Async**/Enumerable<T>(filter(this, predicate));
 };
 
