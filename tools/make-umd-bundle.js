@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 
 rollup.rollup({
-  entry: './dist/es6/src/index.js'
+  entry: './dist/esm_nohelpers/src/index.js'
 }).then(function (bundle) {
   var result = bundle.generate({
     format: 'umd',
@@ -13,6 +13,6 @@ rollup.rollup({
   });
   var tslib = fs.readFileSync('./node_modules/tslib/tslib.js', 'utf8');
 
-  fs.writeFileSync('./dist/es6/powerseq.es6.js', tslib + result.code);
-  fs.writeFileSync('./dist/es6/powerseq.es6.map', result.map);
+  fs.writeFileSync('./npmpackage/bundles/powerseq.es5.js', tslib + result.code);
+  fs.writeFileSync('./npmpackage/bundles/powerseq.es5.map', result.map);
 });

@@ -1,4 +1,8 @@
+<a name="0.0.9"></a>
+# [0.0.9](https://github.com/marcinnajder/powerseq/releases/tag/0.0.9) (2017-05-09)
 
+* upgrade to TS 2.3.0 (babel is not no longer required)
+* distribution of ESM (support for webpack2)
 
 <a name="0.0.8"></a>
 # [0.0.8](https://github.com/marcinnajder/powerseq/releases/tag/0.0.8) (2017-01-13)
