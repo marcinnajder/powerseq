@@ -1,24 +1,19 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
         "noImplicitAny": false,
-        "sourceMap": false,
+        "sourceMap": true,
+        "declaration": true,
         "lib": [
             "es2015",
             "esnext",
             "esnext.asynciterable"
         ],
-        "allowJs": false,
-        "declaration": true,
-        "outDir": "./dist",
         "rootDir": "./",
-        "moduleResolution": "node",
+        "moduleResolution": "node",        
         "downlevelIteration": true
     },
-    "exclude": [
-        "node_modules/**",
-        "dist/**",
-        "**/*.spec.ts"
+    "include": [
+        "src/**/*.ts",
+        "test/**/*.ts"
     ]
 }

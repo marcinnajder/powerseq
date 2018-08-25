@@ -1,3 +1,8 @@
+<a name="0.0.10"></a>
+# [0.0.10](https://github.com/marcinnajder/powerseq/releases/tag/0.0.10) (2017-05-10)
+
+* esm as a default distribution format (tree shaking finally works)
+
 <a name="0.0.9"></a>
 # [0.0.9](https://github.com/marcinnajder/powerseq/releases/tag/0.0.9) (2017-05-09)
 

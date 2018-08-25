@@ -1,3 +1,4 @@
+// file was generated
 import { AsyncEnumerable } from "../enumerable";
 import { selector } from "../common/types";
 import wrap from "../common/wrap";

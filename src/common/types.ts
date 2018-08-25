@@ -1,4 +1,4 @@
-import { /**Async**/Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable";
 
 export type selector<T, TResult> = (item: T, index: number) => TResult;
 export type predicate<T> = (item: T, index: number) => boolean;
