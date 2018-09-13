@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, union } from "../../src/index";
+import { Enumerable, union } from "../../src/enumerable";
 
 it('union', function () {
     assert.deepEqual(Array.from(union([1, 2, 3, 4, 2, 4], [4, 5, 6])), [1, 2, 3, 4, 5, 6]);

@@ -1,15 +1,15 @@
-import { Enumerable } from "../enumerable";
-import { OrderedEnumerable, OrderingState} from "../orderedEnumerable";
+import { Enumerable } from "../enumerable_";
+import { OrderedEnumerable, OrderingState } from "../orderedEnumerable";
 import { comparer, keySelector } from "../common/types";
 import { ordebyImpl } from "../common/ordering";
 
 export function orderby<T>(source: Iterable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T> {
-    var state: OrderingState<T> = { descending: false, keySelector, originalIterable: source};
+    var state: OrderingState<T> = { descending: false, keySelector, originalIterable: source };
     var sortingIterable = ordebyImpl(state);
     return new OrderedEnumerable<T>(sortingIterable, state);
 }
 
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         orderby(keySelector: keySelector<T, any>): OrderedEnumerable<T>;
     }

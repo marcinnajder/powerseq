@@ -1,9 +1,9 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function skiplast<T>(source: Iterable<T>, count: number) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
 
         if (typeof count === "undefined" || count <= 0) {
             yield* source;
@@ -42,7 +42,7 @@ export function skiplast<T>(source: Iterable<T>, count: number) {
     });
 }
 
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         skiplast(count: number): Enumerable<T>;
     }

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, includes } from "../../src/index";
+import { Enumerable, includes } from "../../src/enumerable";
 
 it('includes', function () {
     assert.deepEqual(includes([1, 2, 3], 2), true);

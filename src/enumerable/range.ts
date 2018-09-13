@@ -1,15 +1,15 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function range(start: number, count: number) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         let end = start + count;
         for (var i = start; i < end; i++) {
             yield i;
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
         export function range(start: number, count: number): Enumerable<number>;
     }

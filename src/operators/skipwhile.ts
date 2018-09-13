@@ -1,9 +1,9 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
         var index = 0;
@@ -23,7 +23,7 @@ export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         skipwhile(predicate: predicate<T>): Enumerable<T>;
     }

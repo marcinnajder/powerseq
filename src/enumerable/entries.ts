@@ -1,10 +1,10 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function entries<T>(array: T[]): Iterable<[number, T]>;
 export function entries<TValue>(obj): Iterable<[string, TValue]>;
 export function entries<TValue>(objOrArray) {
-    return wrap<[string | number, TValue]>(function* () {
+    return wrapInIterable<[string | number, TValue]>(function* () {
         var keys: Iterable<string | number> = Array.isArray(objOrArray) ? objOrArray.keys() : Object.keys(objOrArray);
         for (var key of keys) {
             yield [key, objOrArray[key]];
@@ -12,7 +12,7 @@ export function entries<TValue>(objOrArray) {
     });
 }
 
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
         function entries<T>(array: T[]): Enumerable<[number, T]>;
         function entries<TValue>(obj): Enumerable<[string, TValue]>;

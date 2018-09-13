@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable } from "../../src/index";
+import { Enumerable } from "../../src/enumerable";
 import { return123Iterator, } from "../common";
 
 it('from', function () {

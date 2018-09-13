@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { Dictionary } from "../common/types";
 
 export function toobject<T>(source: Iterable<T>, keySelector: (item: T) => any): Dictionary<T>;
@@ -18,7 +18,7 @@ export function toobject<T, TElement>(source: Iterable<T>, keySelector: (item: T
     }
     return map;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         toobject(keySelector: (item: T) => any): Dictionary<T>;
         toobject<TElement>(keySelector: (item: T) => any, elementSelector: (item: T) => TElement): Dictionary<TElement>;

@@ -1,8 +1,8 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function skip<T>(source: Iterable<T>, count: number) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         if (count >= 0) {
             var iterator = source[Symbol.iterator]();
             var value: IteratorResult<T>;
@@ -21,7 +21,7 @@ export function skip<T>(source: Iterable<T>, count: number) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         skip(count: number): Enumerable<T>;
     }

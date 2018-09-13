@@ -4,6 +4,7 @@
   "description": "Sequence operators",
   "scripts": {
     "del": "npm-run-all del-dist del-npmpackage",
+    "del-node_modules": "shx rm -rf ./node_modules",
     "del-dist": "shx rm -rf ./dist",
     "del-npmpackage": "shx rm -rf ./npmpackage",
     "tsc": "node tools/tsc.js",
@@ -13,13 +14,13 @@
     "watch": "node tools/tsc.js watch",
     "test": "mocha ./dist/es6/test -R spec --recursive --timeout 30000",
     "rebuild": "npm-run-all del gen-methods tsc",
-    "tsc-esm": "./node_modules/.bin/tsc -p ./tsconfig.esm.json",    
+    "tsc-esm": "./node_modules/.bin/tsc -p ./tsconfig.esm.json",
     "copy-ts-src-npmpackage": "mkdirp ./npmpackage/_tssrc/ && shx cp -r ./src/* ./npmpackage/_tssrc",
     "copy-es6-src-npmpackage": "mkdirp ./npmpackage/es6 && shx cp -r ./dist/es6/src/* ./npmpackage/es6",
     "copy-esm-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/esm/src/* ./npmpackage",
     "bundles": "mkdirp ./npmpackage/bundles && node ./tools/make-umd-bundle.js",
     "inject-ts-helpers": "node ./tools/inject-ts-helpers.js",
-    "build-npmpackage": "npm-run-all rebuild tsc-esm copy-ts-src-npmpackage copy-es6-src-npmpackage copy-esm-src-npmpackage gen-readme-md gen-package-json bundles inject-ts-helpers"  
+    "build-npmpackage": "npm-run-all rebuild tsc-esm copy-ts-src-npmpackage copy-es6-src-npmpackage copy-esm-src-npmpackage gen-readme-md gen-package-json bundles inject-ts-helpers"
   },
   "dependencies": {},
   "devDependencies": {
@@ -34,8 +35,8 @@
     "rollup": "^0.37.0",
     "shx": "^0.2.1",
     "tslib": "1.7.0",
-    "typescript": "2.3.0"
-  },  
+    "typescript": "^3.0.0"
+  },
   "author": "Marcin Najder <marcin.najder@gmail.com>",
   "license": "MIT",
   "engines": {

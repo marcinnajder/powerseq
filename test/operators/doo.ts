@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, doo } from "../../src/index";
+import { Enumerable, doo } from "../../src/enumerable";
 
 it('doo', function () {
     var items: number[] = [];

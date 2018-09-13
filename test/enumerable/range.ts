@@ -1,5 +1,6 @@
 import * as assert from "assert";
-import { Enumerable, range } from "../../src/index";
+import { range } from "../../src/enumerable";
+import { Enumerable } from "../../src/enumerable_";
 
 it('range', function () {
     assert.deepEqual(Enumerable.range(0, 4).toarray(), [0, 1, 2, 3]);

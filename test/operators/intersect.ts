@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, intersect } from "../../src/index";
+import { Enumerable, intersect } from "../../src/enumerable";
 
 it('intersect', function () {
     assert.deepEqual(Array.from(intersect([1, 2, 3, 4, 2, 4], [4, 5, 6, 1, 1])), [4, 1]);

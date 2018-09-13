@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, sequenceequal } from "../../src/index";
+import { Enumerable, sequenceequal } from "../../src/enumerable";
 
 it('sequenceequal', function () {
     assert.deepEqual(sequenceequal([1, 2, 3], [1, 2, 3], [1, 2, 3]), true);

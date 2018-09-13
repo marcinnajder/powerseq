@@ -1,13 +1,13 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { EIterable } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function defer<T>(factory: () => Iterable<T>) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         yield* factory();
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
         function defer<T>(factory: () => EIterable<T>): Enumerable<T>;
     }

@@ -1,6 +1,5 @@
 
-import { Enumerable } from "../enumerable";
-import { OrderedEnumerable, OrderingState} from "../orderedEnumerable";
+import { OrderedEnumerable, OrderingState } from "../orderedEnumerable";
 import { keySelector } from "../common/types";
 import { ordebyImpl } from "../common/ordering";
 

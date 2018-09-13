@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, repeatvalue, take } from "../../src/index";
+import { Enumerable, repeatvalue, take } from "../../src/enumerable";
 
 it('repeatvalue', function () {
     assert.deepEqual(Enumerable.repeatvalue("a", 0).toarray(), []);

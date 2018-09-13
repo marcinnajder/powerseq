@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, cast } from "../../src/index";
+import { Enumerable, cast } from "../../src/enumerable";
 
 class Animal {
     type = "animal";

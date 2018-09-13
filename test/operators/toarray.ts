@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, toarray } from "../../src/index";
+import { Enumerable, toarray } from "../../src/enumerable";
 import { return123Iterator } from "../common";
 
 it('toarray', function () {

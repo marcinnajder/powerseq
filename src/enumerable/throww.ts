@@ -1,12 +1,12 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function throww<T>(error) {
-    return wrap<T>(function* () {
+    return wrapInIterable<T>(function* () {
         throw error;
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
         export function throww<T>(error): Enumerable<T>;
     }

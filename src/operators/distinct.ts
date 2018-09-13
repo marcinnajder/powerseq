@@ -1,9 +1,9 @@
 import { keySelector } from "../common/types";
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
         }
@@ -18,7 +18,7 @@ export function distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, an
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         distinct(keySelector?: keySelector<T, any>): Enumerable<T>;
     }

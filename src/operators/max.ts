@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { keySelector } from "../common/types";
 import { maxmin } from "../common/maxmin";
 
@@ -7,7 +7,7 @@ export function max<T, TValue>(source: Iterable<T>, valueSelector: keySelector<T
 export function max<T, TValue>(source: Iterable<T>, valueSelector?: keySelector<T, TValue>): any {
     return maxmin<T, TValue>(source, valueSelector || (item => <any>item), (key: any, minmaxKey: any) => key > minmaxKey, true);
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         max(): T | undefined;
         max<TValue>(valueSelector: keySelector<T, TValue>): TValue | undefined;

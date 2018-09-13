@@ -1,14 +1,14 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { keySelector } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
         }
         var set = new Set<any>();
-        var resultSet= new Set<any>();
+        var resultSet = new Set<any>();
         for (var s of source) {
             set.add(keySelector(s));
         }
@@ -22,7 +22,7 @@ export function intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelec
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         intersect(source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T>;
     }

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, entries } from "../../src/index";
+import { Enumerable, entries } from "../../src/enumerable";
 
 it('entries', function () {
     assert.deepEqual(Enumerable.entries<number>({ "a": 123, "b": 123123 }).toarray(), [["a", 123], ["b", 123123]]);

@@ -1,9 +1,9 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function takewhile<T>(source: Iterable<T>, predicate: predicate<T>) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         let index = 0;
         for (var item of source) {
             if (!predicate(item, index++)) {
@@ -13,7 +13,7 @@ export function takewhile<T>(source: Iterable<T>, predicate: predicate<T>) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         takewhile(predicate: predicate<T>): Enumerable<T>;
     }

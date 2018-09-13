@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, zip } from "../../src/index";
+import { Enumerable, zip } from "../../src/enumerable";
 
 it('zip', function () {
     assert.deepEqual(Array.from(zip(["a", "b", "c"], [1, 2], (s, n) => s + n)), ["a1", "b2"]);

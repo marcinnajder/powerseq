@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, defaultifempty } from "../../src/index";
+import { Enumerable, defaultifempty } from "../../src/enumerable";
 
 it('defaultifempty', function () {
     assert.deepEqual(Array.from(defaultifempty([1, 2, 3])), [1, 2, 3]);

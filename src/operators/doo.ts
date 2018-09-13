@@ -1,8 +1,8 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function doo<T>(source: Iterable<T>, action: (item: T, index: number) => void) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         var index = 0;
         for (var item of source) {
             action(item, index++);
@@ -10,7 +10,7 @@ export function doo<T>(source: Iterable<T>, action: (item: T, index: number) => 
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         doo(action: (item: T, index: number) => void): Enumerable<T>;
     }

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, groupjoin, toarray } from "../../src/index";
+import { Enumerable, groupjoin, toarray } from "../../src/enumerable";
 
 it('groupjoin', function () {
     var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three_" }, { id: 3, name: "three__" }];

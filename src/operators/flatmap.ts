@@ -1,11 +1,11 @@
 import { selector, EIterable } from "../common/types";
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function flatmap<T, TCollection>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>): Iterable<TCollection>;
 export function flatmap<T, TCollection, TResult>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>, resultSelector: (item: T, collectionItem: TCollection) => TResult): Iterable<TResult>;
 export function flatmap<T, TCollection, TResult>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>, resultSelector?: (item: T, collectionItem: TCollection) => TResult): Iterable<TResult> {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         var index = 0;
         if (typeof resultSelector === "undefined") {
             for (let item of source) {
@@ -23,7 +23,7 @@ export function flatmap<T, TCollection, TResult>(source: Iterable<T>, collection
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         flatmap<TCollection>(collectionSelector: selector<T, EIterable<TCollection>>): Enumerable<TCollection>;
         flatmap<TCollection, TResult>(collectionSelector: selector<T, EIterable<TCollection>>, resultSelector: (item: T, collectionItem: TCollection) => TResult): Enumerable<TResult>;

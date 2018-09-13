@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, scan } from "../../src/index";
+import { Enumerable, scan } from "../../src/enumerable";
 
 it('scan', function () {
     assert.deepEqual(Array.from(scan([1, 2, 3], (p, c) => p + c)), [1 + 2, 3 + 3]);

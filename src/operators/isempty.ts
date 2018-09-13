@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 
 export function isempty<T>(source: Iterable<T>) {
     for (var item of source) {
@@ -6,7 +6,7 @@ export function isempty<T>(source: Iterable<T>) {
     }
     return true;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         isempty<TResult>(): boolean;
     }

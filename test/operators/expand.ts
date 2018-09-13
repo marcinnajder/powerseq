@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, expand, take } from "../../src/index";
+import { Enumerable, expand, take } from "../../src/enumerable";
 
 it('expand', function () {
     assert.deepEqual(Array.from(expand([1], x => x > 8 ? [] : [x * 2])), [1, 2, 4, 8, 16]);

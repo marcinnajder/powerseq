@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, reduce } from "../../src/index";
+import { Enumerable, reduce } from "../../src/enumerable";
 
 it('reduce', function () {
     assert.deepEqual(reduce([1, 2, 3, 4], (p, c) => p + c), 1 + 2 + 3 + 4);
@@ -11,6 +11,9 @@ it('reduce', function () {
 
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).reduce((p, c) => ({ text: p.text + c }), { text: "-" }), { text: "-1234" });
     assert.deepEqual(Enumerable.from([]).reduce((p, c) => { throw new Error(); }, { text: "-" }), { text: "-" });
+
+    assert.deepEqual(reduce<number>((p, c) => p + c)([1, 2, 3, 4]), 1 + 2 + 3 + 4);
+    assert.deepEqual(reduce<number, string>((p, c) => p + c, "")([1, 2, 3, 4]), "1234");
 });
 
 export const samples = [

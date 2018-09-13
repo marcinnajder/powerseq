@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, findindex } from "../../src/index";
+import { Enumerable, findindex } from "../../src/enumerable";
 
 it('findIndex', function () {
     assert.deepEqual(findindex([1, 2], x => x > 0), 0);

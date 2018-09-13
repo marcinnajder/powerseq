@@ -1,9 +1,9 @@
 import { predicate } from "../common/types";
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function oftype<TResult>(source: Iterable<any>, type: Function) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         for (var item of source) {
             if (item instanceof type) {
                 yield <TResult>item;
@@ -11,7 +11,7 @@ export function oftype<TResult>(source: Iterable<any>, type: Function) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         oftype<TResult>(type: Function): Enumerable<TResult>;
     }

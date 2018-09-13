@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, flatmap } from "../../src/index";
+import { Enumerable, flatmap } from "../../src/enumerable";
 
 it('flatmap', function () {
     var items = [

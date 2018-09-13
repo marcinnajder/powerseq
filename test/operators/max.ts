@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, max } from "../../src/index";
+import { Enumerable, max } from "../../src/enumerable";
 
 it('max', function () {
     assert.deepEqual(max([1, 2, 3, 1, 2, 3]), 3);

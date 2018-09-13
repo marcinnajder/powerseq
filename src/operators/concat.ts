@@ -1,14 +1,14 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function concat<T>(...args: Iterable<T>[]) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         for (var arg of args) {
             yield* arg;
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         concat(...args: Iterable<T>[]): Enumerable<T>;
     }

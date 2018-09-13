@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, of } from "../../src/index";
+import { Enumerable, of } from "../../src/enumerable";
 
 it('of', function () {
     assert.deepEqual(Enumerable.of().toarray(), []);

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, ignoreelements } from "../../src/index";
+import { Enumerable, ignoreelements } from "../../src/enumerable";
 
 it('ignoreelements', function () {
     assert.deepEqual(Array.from(ignoreelements([1, 2, 3])), []);

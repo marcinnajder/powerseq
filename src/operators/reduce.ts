@@ -1,8 +1,8 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
+import { wrapInThunk } from "../common/wrap";
+import { OperatorR } from "../common/types";
 
-export function reduce<T>(source: Iterable<T>, func: (prev: T, item: T) => T): T;
-export function reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): TAccumulate;
-export function reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): TAccumulate {
+function _reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): TAccumulate {
     var iterator = source[Symbol.iterator]();
     var value: IteratorResult<T>;
     var accumulator = seed;
@@ -22,7 +22,15 @@ export function reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumu
 
     return accumulator;
 }
-declare module '../enumerable' {
+
+export function reduce<T>(source: Iterable<T>, func: (prev: T, item: T) => T): T;
+export function reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): TAccumulate;
+export function reduce<T>(func: (prev: T, item: T) => T): OperatorR<T, T>;
+export function reduce<T, TAccumulate>(func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): OperatorR<T, TAccumulate>;
+export function reduce() {
+    return wrapInThunk(arguments, _reduce);
+}
+declare module '../enumerable_' {
     interface Enumerable<T> {
         reduce(func: (prev: T, item: T) => T): T;
         reduce<TAccumulate>(func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): TAccumulate;

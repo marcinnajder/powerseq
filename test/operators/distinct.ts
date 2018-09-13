@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, distinct } from "../../src/index";
+import { Enumerable, distinct } from "../../src/enumerable";
 
 it('distinct', function () {
     assert.deepEqual(Array.from(distinct([1, 2, 3, 4, 2, 4])), [1, 2, 3, 4]);

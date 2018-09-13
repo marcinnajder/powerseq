@@ -1,8 +1,8 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function repeatvalue<T>(value: T, count?: number) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         if (typeof count === "undefined") {
             while (true) {
                 yield value;
@@ -15,7 +15,7 @@ export function repeatvalue<T>(value: T, count?: number) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
         export function repeatvalue<T>(value: T, count?: number): Enumerable<T>;
     }

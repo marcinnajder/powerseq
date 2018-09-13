@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, skip } from "../../src/index";
+import { Enumerable, skip } from "../../src/enumerable";
 
 it('skip', function () {
     assert.deepEqual(Array.from(skip([1, 2, 3, 4], 1)), [2, 3, 4]);

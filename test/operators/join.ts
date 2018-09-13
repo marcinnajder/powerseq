@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, join } from "../../src/index";
+import { Enumerable, join } from "../../src/enumerable";
 
 it('join', function () {
     var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three_" }, { id: 3, name: "three__" }];

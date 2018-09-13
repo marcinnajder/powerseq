@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, isempty } from "../../src/index";
+import { Enumerable, isempty } from "../../src/enumerable";
 
 it('isempty', function () {
     assert.deepEqual(isempty([]), true);

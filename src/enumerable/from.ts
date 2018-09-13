@@ -1,13 +1,13 @@
-import {Enumerable} from "../enumerable";
+import { Enumerable } from "../enumerable_";
 
-export function from<T>(iterable: Iterable<T>):Iterable<T>{
-    return iterable; 
+export function from<T>(iterable: Iterable<T>): Iterable<T> {
+    return iterable;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
-        function from<T>(iterable: Iterable<T>):Enumerable<T>; 
+        function from<T>(iterable: Iterable<T>): Enumerable<T>;
     }
 }
-Enumerable.from = function<T>(iterable: Iterable<T>):Enumerable<T>{
+Enumerable.from = function <T>(iterable: Iterable<T>): Enumerable<T> {
     return new Enumerable<T>(from<T>(iterable));
 }

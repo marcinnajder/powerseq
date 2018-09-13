@@ -1,12 +1,12 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function reverse<T>(source: Iterable<T>) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         yield* Array.from(source).reverse();
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         reverse(): Enumerable<T>;
     }

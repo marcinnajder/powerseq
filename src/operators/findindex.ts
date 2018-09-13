@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function findindex<T>(source: Iterable<T>, predicate: predicate<T>): number | undefined {
@@ -10,7 +10,7 @@ export function findindex<T>(source: Iterable<T>, predicate: predicate<T>): numb
         index++;
     }
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         findindex(predicate: predicate<T>): number | undefined;
     }

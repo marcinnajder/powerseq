@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function elementat<T>(source: Iterable<T>, index: number, defaultValue: T): T;
@@ -14,7 +14,7 @@ export function elementat<T>(source: Iterable<T>, index: number, defaultValue?: 
     }
     return defaultValue;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         elementat(index: number, defaultValue: T): T;
         elementat(index: number): T | undefined;

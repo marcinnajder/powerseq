@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: number): boolean {
@@ -31,7 +31,7 @@ export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: n
     }
 }
 
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         includes(earchElement: T, fromIndex?: number): boolean;
     }

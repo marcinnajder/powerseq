@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean {
@@ -18,7 +18,7 @@ export function some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean 
         return false;
     }
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         some(predicate?: predicate<T>): boolean;
     }

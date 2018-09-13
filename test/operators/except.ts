@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, except } from "../../src/index";
+import { Enumerable, except } from "../../src/enumerable";
 
 it('except', function () {
     assert.deepEqual(Array.from(except([1, 2, 3, 4, 2, 4], [4, 5, 6, 1])), [2, 3]);

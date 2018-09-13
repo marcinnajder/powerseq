@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, count } from "../../src/index";
+import { Enumerable, count } from "../../src/enumerable";
 
 it('count', function () {
     assert.deepEqual(count([]), 0);

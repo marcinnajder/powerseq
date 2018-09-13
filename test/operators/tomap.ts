@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, tomap } from "../../src/index";
+import { Enumerable, tomap } from "../../src/enumerable";
 
 it('tomap', function () {
     var m1 = tomap([1, 1, 2], x => x);

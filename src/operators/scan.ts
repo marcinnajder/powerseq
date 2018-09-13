@@ -1,10 +1,10 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function scan<T>(source: Iterable<T>, func: (prev: T, item: T) => T): Iterable<T>;
 export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): Iterable<TAccumulate>;
 export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): Iterable<TAccumulate> {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
         var accumulator = seed;
@@ -24,7 +24,7 @@ export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumula
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         scan(func: (prev: T, item: T) => T): Enumerable<T>;
         scan<TAccumulate>(func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): Enumerable<TAccumulate>;

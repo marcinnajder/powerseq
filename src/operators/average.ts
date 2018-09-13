@@ -1,9 +1,8 @@
-import { Enumerable } from "../enumerable";
-import { keySelector } from "../common/types";
+import { Enumerable } from "../enumerable_";
+import { keySelector, OperatorR } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
 
-export function average(source: Iterable<number>): number | undefined;
-export function average<T>(source: Iterable<T>, valueSelector: keySelector<T, number>): number | undefined;
-export function average<T>(source: Iterable<T>, valueSelector?: keySelector<T, number>): number | undefined {
+export function _average<T>(source: Iterable<T>, valueSelector?: keySelector<T, number>): number | undefined {
     var result = 0;
     var count = 0;
     if (typeof valueSelector === "undefined") {
@@ -20,7 +19,16 @@ export function average<T>(source: Iterable<T>, valueSelector?: keySelector<T, n
     return count === 0 ? undefined : (result / count);
 }
 
-declare module '../enumerable' {
+
+export function average(source: Iterable<number>): number | undefined;
+export function average<T>(source: Iterable<T>, valueSelector: keySelector<T, number>): number | undefined;
+export function average<T>(): OperatorR<T, number | undefined>;
+export function average<T>(valueSelector: keySelector<T, number>): OperatorR<T, number | undefined>;
+export function average() {
+    return wrapInThunk(arguments, _average);
+}
+
+declare module '../enumerable_' {
     interface Enumerable<T> {
         average(): number | undefined;
         average(valueSelector: keySelector<T, number>): number | undefined;

@@ -1,14 +1,14 @@
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function of<T>(...args: T[]) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         for (var item of args) {
             yield item;
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     namespace Enumerable {
         export function of<T>(...args: T[]): Enumerable<T>;
     }

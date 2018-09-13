@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, last } from "../../src/index";
+import { Enumerable, last } from "../../src/enumerable";
 
 it('last', function () {
     assert.deepEqual(last([1, 2]), 2);

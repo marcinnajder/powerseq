@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, takewhile } from "../../src/index";
+import { Enumerable, takewhile } from "../../src/enumerable";
 
 it('takewhile', function () {
     assert.deepEqual(Array.from(takewhile([1, 2, 3, 4], x => x < 3)), [1, 2]);

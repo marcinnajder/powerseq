@@ -1,11 +1,11 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { keySelector } from "../common/types";
 import { maxmin } from "../common/maxmin";
 
 export function minby<T>(source: Iterable<T>, valueSelector: keySelector<T, any>): T | undefined {
     return maxmin(source, valueSelector, (key: any, minmaxKey: any) => key < minmaxKey, false);
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         minby(valueSelector?: keySelector<T, any>): T | undefined;
     }

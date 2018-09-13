@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, skiplast } from "../../src/index";
+import { Enumerable, skiplast } from "../../src/enumerable";
 
 it('skiplast', function () {
     assert.deepEqual(Array.from(skiplast([1, 2, 3, 4], 2)), [1, 2]);

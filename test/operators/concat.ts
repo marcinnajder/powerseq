@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, concat } from "../../src/index";
+import { Enumerable, concat } from "../../src/enumerable";
 
 it('concat', function () {
     assert.deepEqual(Array.from(concat([1, 2, 3], [4, 5], [6, 7])), [1, 2, 3, 4, 5, 6, 7]);

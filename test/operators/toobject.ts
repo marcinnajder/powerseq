@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, toobject } from "../../src/index";
+import { Enumerable, toobject } from "../../src/enumerable";
 
 it('toobject', function () {
     var o1 = toobject([1, 1, 2], x => x);

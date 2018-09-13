@@ -1,9 +1,9 @@
 import { predicate } from "../common/types";
-import { Enumerable } from "../enumerable";
-import wrap from "../common/wrap";
+import { Enumerable } from "../enumerable_";
+import { wrapInIterable } from "../common/wrap";
 
 export function defaultifempty<T>(source: Iterable<T>, defaultValue?: T) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         var hasValue = false;
         for (var item of source) {
             hasValue = true;
@@ -14,7 +14,7 @@ export function defaultifempty<T>(source: Iterable<T>, defaultValue?: T) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         defaultifempty(defaultValue?: T): Enumerable<T>;
     }

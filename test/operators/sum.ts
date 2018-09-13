@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, sum } from "../../src/index";
+import { Enumerable, sum } from "../../src/enumerable";
 
 it('sum', function () {
     assert.deepEqual(sum([1, 2, 3, 4]), 10);

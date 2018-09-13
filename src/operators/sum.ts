@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { keySelector } from "../common/types";
 
 export function sum(source: Iterable<number>): number;
@@ -17,7 +17,7 @@ export function sum<T>(source: Iterable<T>, valueSelector?: keySelector<T, numbe
     return result;
 }
 
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         sum(): number;
         sum(valueSelector: keySelector<T, number>): number;

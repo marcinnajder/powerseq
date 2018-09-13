@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 
 export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>): boolean;
 export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, source3: Iterable<T>): boolean;
@@ -27,7 +27,7 @@ export function sequenceequal<T>(...args: Iterable<T>[]): boolean {
         }
     }
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         sequenceequal(source2: Iterable<T>): boolean;
         sequenceequal(source2: Iterable<T>, source3: Iterable<T>): boolean;

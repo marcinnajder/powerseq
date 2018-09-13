@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function find<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined;
@@ -20,7 +20,7 @@ export function find<T>(source: Iterable<T>, predicate?: predicate<T>, defaultVa
         return defaultValue;
     }
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         find(predicate?: predicate<T>): T | undefined;
         find(predicate: predicate<T>, defaultValue: T): T;

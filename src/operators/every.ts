@@ -1,5 +1,5 @@
 import { predicate } from "../common/types";
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 
 export function every<T>(source: Iterable<T>, predicate: predicate<T>): boolean {
     var index = 0;
@@ -10,7 +10,7 @@ export function every<T>(source: Iterable<T>, predicate: predicate<T>): boolean 
     }
     return true;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         every(predicate: predicate<T>): boolean;
     }

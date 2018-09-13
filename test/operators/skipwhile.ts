@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, skipwhile } from "../../src/index";
+import { Enumerable, skipwhile } from "../../src/enumerable";
 
 it('skipwhile', function () {
     assert.deepEqual(Array.from(skipwhile([1, 2, 3, 4], x => x < 3)), [3, 4]);
@@ -15,5 +15,5 @@ export const samples = [
 
 export const linq = "SkipWhile";
 export const lodash = "dropWhile";
-export const rxjs  = "skipWhile";
+export const rxjs = "skipWhile";
 export const fsharp = "skipWhile";

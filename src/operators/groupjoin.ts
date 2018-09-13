@@ -1,10 +1,10 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { keySelector, EIterable } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function groupjoin<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
     key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: Iterable<T2>) => TResult): Iterable<TResult> {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         var map2 = new Map<TKey, T2[]>();
         var key: TKey, values: T2[];
 
@@ -28,7 +28,7 @@ export function groupjoin<T, T2, TKey, TResult>(source1: Iterable<T>, source2: I
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         groupjoin<T2, TKey, TResult>(source2: EIterable<T2>, key1Selector: keySelector<T, TKey>,
             key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: Enumerable<T2>) => TResult): Enumerable<TResult>;

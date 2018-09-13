@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, zip, asiterable} from "../../src/index";
+import { Enumerable, zip, asiterable } from "../../src/enumerable";
 
 it('asiterable', function () {
     // type inferrence inside lambda expression is not workng without calling "asiterable"" method
@@ -7,5 +7,5 @@ it('asiterable', function () {
 });
 
 export const samples = [
-    () => asiterable([1, 2] /**changes seq type to help TypeScript*/ ),
+    () => asiterable([1, 2] /**changes seq type to help TypeScript*/),
 ];

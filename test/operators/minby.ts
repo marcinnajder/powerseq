@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, minby } from "../../src/index";
+import { Enumerable, minby } from "../../src/enumerable";
 
 it('minby', function () {
     var items = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }];

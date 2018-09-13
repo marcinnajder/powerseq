@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, empty } from "../../src/index";
+import { Enumerable, empty } from "../../src/enumerable";
 
 it('empty', function () {
     var result = Enumerable.empty<number>();

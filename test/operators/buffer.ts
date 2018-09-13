@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, buffer } from "../../src/index";
+import { Enumerable, buffer } from "../../src/enumerable";
 
 it('buffer', function () {
     var from1to9 = [1, 2, 3, 4, 5, 6, 7, 8, 9];

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, every } from "../../src/index";
+import { Enumerable, every } from "../../src/enumerable";
 
 it('every', function () {
     assert.deepEqual(every([1, 2], x => x > 0), true);

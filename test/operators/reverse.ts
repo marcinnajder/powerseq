@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, reverse } from "../../src/index";
+import { Enumerable, reverse } from "../../src/enumerable";
 
 it('reverse', function () {
     assert.deepEqual(Array.from(reverse(["b", "c", "a"])), ["a", "c", "b"]);

@@ -1,9 +1,9 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
-import wrap from "../common/wrap";
+import { wrapInIterable } from "../common/wrap";
 
 export function takelast<T>(source: Iterable<T>, count: number) {
-    return wrap(function* () {
+    return wrapInIterable(function* () {
         if (typeof count === "undefined" || count <= 0) {
             return;
         }
@@ -37,7 +37,7 @@ export function takelast<T>(source: Iterable<T>, count: number) {
             }
             result.push(value.value);
         }
-        
+
         // process other items
         var j = 0;
         while (true) {
@@ -55,7 +55,7 @@ export function takelast<T>(source: Iterable<T>, count: number) {
         }
     });
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         takelast(count: number): Enumerable<T>;
     }

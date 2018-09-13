@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 
 export function toarray<T>(source: Iterable<T>): T[] {
     if (Array.isArray(source)) {
@@ -10,7 +10,7 @@ export function toarray<T>(source: Iterable<T>): T[] {
     }
     return result;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         toarray(): T[]
     }

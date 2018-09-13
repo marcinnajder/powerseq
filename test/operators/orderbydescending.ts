@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { test } from "./orderby";
-import { Enumerable, OrderedEnumerable, orderbydescending } from "../../src/index";
+import { Enumerable, OrderedEnumerable, orderbydescending } from "../../src/enumerable";
 
 it('orderbydescending', test);
 

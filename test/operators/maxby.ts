@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, maxby } from "../../src/index";
+import { Enumerable, maxby } from "../../src/enumerable";
 
 it('maxby', function () {
     var items = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }];

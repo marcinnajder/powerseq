@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, throww } from "../../src/index";
+import { Enumerable, throww } from "../../src/enumerable";
 
 it('throww', function () {
     assert.throws(() => {

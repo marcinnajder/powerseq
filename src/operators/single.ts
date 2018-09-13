@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
@@ -32,7 +32,7 @@ export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | un
     }
     return value;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         single(predicate?: predicate<T>): T | undefined;
     }

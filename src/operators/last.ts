@@ -1,4 +1,4 @@
-import { Enumerable } from "../enumerable";
+import { Enumerable } from "../enumerable_";
 import { predicate } from "../common/types";
 
 export function last<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
@@ -18,7 +18,7 @@ export function last<T>(source: Iterable<T>, predicate?: predicate<T>): T | unde
     }
     return value;
 }
-declare module '../enumerable' {
+declare module '../enumerable_' {
     interface Enumerable<T> {
         last(predicate?: predicate<T>): T | undefined;
     }

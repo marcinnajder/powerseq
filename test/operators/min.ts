@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, min } from "../../src/index";
+import { Enumerable, min } from "../../src/enumerable";
 
 it('min', function () {
     assert.deepEqual(min([1, 2, 3, 1, 2, 3]), 1);

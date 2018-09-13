@@ -1,5 +1,5 @@
-import {Enumerable} from "./enumerable";
-import {keySelector} from "./common/types";
+import { Enumerable } from "./enumerable_";
+import { keySelector } from "./common/types";
 
 export interface OrderingState<T> {
     originalIterable: Iterable<T>;
