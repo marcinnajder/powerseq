@@ -1,9 +1,9 @@
-import { predicate } from "../common/types";
+import { predicate, Operator } from "../common/types";
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 
-export function cast<TResult>(source: Iterable<any>, type: Function) {
+function _cast<TResult>(source: Iterable<any>, type: Function) {
     return wrapInIterable(function* () {
         for (var item of source) {
             if (item instanceof type) {
@@ -15,12 +15,20 @@ export function cast<TResult>(source: Iterable<any>, type: Function) {
         }
     });
 }
+
+export function cast<TResult>(source: Iterable<any>, type: Function): Iterable<TResult>;
+export function cast<TResult>(type: Function): Operator<any, TResult>;
+export function cast() {
+    return wrapInThunk(arguments, _cast);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         cast<TResult>(type: Function): Enumerable<TResult>;
     }
 }
 Enumerable.prototype.cast = function <T, TResult>(this: Enumerable<T>, type: Function) {
-    return new Enumerable<TResult>(cast<TResult>(this, type));
+    return new Enumerable<TResult>(_cast<TResult>(this, type));
 };
 

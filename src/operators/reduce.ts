@@ -37,5 +37,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.reduce = function <T, TAccumulate>(this: Enumerable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): TAccumulate {
-    return reduce(this, func, seed);
+    return _reduce(this, func, seed);
 };

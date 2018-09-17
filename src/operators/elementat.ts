@@ -1,9 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
+import { OperatorR } from "../common/types";
 
-export function elementat<T>(source: Iterable<T>, index: number, defaultValue: T): T;
-export function elementat<T>(source: Iterable<T>, index: number): T | undefined;
-export function elementat<T>(source: Iterable<T>, index: number, defaultValue?: T): T | undefined {
+function _elementat<T>(source: Iterable<T>, index: number, defaultValue?: T): T | undefined {
     if (index >= 0) {
         var i = 0;
         for (var item of source) {
@@ -14,6 +13,16 @@ export function elementat<T>(source: Iterable<T>, index: number, defaultValue?: 
     }
     return defaultValue;
 }
+
+export function elementat<T>(source: Iterable<T>, index: number, defaultValue: T): T;
+export function elementat<T>(source: Iterable<T>, index: number): T | undefined;
+export function elementat<T>(index: number, defaultValue: T): OperatorR<T, T>;
+export function elementat<T>(index: number): OperatorR<T, T | undefined>;
+export function elementat() {
+    return wrapInThunk(arguments, _elementat);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         elementat(index: number, defaultValue: T): T;
@@ -21,5 +30,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.elementat = function <T>(this: Enumerable<T>, index: number, defaultValue?: T): T | undefined {
-    return elementat<T>(this, index, defaultValue);
+    return _elementat<T>(this, index, defaultValue);
 };

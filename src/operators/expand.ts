@@ -1,8 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
-import { EIterable } from "../common/types";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { EIterable, Operator } from "../common/types";
 
-export function expand<T>(source: Iterable<T>, selector: (item: T, index?: number) => Iterable<T> | undefined) {
+function _expand<T>(source: Iterable<T>, selector: (item: T, index?: number) => Iterable<T> | undefined) {
     return wrapInIterable(function* () {
         var head: Node<T> = { iter: source };
         var last = head;
@@ -24,13 +24,21 @@ export function expand<T>(source: Iterable<T>, selector: (item: T, index?: numbe
         }
     });
 }
+
+export function expand<T>(source: Iterable<T>, selector: (item: T, index?: number) => Iterable<T> | undefined): Iterable<T>;
+export function expand<T>(selector: (item: T, index?: number) => Iterable<T> | undefined): Operator<T, T>;
+export function expand() {
+    return wrapInThunk(arguments, _expand);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         expand(selector: (item: T) => EIterable<T>): Enumerable<T>;
     }
 }
 Enumerable.prototype.expand = function <T>(this: Enumerable<T>, selector: (item: T) => EIterable<T>): Enumerable<T> {
-    return new Enumerable(expand(this, selector));
+    return new Enumerable(_expand(this, selector));
 };
 
 interface Node<T> {

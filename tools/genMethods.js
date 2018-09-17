@@ -13,8 +13,9 @@ var indexContent = files
     .map(p => `export { ${p.split("/")[2]} } from "${p}";`)
     .join(os.EOL);
 saveFile("./src/index.ts",
-    `export { EnumerableGroup } from "./operators/groupby";
-export { pipe } from "./pipe";
+    `export { pipe } from "./pipe";
+export { concatp } from "./operators/concat";
+export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc} from "./operators/groupby";
 
 ${indexContent}`);
 

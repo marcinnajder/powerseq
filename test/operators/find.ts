@@ -8,6 +8,8 @@ it('find', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).find((x, index) => index > 2 && x > 2), 4);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).find(x => x > 4), undefined);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).find(x => x > 4, 100), 100);
+
+    assert.deepEqual(find(x => x > 2)([1, 2, 3, 4]), 3);
 });
 
 export const samples = [

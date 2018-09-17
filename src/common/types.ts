@@ -28,5 +28,5 @@ export interface OperatorR<T, R> {
 export interface Operator<T, R> extends OperatorR<T, Iterable<R>> {
 }
 
-export interface OperatorMonoType<T> extends Operator<T, T> {
-}
+// export interface OperatorMonoType<T> extends Operator<T, T> {
+// }

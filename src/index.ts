@@ -1,6 +1,7 @@
 // file has been generated automatically
-export { EnumerableGroup } from "./operators/groupby";
 export { pipe } from "./pipe";
+export { concatp } from "./operators/concat";
+export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc} from "./operators/groupby";
 
 export { asiterable } from "./operators/asiterable";
 export { average } from "./operators/average";

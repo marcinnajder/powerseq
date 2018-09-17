@@ -1,5 +1,6 @@
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { Operator } from "../common/types";
 
 export interface IterableGroup<TKey, T> extends Iterable<T> {
     key: TKey
@@ -12,11 +13,7 @@ export type KeySelectorFunc<T, TKey> = (item: T, index: number) => TKey;
 export type ElementSelectorFunc<T, TElement> = (item: T) => TElement;
 export type ResultSelectorFunc<TKey, T, TResult> = (key: TKey, items: Enumerable<T>) => TResult
 
-export function groupby<T, TKey>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>): Iterable<IterableGroup<TKey, T>>;
-export function groupby<T, TKey, TElement>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector: ElementSelectorFunc<T, TElement>): Iterable<IterableGroup<TKey, TElement>>;
-export function groupby<T, TKey, TResult>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, resultSelector: ResultSelectorFunc<TKey, T, TResult>): Iterable<TResult>;
-export function groupby<T, TKey, TElement, TResult>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector: ElementSelectorFunc<T, TElement>, resultSelector: ResultSelectorFunc<TKey, TElement, TResult>): Iterable<TResult>;
-export function groupby<T, TKey, TElement, TResult>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector?: (ElementSelectorFunc<T, TElement>) | (ResultSelectorFunc<TKey, TElement, TResult>), resultSelector?: ResultSelectorFunc<TKey, TElement, TResult>): Iterable<TResult | IterableGroup<TKey, TElement>> {
+function _groupby<T, TKey, TElement, TResult>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector?: (ElementSelectorFunc<T, TElement>) | (ResultSelectorFunc<TKey, TElement, TResult>), resultSelector?: ResultSelectorFunc<TKey, TElement, TResult>): Iterable<TResult | IterableGroup<TKey, TElement>> {
     return wrapInIterable(function* () {
         const map = new Map<TKey, TElement[]>();
         let key: TKey, element: TElement, items: TElement[];
@@ -57,6 +54,19 @@ export function groupby<T, TKey, TElement, TResult>(source: Iterable<T>, keySele
         }
     });
 }
+
+export function groupby<T, TKey>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>): Iterable<IterableGroup<TKey, T>>;
+export function groupby<T, TKey, TElement>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector: ElementSelectorFunc<T, TElement>): Iterable<IterableGroup<TKey, TElement>>;
+export function groupby<T, TKey, TResult>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, resultSelector: ResultSelectorFunc<TKey, T, TResult>): Iterable<TResult>;
+export function groupby<T, TKey, TElement, TResult>(source: Iterable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector: ElementSelectorFunc<T, TElement>, resultSelector: ResultSelectorFunc<TKey, TElement, TResult>): Iterable<TResult>;
+export function groupby<T, TKey>(keySelector: KeySelectorFunc<T, TKey>): Operator<T, IterableGroup<TKey, T>>;
+export function groupby<T, TKey, TElement>(keySelector: KeySelectorFunc<T, TKey>, elementSelector: ElementSelectorFunc<T, TElement>): Operator<T, IterableGroup<TKey, TElement>>;
+export function groupby<T, TKey, TResult>(keySelector: KeySelectorFunc<T, TKey>, resultSelector: ResultSelectorFunc<TKey, T, TResult>): Operator<T, TResult>;
+export function groupby<T, TKey, TElement, TResult>(keySelector: KeySelectorFunc<T, TKey>, elementSelector: ElementSelectorFunc<T, TElement>, resultSelector: ResultSelectorFunc<TKey, TElement, TResult>): Operator<T, TResult>;
+export function groupby() {
+    return wrapInThunk(arguments, _groupby);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         groupby<TKey>(keySelector: KeySelectorFunc<T, TKey>): Enumerable<EnumerableGroup<TKey, T>>;
@@ -66,5 +76,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.groupby = function <T, TKey, TElement, TResult>(this: Enumerable<T>, keySelector: KeySelectorFunc<T, TKey>, elementSelector?: (ElementSelectorFunc<T, TElement>) | (ResultSelectorFunc<TKey, TElement, TResult>), resultSelector?: ResultSelectorFunc<TKey, TElement, TResult>): Enumerable<TResult> {
-    return new Enumerable<TResult>(groupby(this, keySelector, elementSelector as ElementSelectorFunc<T, TElement>, resultSelector));
+    return new Enumerable<TResult>((_groupby as any)(this, keySelector, elementSelector, resultSelector));
 };

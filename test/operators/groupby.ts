@@ -14,6 +14,10 @@ it('groupby', function () {
     //     x => x + x,                                                     //  elementSelector : (x:string) => string
     //     (key, items) => key + ":" + items.toarray().join(",")           //  resultSelector  : (key:number, items:Enumerable<string>) => string
     // ).toarray(), ["1:aa,bb", "2:cccc", "3:dddddd"]);
+
+
+    assert.deepEqual([...groupby<string, number>(x => x.length)(items)].map(groupToString), ["1:a,b", "2:cc", "3:ddd"]);
+
 });
 
 

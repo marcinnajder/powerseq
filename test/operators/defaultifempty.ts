@@ -6,6 +6,8 @@ it('defaultifempty', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3]).defaultifempty().toarray(), [1, 2, 3]);
     assert.deepEqual(Enumerable.from([]).defaultifempty().toarray(), [undefined]);
     assert.deepEqual(Enumerable.from([]).defaultifempty(4).toarray(), [4]);
+
+    assert.deepEqual([...defaultifempty()([1, 2, 3])], [1, 2, 3]);
 });
 
 export const samples = [

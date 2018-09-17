@@ -2,7 +2,7 @@ import { Enumerable } from "../enumerable_";
 import { keySelector, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-export function _average<T>(source: Iterable<T>, valueSelector?: keySelector<T, number>): number | undefined {
+function _average<T>(source: Iterable<T>, valueSelector?: keySelector<T, number>): number | undefined {
     var result = 0;
     var count = 0;
     if (typeof valueSelector === "undefined") {
@@ -35,5 +35,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.average = function <T>(this: Enumerable<T>, valueSelector?: keySelector<T, number>): number | undefined {
-    return average(this, valueSelector);
+    return _average(this, valueSelector);
 };

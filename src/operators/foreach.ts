@@ -1,6 +1,8 @@
 import { Enumerable } from "../enumerable_";
+import { OperatorR } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
 
-export function foreach<T>(source: Iterable<T>, action?: (item: T, index: number) => void) {
+function _foreach<T>(source: Iterable<T>, action?: (item: T, index: number) => void): void {
     if (typeof action === "undefined") {
         for (var item of source) {
         }
@@ -12,11 +14,18 @@ export function foreach<T>(source: Iterable<T>, action?: (item: T, index: number
         }
     }
 }
+
+export function foreach<T>(source: Iterable<T>, action?: (item: T, index: number) => void): void;
+export function foreach<T>(action?: (item: T, index: number) => void): OperatorR<T, void>;
+export function foreach() {
+    return wrapInThunk(arguments, _foreach);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         foreach(action?: (item: T, index: number) => void): void;
     }
 }
 Enumerable.prototype.foreach = function <T>(this: Enumerable<T>, action?: (item: T, index: number) => void) {
-    foreach(this, action);
+    _foreach(this, action);
 };

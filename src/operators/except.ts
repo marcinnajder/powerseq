@@ -1,8 +1,8 @@
-import { keySelector } from "../common/types";
+import { keySelector, Operator } from "../common/types";
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-export function except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
+function _except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -22,8 +22,13 @@ export function except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector
                 }
             }
         }
-
     });
+}
+
+export function except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Iterable<T>;
+export function except<T>(source2: Iterable<T>, keySelector?: keySelector<T, any>): Operator<T, T>;
+export function except() {
+    return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _except);
 }
 declare module '../enumerable_' {
     interface Enumerable<T> {
@@ -31,5 +36,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.except = function <T>(this: Enumerable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T> {
-    return new Enumerable<T>(except<T>(this, source2, keySelector));
+    return new Enumerable<T>(_except<T>(this, source2, keySelector));
 };

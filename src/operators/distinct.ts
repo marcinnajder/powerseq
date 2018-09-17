@@ -1,8 +1,8 @@
-import { keySelector } from "../common/types";
+import { keySelector, Operator } from "../common/types";
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-export function distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>) {
+function _distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -18,11 +18,18 @@ export function distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, an
         }
     });
 }
+
+export function distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>): Iterable<T>;
+export function distinct<T>(keySelector?: keySelector<T, any>): Operator<T, T>;
+export function distinct() {
+    return wrapInThunk(arguments, _distinct);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         distinct(keySelector?: keySelector<T, any>): Enumerable<T>;
     }
 }
 Enumerable.prototype.distinct = function <T>(this: Enumerable<T>, keySelector?: keySelector<T, any>): Enumerable<T> {
-    return new Enumerable<T>(distinct<T>(this, keySelector));
+    return new Enumerable<T>(_distinct<T>(this, keySelector));
 };

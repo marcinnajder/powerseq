@@ -14,6 +14,7 @@ it('expand', function () {
     { name: "x", children: [] }];
 
     assert.deepEqual(Enumerable.from(tree).expand(x => x.children).map(x => x.name).toarray(), ["a", "x", "d", "w", "dd"]);
+    assert.deepEqual(Array.from(expand<number>(x => x > 8 ? [] : [x * 2])([1])), [1, 2, 4, 8, 16]);
 });
 
 export const samples = [

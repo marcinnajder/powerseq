@@ -7,6 +7,8 @@ it('count', function () {
     assert.deepEqual(Enumerable.from([]).count(), 0);
     assert.deepEqual(Enumerable.from([1, 2, 3]).count(), 3);
     assert.deepEqual(Enumerable.from([1, 2, 3]).count(x => x > 1), 2);
+
+    assert.deepEqual(count(x => x > 1)([1, 2, 3]), 2);
 });
 
 export const samples = [

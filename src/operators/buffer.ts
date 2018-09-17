@@ -1,8 +1,8 @@
-import { predicate } from "../common/types";
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { Operator } from "../common/types";
 
-export function buffer<T>(source: Iterable<T>, count: number, skip?: number) {
+function _buffer<T>(source: Iterable<T>, count: number, skip?: number) {
     return wrapInIterable(function* () {
         if (typeof count === "undefined" || count < 0) {
             return;
@@ -54,12 +54,20 @@ export function buffer<T>(source: Iterable<T>, count: number, skip?: number) {
         }
     });
 }
+
+export function buffer<T>(source: Iterable<T>, count: number, skip?: number): Iterable<T[]>;
+export function buffer<T>(count: number, skip?: number): Operator<T, T[]>;
+export function buffer() {
+    return wrapInThunk(arguments, _buffer);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         buffer(count: number, skip?: number): Enumerable<T[]>;
     }
 }
 Enumerable.prototype.buffer = function <T>(this: Enumerable<T>, count: number, skip?: number) {
-    return new Enumerable<T[]>(buffer<T>(this, count, skip));
+    return new Enumerable<T[]>(_buffer<T>(this, count, skip));
 };
 

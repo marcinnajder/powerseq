@@ -6,6 +6,8 @@ it('elementat', function () {
     assert.deepEqual(Enumerable.from([0, 1]).elementat(5), undefined);
     assert.deepEqual(Enumerable.from([0, 1]).elementat(-5), undefined);
     assert.deepEqual(Enumerable.from([0, 1]).elementat(5, 100), 100);
+
+    assert.deepEqual(elementat(3)([1, 2, 13, 123, 114, 5, 6]), 123);
 });
 
 export const samples = [

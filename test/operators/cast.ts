@@ -15,6 +15,9 @@ it('cast', function () {
     assert.throws(() => {
         var r = Enumerable.from(animals).cast<Dog>(Dog).toarray();
     }, "An element in the sequence cannot be cast to type TResult.")
+
+    assert.deepEqual(Array.from(cast<Animal>(Animal)(animals)).length, 3);
+
 });
 
 

@@ -1,9 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
+import { predicate, OperatorR } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
 
-export function find<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined;
-export function find<T>(source: Iterable<T>, predicate: predicate<T>, defaultValue: T): T;
-export function find<T>(source: Iterable<T>, predicate?: predicate<T>, defaultValue?: T): T | undefined {
+function _find<T>(source: Iterable<T>, predicate?: predicate<T>, defaultValue?: T): T | undefined {
     if (typeof predicate === "undefined") {
         for (var item of source) {
             return item;
@@ -20,6 +19,15 @@ export function find<T>(source: Iterable<T>, predicate?: predicate<T>, defaultVa
         return defaultValue;
     }
 }
+
+export function find<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined;
+export function find<T>(source: Iterable<T>, predicate: predicate<T>, defaultValue: T): T;
+export function find<T>(predicate?: predicate<T>): OperatorR<T, T | undefined>;
+export function find<T>(predicate: predicate<T>, defaultValue: T): OperatorR<T, T>;
+export function find() {
+    return wrapInThunk(arguments, _find);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         find(predicate?: predicate<T>): T | undefined;
@@ -27,5 +35,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.find = function <T>(this: Enumerable<T>, predicate?: predicate<T>, defaultValue?: T): T | undefined {
-    return find(this, predicate, defaultValue);
+    return _find(this, predicate, defaultValue);
 };

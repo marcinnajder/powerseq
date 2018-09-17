@@ -1,15 +1,30 @@
 import { isIterable } from "../src/common/wrap";
-import { filter, pipe, map, range, reduce, average } from "../src/index";
+import { filter, pipe, map, range, reduce, average, zip, buffer, cast, concat, concatp, count, defaultifempty, distinct, distinctuntilchanged, doo, elementat, every, except, expand, find, findindex, flatmap, foreach, groupby } from "../src/index";
+import { Enumerable } from "../src/enumerable";
 
-print([...filter([1, 2, 3, 4, 5], isEven)]);
-print([...filter<number>(isEven)([1, 2, 3, 4, 5])]);
+
+
+
+var x = [...groupby(["a", "b", "vv", "t", "qwe"], x => x.length)];
+//var x = count([1, 2, 3, 4, 5], isEven);
+print(x);
+
+
 
 
 //var aa = pipe([1, 2, 3]);
 var aa = pipe(
-    [1, 2, 3, 4, 5, 6, 7],
-    map(x => x.toString()),
-    average(x => parseInt(x)),
+    ["a", "b", "vv", "t", "qwe"],
+    groupby(x => x.length),
+    map(x => x.key)
+
+    //defaultifempty(123),
+
+
+    // [new Date(), new Date()],
+    //buffer(2, 2)
+    // map(x => x + "!")
+    // average(x => parseInt(x)),
 
     //reduce((p, c) => p + c, "")
     // range(1, 7),
@@ -21,7 +36,6 @@ var aa = pipe(
 print(aa);
 
 
-
 export function print<T>(iterable: Iterable<T> | T) {
     if (typeof iterable === "string") { // string type is iterable
         console.log(iterable);
@@ -30,8 +44,8 @@ export function print<T>(iterable: Iterable<T> | T) {
     } else {
         console.log(iterable);
     }
-
 }
+
 export function isEven(n: number): boolean {
     return n % 2 === 0;
 }
