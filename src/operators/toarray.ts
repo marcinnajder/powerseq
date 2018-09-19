@@ -1,6 +1,8 @@
 import { Enumerable } from "../enumerable_";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { OperatorR } from "../common/types";
 
-export function toarray<T>(source: Iterable<T>): T[] {
+function _toarray<T>(source: Iterable<T>): T[] {
     if (Array.isArray(source)) {
         return source;
     }
@@ -10,11 +12,18 @@ export function toarray<T>(source: Iterable<T>): T[] {
     }
     return result;
 }
+
+export function toarray<T>(source: Iterable<T>): T[];
+export function toarray<T>(): OperatorR<T, T[]>;
+export function toarray() {
+    return wrapInThunk(arguments, _toarray);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         toarray(): T[]
     }
 }
 Enumerable.prototype.toarray = function <T>(this: Enumerable<T>) {
-    return toarray(this._iterable);
+    return _toarray(this._iterable);
 };

@@ -1,8 +1,8 @@
 import { predicate, Operator } from "../common/types";
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { wrapInIterable, wrapInThunk, wrapInThunkAlways } from "../common/wrap";
 
-function _defaultifempty<T>(source: Iterable<T>, defaultValue?: T): Iterable<T> {
+export function defaultifempty<T>(source: Iterable<T>, defaultValue?: T): Iterable<T> {
     return wrapInIterable(function* () {
         var hasValue = false;
         for (var item of source) {
@@ -15,10 +15,8 @@ function _defaultifempty<T>(source: Iterable<T>, defaultValue?: T): Iterable<T> 
     });
 }
 
-export function defaultifempty<T>(source: Iterable<T>, defaultValue?: T): Iterable<T>
-export function defaultifempty<T>(defaultValue?: T): Operator<T, T>
-export function defaultifempty() {
-    return wrapInThunk(arguments, _defaultifempty);
+export function defaultifemptyp<T>(defaultValue?: T): Operator<T, T> {
+    return wrapInThunkAlways(arguments, defaultifempty);
 }
 
 declare module '../enumerable_' {
@@ -27,5 +25,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.defaultifempty = function <T>(this: Enumerable<T>, defaultValue?: T): Enumerable<T> {
-    return new Enumerable<T>(_defaultifempty<T>(this, defaultValue));
+    return new Enumerable<T>(defaultifempty<T>(this, defaultValue));
 };

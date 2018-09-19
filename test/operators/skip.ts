@@ -6,6 +6,8 @@ it('skip', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skip(0).toarray(), [1, 2, 3, 4]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skip(1).toarray(), [2, 3, 4]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skip(5).toarray(), []);
+
+    assert.deepEqual(Array.from(skip(1)([1, 2, 3, 4])), [2, 3, 4]);
 });
 
 export const samples = [

@@ -1,7 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { Operator } from "../common/types";
 
-export function skip<T>(source: Iterable<T>, count: number) {
+function _skip<T>(source: Iterable<T>, count: number) {
     return wrapInIterable(function* () {
         if (count >= 0) {
             var iterator = source[Symbol.iterator]();
@@ -21,11 +22,19 @@ export function skip<T>(source: Iterable<T>, count: number) {
         }
     });
 }
+
+export function skip<T>(source: Iterable<T>, count: number): Iterable<T>;
+export function skip<T>(count: number): Operator<T, T>;
+export function skip() {
+    return wrapInThunk(arguments, _skip);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         skip(count: number): Enumerable<T>;
     }
 }
 Enumerable.prototype.skip = function <T>(this: Enumerable<T>, count: number) {
-    return new Enumerable<T>(skip<T>(this, count));
+    return new Enumerable<T>(_skip<T>(this, count));
 };

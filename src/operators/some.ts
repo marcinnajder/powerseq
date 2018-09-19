@@ -1,7 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
+import { predicate, OperatorR } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
 
-export function some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean {
+function _some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean {
     if (typeof predicate === "undefined") {
         for (var item of source) {
             return true;
@@ -18,11 +19,18 @@ export function some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean 
         return false;
     }
 }
+
+export function some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean;
+export function some<T>(predicate?: predicate<T>): OperatorR<T, boolean>;
+export function some() {
+    return wrapInThunk(arguments, _some);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         some(predicate?: predicate<T>): boolean;
     }
 }
 Enumerable.prototype.some = function <T>(this: Enumerable<T>, predicate?: predicate<T>): boolean {
-    return some(this, predicate);
+    return _some(this, predicate);
 };

@@ -7,6 +7,8 @@ it('takewhile', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile(x => false).toarray(), []);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile(x => x < 3).toarray(), [1, 2]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile((x, index) => index < 3).toarray(), [1, 2, 3]);
+
+    assert.deepEqual(Array.from(takewhile(x => x < 3)([1, 2, 3, 4])), [1, 2]);
 });
 
 export const samples = [

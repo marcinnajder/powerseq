@@ -11,6 +11,8 @@ it('single', function () {
     assert.throws(() => {
         single([1, 3]);
     }, "More than one element satisfies the condition in predicate.");
+
+    assert.deepEqual(single()([]), undefined);
 });
 
 export const samples = [

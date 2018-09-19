@@ -1,8 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { keySelector } from "../common/types";
-import { wrapInIterable } from "../common/wrap";
+import { keySelector, Operator } from "../common/types";
+import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-export function union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
+function _union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -25,11 +25,18 @@ export function union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?
         }
     });
 }
+
+export function union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Iterable<T>;
+export function union<T>(source2: Iterable<T>, keySelector?: keySelector<T, any>): Operator<T, T>;
+export function union() {
+    return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _union);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         union(source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T>;
     }
 }
 Enumerable.prototype.union = function <T>(this: Enumerable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T> {
-    return new Enumerable<T>(union<T>(this, source2, keySelector));
+    return new Enumerable<T>(_union<T>(this, source2, keySelector));
 };

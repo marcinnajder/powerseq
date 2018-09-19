@@ -1,8 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
-import { wrapInIterable } from "../common/wrap";
+import { predicate, Operator } from "../common/types";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
+function _skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
     return wrapInIterable(function* () {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
@@ -23,11 +23,18 @@ export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
         }
     });
 }
+
+export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>): Iterable<T>;
+export function skipwhile<T>(predicate: predicate<T>): Operator<T, T>;
+export function skipwhile() {
+    return wrapInThunk(arguments, _skipwhile);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         skipwhile(predicate: predicate<T>): Enumerable<T>;
     }
 }
 Enumerable.prototype.skipwhile = function <T>(this: Enumerable<T>, predicate: predicate<T>) {
-    return new Enumerable<T>(skipwhile(this, predicate));
+    return new Enumerable<T>(_skipwhile(this, predicate));
 };

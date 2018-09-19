@@ -1,5 +1,6 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
+import { OperatorR } from "../common/types";
+import { wrapInThunkAlways } from "../common/wrap";
 
 export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: number): boolean {
     if (typeof fromIndex === "undefined") {
@@ -29,6 +30,10 @@ export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: n
             }
         }
     }
+}
+
+export function includesp<T>(searchElement: T, fromIndex?: number): OperatorR<T, boolean> {
+    return wrapInThunkAlways(arguments, includes) as any;
 }
 
 declare module '../enumerable_' {

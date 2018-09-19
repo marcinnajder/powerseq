@@ -1,9 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { Operator } from "../common/types";
 
-export function scan<T>(source: Iterable<T>, func: (prev: T, item: T) => T): Iterable<T>;
-export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): Iterable<TAccumulate>;
-export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): Iterable<TAccumulate> {
+function _scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): Iterable<TAccumulate> {
     return wrapInIterable(function* () {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
@@ -24,6 +23,16 @@ export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumula
         }
     });
 }
+
+export function scan<T>(source: Iterable<T>, func: (prev: T, item: T) => T): Iterable<T>;
+export function scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): Iterable<TAccumulate>;
+export function scan<T>(func: (prev: T, item: T) => T): Operator<T, T>;
+export function scan<T, TAccumulate>(func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): Operator<T, TAccumulate>;
+export function scan() {
+    return wrapInThunk(arguments, _scan);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         scan(func: (prev: T, item: T) => T): Enumerable<T>;
@@ -31,5 +40,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.scan = function <T, TAccumulate>(this: Enumerable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): Enumerable<TAccumulate> {
-    return new Enumerable(scan(this, func, seed));
+    return new Enumerable(_scan(this, func, seed));
 };

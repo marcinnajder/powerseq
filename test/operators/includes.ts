@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, includes } from "../../src/enumerable";
+import { Enumerable, includes, includesp } from "../../src/enumerable";
 
 it('includes', function () {
     assert.deepEqual(includes([1, 2, 3], 2), true);
@@ -10,6 +10,8 @@ it('includes', function () {
     assert.deepEqual(Enumerable.from([0, 1, 2, 3, 4]).includes(3, 4), false);
     assert.deepEqual(Enumerable.from([0, 1, 2, 3, 4]).includes(0, 0), true);
     assert.deepEqual(Enumerable.from([0, 1, 2, 3, 4]).includes(4, 4), true);
+
+    assert.deepEqual(includesp(4)([1, 2, 3, 4, 5]), true);
 });
 
 export const samples = [

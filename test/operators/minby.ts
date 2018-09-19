@@ -6,6 +6,9 @@ it('minby', function () {
     assert.deepEqual(minby(items, x => x.id), { id: 1 });
     assert.deepEqual(Enumerable.from(items).minby(x => x.id), { id: 1 });
     assert.deepEqual(Enumerable.from([]).minby(x => x), undefined);
+
+    // type ItemType = typeof items[0];
+    // assert.deepEqual(minby<ItemType>(x => x.id)(items), { id: 1 });
 });
 
 export const samples = [

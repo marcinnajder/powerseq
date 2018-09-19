@@ -7,6 +7,8 @@ it('min', function () {
     assert.deepEqual(Enumerable.from([1]).min(), 1);
     assert.deepEqual(Enumerable.from([1, 2, 3, 1, 2, 3]).min(), 1);
     assert.deepEqual(Enumerable.from([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }]).min(x => x.id), 1);
+
+    assert.deepEqual(min()([1, 2, 3, 1, 2, 3]), 1);
 });
 
 export const samples = [

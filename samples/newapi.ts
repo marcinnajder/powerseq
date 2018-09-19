@@ -1,22 +1,24 @@
 import { isIterable } from "../src/common/wrap";
-import { filter, pipe, map, range, reduce, average, zip, buffer, cast, concat, concatp, count, defaultifempty, distinct, distinctuntilchanged, doo, elementat, every, except, expand, find, findindex, flatmap, foreach, groupby } from "../src/index";
+import { ignoreelements, filter, pipe, map, range, reduce, average, zip, buffer, cast, concat, concatp, count, defaultifempty, distinct, distinctuntilchanged, doo, elementat, every, except, expand, find, findindex, flatmap, foreach, groupby, includes, defaultifemptyp, includesp, intersect, isempty, join, last, max, maxby, min, minby, oftype, orderby, orderbydescending, repeat, reverse, scan, sequenceequal, sequenceequalp, single, skip, skiplast, skipwhile, some, sum, take, takelast, takewhile, thenby, thenbydescending, toarray, tomap, toobject, union, zipp } from "../src/index";
 import { Enumerable } from "../src/enumerable";
 
 
 
 
-var x = [...groupby(["a", "b", "vv", "t", "qwe"], x => x.length)];
-//var x = count([1, 2, 3, 4, 5], isEven);
+var x = zip([1, 2, 3, 4], ["a", "b"], [false], (a, b, c) => a + b + c);
+
 print(x);
-
-
 
 
 //var aa = pipe([1, 2, 3]);
 var aa = pipe(
-    ["a", "b", "vv", "t", "qwe"],
-    groupby(x => x.length),
-    map(x => x.key)
+    [1, 2, 3, 4],
+    zipp(["a", "b"], [false, true], (a, b, c) => a + b + c),
+    count()
+
+    //ignoreelements(),
+    // groupby(x => x.length),
+
 
     //defaultifempty(123),
 

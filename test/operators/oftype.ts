@@ -14,6 +14,8 @@ it('oftype', function () {
     assert.deepEqual(Enumerable.from(animals).oftype<Animal>(Animal).toarray().length, 3);
     assert.deepEqual(Enumerable.from(animals).oftype<Dog>(Dog).toarray().length, 1);
     assert.deepEqual(Enumerable.from(animals).oftype<String>(String).toarray().length, 0);
+
+    assert.deepEqual([...oftype<Animal>(Animal)(animals)].length, 3);
 });
 
 export const linq = "OfType";

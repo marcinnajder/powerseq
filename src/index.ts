@@ -1,6 +1,11 @@
 // file has been generated automatically
 export { pipe } from "./pipe";
 export { concatp } from "./operators/concat";
+export { defaultifemptyp } from "./operators/defaultifempty";
+export { includesp } from "./operators/includes";
+export { sequenceequalp } from "./operators/sequenceequal";
+export { zipp } from "./operators/zip";
+
 export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc} from "./operators/groupby";
 
 export { asiterable } from "./operators/asiterable";

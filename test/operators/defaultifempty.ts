@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, defaultifempty } from "../../src/enumerable";
+import { Enumerable, defaultifemptyp, defaultifempty } from "../../src/enumerable";
 
 it('defaultifempty', function () {
     assert.deepEqual(Array.from(defaultifempty([1, 2, 3])), [1, 2, 3]);
@@ -7,7 +7,7 @@ it('defaultifempty', function () {
     assert.deepEqual(Enumerable.from([]).defaultifempty().toarray(), [undefined]);
     assert.deepEqual(Enumerable.from([]).defaultifempty(4).toarray(), [4]);
 
-    assert.deepEqual([...defaultifempty()([1, 2, 3])], [1, 2, 3]);
+    assert.deepEqual([...defaultifemptyp()([1, 2, 3])], [1, 2, 3]);
 });
 
 export const samples = [

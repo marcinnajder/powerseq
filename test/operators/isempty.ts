@@ -4,6 +4,8 @@ import { Enumerable, isempty } from "../../src/enumerable";
 it('isempty', function () {
     assert.deepEqual(isempty([]), true);
     assert.deepEqual(isempty([1, 2]), false);
+
+    assert.deepEqual(isempty()([]), true);
 });
 
 export const samples = [

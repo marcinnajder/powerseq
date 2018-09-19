@@ -1,9 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { Dictionary } from "../common/types";
+import { Dictionary, Operator, OperatorR } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
 
-export function toobject<T>(source: Iterable<T>, keySelector: (item: T) => any): Dictionary<T>;
-export function toobject<T, TElement>(source: Iterable<T>, keySelector: (item: T) => any, elementSelector: (item: T) => TElement): Dictionary<TElement>
-export function toobject<T, TElement>(source: Iterable<T>, keySelector: (item: T) => any, elementSelector?: (item: T) => TElement): Dictionary<TElement> {
+function _toobject<T, TElement>(source: Iterable<T>, keySelector: (item: T) => any, elementSelector?: (item: T) => TElement): Dictionary<TElement> {
     var map: Dictionary<TElement> = {};
 
     if (typeof elementSelector === "undefined") {
@@ -18,6 +17,15 @@ export function toobject<T, TElement>(source: Iterable<T>, keySelector: (item: T
     }
     return map;
 }
+
+export function toobject<T>(source: Iterable<T>, keySelector: (item: T) => any): Dictionary<T>;
+export function toobject<T, TElement>(source: Iterable<T>, keySelector: (item: T) => any, elementSelector: (item: T) => TElement): Dictionary<TElement>;
+export function toobject<T>(keySelector: (item: T) => any): OperatorR<T, Dictionary<T>>;
+export function toobject<T, TElement>(keySelector: (item: T) => any, elementSelector: (item: T) => TElement): OperatorR<T, Dictionary<TElement>>;
+export function toobject() {
+    return wrapInThunk(arguments, _toobject);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         toobject(keySelector: (item: T) => any): Dictionary<T>;
@@ -25,5 +33,5 @@ declare module '../enumerable_' {
     }
 }
 Enumerable.prototype.toobject = function <T, TElement>(this: Enumerable<T>, keySelector: (item: T) => any, elementSelector?: (item: T) => TElement): Dictionary<TElement> {
-    return toobject(this._iterable, keySelector, elementSelector);
+    return _toobject(this._iterable, keySelector, elementSelector);
 };

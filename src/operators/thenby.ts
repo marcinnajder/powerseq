@@ -1,12 +1,18 @@
-import { Enumerable } from "../enumerable_";
 import { OrderedEnumerable, OrderingState } from "../orderedEnumerable";
-import { keySelector } from "../common/types";
+import { keySelector, OperatorRA } from "../common/types";
 import { ordebyImpl } from "../common/ordering";
+import { wrapInThunk } from "../common/wrap";
 
-export function thenby<T>(source: OrderedEnumerable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T> {
+function _thenby<T>(source: OrderedEnumerable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T> {
     var state: OrderingState<T> = { descending: false, keySelector, originalIterable: source.state.originalIterable, prevState: source.state };
     var sortingIterable = ordebyImpl(state);
     return new OrderedEnumerable<T>(sortingIterable, state);
+}
+
+export function thenby<T>(source: OrderedEnumerable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T>;
+export function thenby<T>(keySelector: keySelector<T, any>): OperatorRA<OrderedEnumerable<T>, OrderedEnumerable<T>>;
+export function thenby() {
+    return wrapInThunk(arguments, _thenby);
 }
 
 declare module '../orderedEnumerable' {
@@ -15,5 +21,5 @@ declare module '../orderedEnumerable' {
     }
 }
 OrderedEnumerable.prototype.thenby = function <T>(this: OrderedEnumerable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T> {
-    return thenby<T>(this, keySelector);
+    return _thenby<T>(this, keySelector);
 };

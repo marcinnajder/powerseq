@@ -5,6 +5,8 @@ it('union', function () {
     assert.deepEqual(Array.from(union([1, 2, 3, 4, 2, 4], [4, 5, 6])), [1, 2, 3, 4, 5, 6]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4, 2, 4]).union([4, 5, 6]).toarray(), [1, 2, 3, 4, 5, 6]);
     assert.deepEqual(Enumerable.from([4, 1, 1, 2, 4]).union([1, 2, 3, 4, 5, 6], x => x % 3).toarray(), [4, 2, 3]);
+
+    assert.deepEqual(Array.from(union([4, 5, 6])([1, 2, 3, 4, 2, 4])), [1, 2, 3, 4, 5, 6]);
 });
 
 export const samples = [

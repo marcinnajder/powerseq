@@ -22,11 +22,11 @@ export type func0<TResult> = () => TResult;
 export type func1<TArg, TResult> = (arg: TArg) => TResult;
 export type func2<TArg1, TArg2, TResult> = (arg1: TArg1, arg2: TArg2) => TResult;
 
-export interface OperatorR<T, R> {
-    (source: Iterable<T>): R;
+// operator with R_esult and A_rgument
+export interface OperatorRA<T, R> {
+    (source: T): R;
+}
+export interface OperatorR<T, R> extends OperatorRA<Iterable<T>, R> {
 }
 export interface Operator<T, R> extends OperatorR<T, Iterable<R>> {
 }
-
-// export interface OperatorMonoType<T> extends Operator<T, T> {
-// }

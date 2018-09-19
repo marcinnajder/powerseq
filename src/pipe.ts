@@ -11,6 +11,11 @@ export function pipe<T, A, B, C, D, E, F, G>(source: Iterable<T>, op1: Operator<
 export function pipe<T, A, B, C, D, E, F, G, H>(source: Iterable<T>, op1: Operator<T, A>, op2: Operator<A, B>, op3: Operator<B, C>, op4: Operator<C, D>, op5: Operator<D, E>, op6: Operator<E, F>, op7: Operator<F, G>, op8: OperatorR<G, H>): H;
 export function pipe<T, A, B, C, D, E, F, G, H, I>(source: Iterable<T>, op1: Operator<T, A>, op2: Operator<A, B>, op3: Operator<B, C>, op4: Operator<C, D>, op5: Operator<D, E>, op6: Operator<E, F>, op7: Operator<F, G>, op8: Operator<G, H>, op9: OperatorR<H, I>): I;
 export function pipe<T, R>(source: Iterable<T>, ...operators: any[]): R {
-    return operators.reduce((iterable, operator) => operator(iterable), source);
+    return operators.reduce((iterable, operator) => {
+        if (typeof operator !== "function") {
+            throw new Error(`Argument '${operator}' passed to the 'pipe' method is not a function.`);
+        }
+        return operator(iterable);
+    }, source);
 }
 

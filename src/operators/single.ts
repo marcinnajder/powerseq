@@ -1,7 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
+import { predicate, OperatorR } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
 
-export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
+function _single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
     var hasValue = false;
     var value: T | undefined = undefined;
 
@@ -32,11 +33,18 @@ export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | un
     }
     return value;
 }
+
+export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined;
+export function single<T>(predicate?: predicate<T>): OperatorR<T, T | undefined>;
+export function single() {
+    return wrapInThunk(arguments, _single);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         single(predicate?: predicate<T>): T | undefined;
     }
 }
 Enumerable.prototype.single = function <T>(this: Enumerable<T>, predicate?: predicate<T>): T | undefined {
-    return single(this, predicate);
+    return _single(this, predicate);
 };

@@ -30,6 +30,8 @@ export function test() {
             { a: 3, b: 10, c: 200 }
         ]
     );
+
+    assert.deepEqual([...orderby(x => x)(numers)], numers.sort());
 }
 
 export const samples = [

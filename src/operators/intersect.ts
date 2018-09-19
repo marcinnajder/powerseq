@@ -1,8 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { keySelector } from "../common/types";
-import { wrapInIterable } from "../common/wrap";
+import { keySelector, Operator } from "../common/types";
+import { wrapInIterable, wrapInThunkIfOnlyFirstArgumentIsIterable, isIterable } from "../common/wrap";
 
-export function intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
+function _intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -22,11 +22,19 @@ export function intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelec
         }
     });
 }
+
+export function intersect<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Iterable<T>;
+export function intersect<T>(source2: Iterable<T>, keySelector?: keySelector<T, any>): Operator<T, T>;
+export function intersect() {
+    return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _intersect);
+}
+
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         intersect(source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T>;
     }
 }
 Enumerable.prototype.intersect = function <T>(this: Enumerable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T> {
-    return new Enumerable<T>(intersect<T>(this, source2, keySelector));
+    return new Enumerable<T>(_intersect<T>(this, source2, keySelector));
 };

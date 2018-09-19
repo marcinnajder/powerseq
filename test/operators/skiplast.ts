@@ -8,6 +8,8 @@ it('skiplast', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skiplast(5).toarray(), []);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skiplast(4).toarray(), []);
     assert.deepEqual(Enumerable.from([]).skiplast(5).toarray(), []);
+
+    assert.deepEqual(Array.from(skiplast(2)([1, 2, 3, 4])), [1, 2]);
 });
 
 export const samples = [

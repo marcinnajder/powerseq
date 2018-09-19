@@ -9,6 +9,8 @@ it('scan', function () {
     assert.deepEqual(Enumerable.from<number>([1]).scan((p, c) => p + c).toarray(), []);
     assert.deepEqual(Enumerable.from<number>([]).scan((p, c) => p + c, "").toarray(), []);
     assert.deepEqual(Enumerable.from<number>([1]).scan((p, c) => p + c, "").toarray(), ["" + 1]);
+
+    assert.deepEqual(Array.from(scan<number>((p, c) => p + c)([1, 2, 3])), [1 + 2, 3 + 3]);
 });
 
 export const samples = [

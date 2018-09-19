@@ -7,6 +7,8 @@ it('skipwhile', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile(x => false).toarray(), [1, 2, 3, 4]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile(x => x < 3).toarray(), [3, 4]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile((x, index) => index < 3).toarray(), [4]);
+
+    assert.deepEqual(Array.from(skipwhile(x => x < 3)([1, 2, 3, 4])), [3, 4]);
 });
 
 export const samples = [

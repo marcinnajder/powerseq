@@ -7,6 +7,8 @@ it('takelast', function () {
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takelast(1).toarray(), [4]);
     assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takelast(5).toarray(), [1, 2, 3, 4]);
     assert.deepEqual(Enumerable.from([]).takelast(5).toarray(), []);
+
+    assert.deepEqual(Array.from(takelast(2)([1, 2, 3])), [2, 3]);
 });
 
 export const samples = [

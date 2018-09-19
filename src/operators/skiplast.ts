@@ -1,8 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { predicate } from "../common/types";
-import { wrapInIterable } from "../common/wrap";
+import { Operator } from "../common/types";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-export function skiplast<T>(source: Iterable<T>, count: number) {
+function _skiplast<T>(source: Iterable<T>, count: number) {
     return wrapInIterable(function* () {
 
         if (typeof count === "undefined" || count <= 0) {
@@ -42,11 +42,17 @@ export function skiplast<T>(source: Iterable<T>, count: number) {
     });
 }
 
+export function skiplast<T>(source: Iterable<T>, count: number): Iterable<T>;
+export function skiplast<T>(count: number): Operator<T, T>;
+export function skiplast() {
+    return wrapInThunk(arguments, _skiplast);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         skiplast(count: number): Enumerable<T>;
     }
 }
 Enumerable.prototype.skiplast = function <T>(this: Enumerable<T>, count: number) {
-    return new Enumerable<T>(skiplast<T>(this, count));
+    return new Enumerable<T>(_skiplast<T>(this, count));
 };

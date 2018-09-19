@@ -1,7 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { wrapInIterable } from "../common/wrap";
+import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { Operator } from "../common/types";
 
-export function take<T>(source: Iterable<T>, count: number) {
+function _take<T>(source: Iterable<T>, count: number) {
     return wrapInIterable(function* () {
         var countInstance = count;
         if (countInstance > 0) {
@@ -12,11 +13,18 @@ export function take<T>(source: Iterable<T>, count: number) {
         }
     });
 }
+
+export function take<T>(source: Iterable<T>, count: number): Iterable<T>;
+export function take<T>(count: number): Operator<T, T>;
+export function take() {
+    return wrapInThunk(arguments, _take);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         take(count: number): Enumerable<T>;
     }
 }
 Enumerable.prototype.take = function <T>(this: Enumerable<T>, count: number) {
-    return new Enumerable<T>(take<T>(this, count));
+    return new Enumerable<T>(_take<T>(this, count));
 };

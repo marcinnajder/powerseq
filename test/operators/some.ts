@@ -6,6 +6,8 @@ it('some', function () {
     assert.deepEqual(Enumerable.from([1, 2]).some(), true);
     assert.deepEqual(Enumerable.from([]).some(), false);
     assert.deepEqual(Enumerable.from([1, 2]).some(x => x > 1), true);
+
+    assert.deepEqual(some()([1, 2]), true);
 });
 
 export const samples = [

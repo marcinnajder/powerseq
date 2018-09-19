@@ -1,8 +1,8 @@
 import { Enumerable } from "../enumerable_";
-import { keySelector, EIterable } from "../common/types";
-import { wrapInIterable } from "../common/wrap";
+import { keySelector, EIterable, Operator } from "../common/types";
+import { wrapInIterable, wrapInThunkAlways, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-export function join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
+function _join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
     key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult) {
     return wrapInIterable(function* () {
         var map2 = new Map<TKey, T2[]>();
@@ -30,6 +30,16 @@ export function join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterab
         }
     });
 }
+
+
+export function join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
+    key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult): Iterable<TResult>;
+export function join<T, T2, TKey, TResult>(source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
+    key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult): Operator<T, TResult>;
+export function join() {
+    return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _join);
+}
+
 declare module '../enumerable_' {
     interface Enumerable<T> {
         join<T2, TKey, TResult>(source2: EIterable<T2>, key1Selector: keySelector<T, TKey>,
@@ -38,5 +48,5 @@ declare module '../enumerable_' {
 }
 Enumerable.prototype.join = function <T, T2, TKey, TResult>(this: Enumerable<T>, source2: EIterable<T2>, key1Selector: keySelector<T, TKey>,
     key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult): Enumerable<TResult> {
-    return new Enumerable<TResult>(join(this, source2, key1Selector, key2Selector, resultSelector));
+    return new Enumerable<TResult>(_join(this, source2, key1Selector, key2Selector, resultSelector));
 };
