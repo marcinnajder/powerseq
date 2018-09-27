@@ -205,7 +205,7 @@ function formatSamplesTooltip(methodName, samples) {
             var sampleBody = sampleFunc.toString();
             sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 2);
 
-            sampleBody = sampleBody.replace(/index_1\./g, "");
+            sampleBody = sampleBody.replace(/enumerable_1\./g, "");
             sampleBody = sampleBody.replace(/\"/g, "'");
 
             var sampleResult;
