@@ -1,3 +1,8 @@
+<a name="1.0.1"></a>
+# [1.0.1](https://github.com/marcinnajder/powerseq/releases/tag/1.0.1) (2018-09-27)
+
+* introducing pipeable operators (api breaking changes)
+
 <a name="0.0.10"></a>
 # [0.0.10](https://github.com/marcinnajder/powerseq/releases/tag/0.0.10) (2017-05-10)
 
