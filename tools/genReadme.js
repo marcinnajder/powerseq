@@ -30,53 +30,63 @@ var mappingTable = generateMappingTable(operators.concat(enumerable).sort(), git
 
 var readmeContent =
     `
-[operators](#operators) | [installation](#installation) | [key featues](#key-featues)
+## installation and usage
 
-chaining many operators
-\`\`\`javascript
-import {Enumerable} from "powerseq";
-
-var q = Enumerable
-    .range(1,Number.MAX_VALUE)
-    .filter( x => x % 2 === 0)
-    .take(5)
-    .reverse();
-
-console.log(q.toarray());
+\`\`\`
+npm install powerseq
 \`\`\`
 
-execute single operator
+executing single operator
 
 \`\`\`javascript 
-import {filter} from "powerseq";
+import { filter } from "powerseq";
 
 for(var item of filter([1,2,3,4,5], x => x % 2 === 0)){
     console.log(item);
 }
 \`\`\`
 
-bundle only used operators (tree-shaking)
+chaining many operators 
 
 \`\`\`javascript
-import {Enumerable} from "powerseq/enumerable";
-import "powerseq/enumerable/range";
-import "powerseq/operators/filter";
-import "powerseq/operators/toarray";
+import { Enumerable } from "powerseq/enumerable";  
+// use 'Enumerable' class ONLY on the server side !! (use 'pipe' method on the client side )
 
-console.log(Enumerable.range(1,10).filter(x => x % 2 === 0).toarray());
+const items = Enumerable
+    .range(1,Number.MAX_VALUE)
+    .filter( x => x % 2 === 0)
+    .take(5)
+    .reverse()
+    .toarray();
+
+console.log(items);
 \`\`\`
 
+chaining many operators using **pipe** method (it allows code tree shaking)
+
+\`\`\`javascript
+import { pipe, range, filter, take, reverse, toarray } from "powerseq";
+
+const items = pipe(
+    range(1, Number.MAX_VALUE),
+    filter(x => x % 2 === 0),
+    take(5),
+    reverse(),
+    toarray());
+
+console.log(items);
+\`\`\`
+
+most of the operators can be used as a single operator (\`filter([1,2,3,4,5], x => x % 2 === 0)\`) or as a part of the operator chain \`pipe([1, 2, 3, 4, 5], filter(x => x % 2 === 0), ... )\`.But some operators have special counterparts (concatp, defaultifemptyp, includesp, sequenceequalp, zipp) when used with pipe, so we call \`concat([1,2,3], [4,5,6])\` but we have to call \`pipe([1,2,3], concatp([4,5,6]), ... )\` if we want to chain \`concat\` with other operators.
+
 ## operators
-- each operator below has tooltip that contains examples
+- each operator below has **tooltip with documentation**
 - [click](${githubAddressPrefix}/docs/mapping.md) to see mapping powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
 
 enumerable
 ${enumerableTable}
 operators
 ${operatorsTable}
-
-## installation
-## key featues
 `
 fs.writeFileSync("./README.md", readmeContent);
 console.log("./README.md", " file generated");
