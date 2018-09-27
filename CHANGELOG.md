@@ -1,3 +1,8 @@
+<a name="1.0.2"></a>
+# [1.0.2](https://github.com/marcinnajder/powerseq/releases/tag/1.0.2) (2018-09-27)
+
+* publish correct README.md version to npm
+
 <a name="1.0.1"></a>
 # [1.0.1](https://github.com/marcinnajder/powerseq/releases/tag/1.0.1) (2018-09-27)
 
