@@ -2,7 +2,7 @@
 export class Enumerable<T> implements Iterable<T>{
     constructor(public _iterable: Iterable<T>) {
     }
-    [Symbol.iterator] = function () {
+    [Symbol.iterator] = function (): Iterator<T> {
         return this._iterable[Symbol.iterator]();
     };
 }

@@ -31,7 +31,7 @@ export function test() {
         ]
     );
 
-    assert.deepEqual([...orderby(x => x)(numers)], numers.sort());
+    assert.deepEqual(Array.from(orderby(x => x)(numers)), numers.sort());
 }
 
 export const samples = [

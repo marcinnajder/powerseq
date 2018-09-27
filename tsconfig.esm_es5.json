@@ -3,7 +3,8 @@
     "compilerOptions": {
         "module": "es2015",
         "target": "es5",
-        "outDir": "./dist/esm",
-        "noEmitHelpers": true
+        "outDir": "./dist/esm_es5",
+        "importHelpers": true,
+        "declaration": false
     }
 }

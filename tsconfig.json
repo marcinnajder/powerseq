@@ -1,3 +1,3 @@
 {
-    "extends": "./tsconfig.es6.json"
+    "extends": "./tsconfig.cjs_es6.json"
 }

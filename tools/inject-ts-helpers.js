@@ -4,7 +4,7 @@ var os = require('os');
 var tslib = fs.readFileSync('./node_modules/tslib/tslib.js', 'utf8');
 
 var jsFiles = [
-  './npmpackage/enumerable_.js',
+  // './npmpackage/esm_es5/enumerable_.js',
   './npmpackage/bundles/powerseq.es5.js'
 ];
 

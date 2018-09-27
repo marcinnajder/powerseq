@@ -15,15 +15,15 @@ var pkg = require('../package.json');
 // "name": "@angular/core",
 // "typings": "index.d.ts",
 // "module": "index.js",
- 
+
 // RxJS way of distributing npm packages (ES6 modules + ES5 code + ES5 webpack bundles, but "main" is not specified so webpack doesn't use bundles )
 // "name": "rxjs",
 // "main": "Rx.js",
 // "typings": "Rx.d.ts",
 
 
-pkg.main = "es6/index.js"; // for node.js
-pkg.module = "index.js"; // for tools like webpack2, rollup
+pkg.main = "index.js"; // for node.js
+pkg.module = "esm_es5/index.js"; // for tools like webpack2, rollup
 
 delete pkg.scripts;
 

@@ -12,17 +12,18 @@
     "gen-package-json": "node tools/genPackageJson.js",
     "gen-readme-md": "node tools/genReadme.js",
     "watch": "node tools/tsc.js watch",
-    "test": "mocha ./dist/es6/test -R spec --recursive --timeout 30000",
+    "test": "mocha ./dist/cjs_es6/test -R spec --recursive --timeout 30000",
     "rebuild": "npm-run-all del gen-methods tsc",
-    "tsc-esm": "./node_modules/.bin/tsc -p ./tsconfig.esm.json",
-    "copy-ts-src-npmpackage": "mkdirp ./npmpackage/_tssrc/ && shx cp -r ./src/* ./npmpackage/_tssrc",
-    "copy-es6-src-npmpackage": "mkdirp ./npmpackage/es6 && shx cp -r ./dist/es6/src/* ./npmpackage/es6",
-    "copy-esm-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/esm/src/* ./npmpackage",
+    "tsc-esm_es5": "tsc -p ./tsconfig.esm_es5.json",
+    "copy-cjs_es6-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/cjs_es6/src/* ./npmpackage",
+    "copy-esm_es5-src-npmpackage": "mkdirp ./npmpackage/esm_es5 && shx cp -r ./dist/esm_es5/src/* ./npmpackage/esm_es5",
     "bundles": "mkdirp ./npmpackage/bundles && node ./tools/make-umd-bundle.js",
     "inject-ts-helpers": "node ./tools/inject-ts-helpers.js",
-    "build-npmpackage": "npm-run-all rebuild tsc-esm copy-ts-src-npmpackage copy-es6-src-npmpackage copy-esm-src-npmpackage gen-readme-md gen-package-json bundles inject-ts-helpers"
+    "build-npmpackage": "npm-run-all rebuild tsc-esm_es5 copy-cjs_es6-src-npmpackage copy-esm_es5-src-npmpackage gen-readme-md gen-package-json bundles inject-ts-helpers"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
   "devDependencies": {
     "@types/glob": "^5.0.30",
     "@types/mocha": "^2.2.33",
@@ -34,7 +35,6 @@
     "npm-scripts-info": "^0.3.6",
     "rollup": "^0.37.0",
     "shx": "^0.2.1",
-    "tslib": "1.7.0",
     "typescript": "^3.0.0"
   },
   "author": "Marcin Najder <marcin.najder@gmail.com>",
@@ -48,5 +48,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:marcinnajder/powerseq.git"
-  }
+  },
+  "sideEffects": false
 }

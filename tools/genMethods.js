@@ -20,18 +20,19 @@ export { includesp } from "./operators/includes";
 export { sequenceequalp } from "./operators/sequenceequal";
 export { zipp } from "./operators/zip";
 
-export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc} from "./operators/groupby";
+export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc } from "./operators/groupby";
 
 ${indexContent}`);
 
-// var imports = files
-//     .map(p => `import "${p}"; `)
-//     .join(os.EOL);
+var imports = files
+    .map(p => `import "${p}"; `)
+    .join(os.EOL);
 
 saveFile("./src/enumerable.ts",
     `export * from "./enumerable_";
 export * from "./orderedEnumerable";        
 export * from "./index";
+${imports}
 `);
 
 

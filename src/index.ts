@@ -6,7 +6,7 @@ export { includesp } from "./operators/includes";
 export { sequenceequalp } from "./operators/sequenceequal";
 export { zipp } from "./operators/zip";
 
-export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc} from "./operators/groupby";
+export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc } from "./operators/groupby";
 
 export { asiterable } from "./operators/asiterable";
 export { average } from "./operators/average";

@@ -109,7 +109,7 @@ function findTableSize(columnCount, rowCount, methodCount) {
 }
 
 function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOpertor) {
-    var {rowCount, columnCount} = findTableSize(maxColumns, maxRows, methods.length);
+    var { rowCount, columnCount } = findTableSize(maxColumns, maxRows, methods.length);
     var methodName, unitTestModule, linq, samples;
     var content = "";
 
@@ -121,7 +121,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
                 break;
             }
 
-            unitTestModule = require("../dist/es6/test/" + enumerableOrOpertor + "/" + methodName + ".js");
+            unitTestModule = require("../dist/cjs_es6/test/" + enumerableOrOpertor + "/" + methodName + ".js");
 
             // linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
             // content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
@@ -147,7 +147,7 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
 
     // content
     for (var methodName of methods) {
-        var unitTestModulePath = ["/operators", "/enumerable"].map(f => path.resolve(__dirname, "../dist/es6/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
+        var unitTestModulePath = ["/operators", "/enumerable"].map(f => path.resolve(__dirname, "../dist/cjs_es6/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
         unitTestModule = require(unitTestModulePath);
 
         var maxMatchingOperators = counterparts.map(c => unitTestModule[c]).filter(ops => Array.isArray(ops)).reduce((p, c) => Math.max(p, c.length), 0);

@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 
 rollup.rollup({
-  entry: './dist/esm/src/index.js'
+  entry: './dist/esm_es5/src/index.js'
 }).then(function (bundle) {
   var result = bundle.generate({
     format: 'umd',

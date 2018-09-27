@@ -2,12 +2,13 @@
     "compilerOptions": {
         "noImplicitAny": false,
         "sourceMap": true,
+        "inlineSources": true,
         "declaration": true,
         "lib": [
-            "es2015"        
+            "es2015"
         ],
         "rootDir": "./",
-        "moduleResolution": "node",        
+        "moduleResolution": "node",
         "downlevelIteration": true
     },
     "include": [
