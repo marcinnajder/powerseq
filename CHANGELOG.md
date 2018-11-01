@@ -1,4 +1,9 @@
 
+<a name="1.0.4"></a>
+# [1.0.4](https://github.com/marcinnajder/powerseq/releases/tag/1.0.4) (2018-11-01)
+
+* revert PR with entries operator typings
+
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/marcinnajder/powerseq/releases/tag/1.0.3) (2018-11-01)
 
@@ -21,7 +26,7 @@
 * esm as a default distribution format (tree shaking finally works)
 
 <a name="0.0.9"></a>
-# [0.0.9](https://github.com/marcinnajder/powerseq/releases/tag/0.0.9) (2017-05-09)
+# [0.0.9](https://github.com/marecinnajder/powerseq/releases/tag/0.0.9) (2017-05-09)
 
 * upgrade to TS 2.3.0 (babel is not no longer required)
 * distribution of ESM (support for webpack2)
