@@ -1,3 +1,10 @@
+
+<a name="1.0.3"></a>
+# [1.0.3](https://github.com/marcinnajder/powerseq/releases/tag/1.0.3) (2018-11-01)
+
+* bug fix with non-iterable `arguments` const in IE (11)
+* correct typings of entries operator (PR)
+
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/marcinnajder/powerseq/releases/tag/1.0.2) (2018-09-27)
 
