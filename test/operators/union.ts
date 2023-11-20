@@ -16,3 +16,5 @@ export const samples = [
 
 export const linq = "Union";
 export const lodash = ["union", "unionBy", "unionWith"];
+export const kotlin = "union~";
+export const clojure = "union~";

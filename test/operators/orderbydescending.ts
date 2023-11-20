@@ -13,3 +13,4 @@ export const jsarray = "sort";
 export const linq = "OrderByDescending";
 export const lodash = ["orderBy", "sortBy"];
 export const fsharp = ["sort", "sortBy"];
+export const kotlin = ["sortedDescending", "sortedByDescending"];

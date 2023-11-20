@@ -18,3 +18,5 @@ export const linq = "Zip";
 export const lodash = ["zip", "zipWith"];
 export const rxjs = "zip";
 export const fsharp = ["zip", "zip3"];
+export const kotlin = "zip";
+export const clojure = "map";

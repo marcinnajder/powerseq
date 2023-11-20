@@ -19,4 +19,10 @@ export const jsarray = "map";
 export const linq = "Select";
 export const lodash = "map";
 export const rxjs = "map";
-export const fsharp = "map";
+export const fsharp = ["map", "mapi"];
+export const kotlin = ["map", "mapIndexed"];
+export const clojure = "map";
+export const java = "map";
+
+
+

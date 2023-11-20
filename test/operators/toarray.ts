@@ -15,3 +15,5 @@ export const samples = [
 
 export const linq = "ToArray";
 export const fsharp = "toArray";
+export const kotlin = "toList";
+export const java = ["toArray", "toList", "C.toList"];

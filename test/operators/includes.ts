@@ -24,3 +24,5 @@ export const jsarray = "includes";
 export const linq = "Contains";
 export const lodash = "includes";
 export const fsharp = "contains";
+export const kotlin = "contains";
+export const clojure = "contains?";

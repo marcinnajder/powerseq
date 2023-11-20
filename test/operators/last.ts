@@ -23,3 +23,4 @@ export const linq = "Last";
 export const lodash = "findLast";
 export const rxjs = "last";
 export const fsharp = "last";
+export const kotlin = ["findLast", "last~"];

@@ -21,3 +21,6 @@ export const jsarray = "every";
 export const lodash = "every";
 export const rxjs = "every";
 export const fsharp = "forall";
+export const kotlin = "all";
+export const clojure = "every?";
+export const java = "allMatch";

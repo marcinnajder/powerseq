@@ -15,3 +15,4 @@ export const samples = [
 export const jsarray = "reverse";
 export const linq = "Reverse";
 export const lodash = "reverse";
+export const clojure = "reverse";

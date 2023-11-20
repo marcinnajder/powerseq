@@ -15,5 +15,9 @@ export const samples = [
     () => maxby(['a', 'bb', 'rrr', 'd'], x => x.length)
 ];
 
+export const linq = "MaxBy";
 export const lodash = "maxBy";
 export const fsharp = "maxBy";
+export const kotlin = "maxBy";
+export const clojure = "max-key";
+export const java = ["C.maxBy", "C.summarizing*"];

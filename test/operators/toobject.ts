@@ -23,3 +23,5 @@ export const samples = [
 ];
 
 export const lodash = ["fromPairs", "keyBy"];
+export const kotlin = ["associate", "associateBy", "associateWith"];
+export const java = "C.toMap";

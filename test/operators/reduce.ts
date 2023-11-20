@@ -26,3 +26,7 @@ export const linq = "Aggregate";
 export const lodash = "reduce";
 export const rxjs = "reduce";
 export const fsharp = ["fold", "reduce"];
+export const kotlin = ["fold", "reduce", "reduceOrNull"];
+export const clojure = "reduce";
+export const java = "reduce";
+

@@ -21,3 +21,6 @@ export const linq = "Where";
 export const lodash = "filter";
 export const rxjs = "filter";
 export const fsharp = ["filter", "where"];
+export const kotlin = ["filter", "filterIndexed"];
+export const clojure = "filter";
+export const java = "filter";

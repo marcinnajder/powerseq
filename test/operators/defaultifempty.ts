@@ -18,3 +18,4 @@ export const samples = [
 
 export const linq = "DefaultIfEmpty";
 export const rxjs = "defaultIfEmpty";
+export const kotlin = "ifEmpty";

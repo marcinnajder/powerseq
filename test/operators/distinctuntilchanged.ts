@@ -13,3 +13,4 @@ export const samples = [
 ];
 
 export const rxjs = ["distinctUntilChanged", "distinctUntilKeyChanged"];
+export const clojure = "dedupe";

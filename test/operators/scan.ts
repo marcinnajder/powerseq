@@ -20,3 +20,5 @@ export const samples = [
 
 export const rxjs = "scan";
 export const fsharp = "scan";
+export const kotlin = ["scan", "runningFold", "runningReduce"];
+export const clojure = "reductions";

@@ -25,4 +25,7 @@ export const samples = [
 export const linq = "SelectMany";
 export const lodash = ["flatten", "flatMap"];
 export const fsharp = "collect";
+export const kotlin = ["flatMap", "flatten~"];
+export const clojure = ["mapcat", "flatten~"];
+export const java = ["flatMap", "mapMulti"];
 
