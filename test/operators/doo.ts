@@ -18,3 +18,6 @@ export const samples = [
 ];
 
 export const rxjs = "do";
+export const kotlin = "onEach";
+export const java = "peek";
+

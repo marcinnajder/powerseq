@@ -34,5 +34,10 @@ export const linq = "GroupBy";
 export const lodash = "groupBy";
 export const rxjs = "groupBy";
 export const fsharp = "groupBy";
+export const kotlin = ["groupBy", "groupingBy"];
+export const clojure = "group-by";
+export const java = "C.groupingBy";
+
+
 
 

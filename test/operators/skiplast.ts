@@ -19,3 +19,4 @@ export const samples = [
 ];
 
 export const lodash = ["dropRight", "initial"];
+export const clojure = "drop-last";

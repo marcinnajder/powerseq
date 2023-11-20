@@ -18,3 +18,5 @@ export const samples = [
 
 export const linq = "Intersect";
 export const lodash = ["intersection", "intersectionBy", "intersectionWith"];
+export const kotlin = "intersect~";
+export const clojure = "intersection~";

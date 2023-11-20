@@ -19,3 +19,6 @@ export const jsarray = "concat";
 export const lodash = "concat";
 export const rxjs = "concat";
 export const fsharp = "append";
+export const kotlin = ["plus", "plusElement"];
+export const clojure = "concat";
+export const java = "concat";

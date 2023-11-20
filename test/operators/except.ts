@@ -16,3 +16,6 @@ export const samples = [
 
 export const linq = "Except";
 export const lodash = ["difference", "differenceBy", "differenceWith", "without"];
+export const kotlin = "minus~";
+export const clojure = "difference~";
+

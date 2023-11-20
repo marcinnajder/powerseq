@@ -12,3 +12,5 @@ export const samples = [
 
 export const rxjs = "empty";
 export const fsharp = "empty";
+export const kotlin = "emptySequence";
+export const java = "empty";

@@ -20,3 +20,6 @@ export const samples = [
 export const linq = "Average";
 export const lodash = ["mean", "meanBy"];
 export const fsharp = ["average", "averageBy"];
+export const kotlin = "average";
+export const java = ["C.averaging*", "C.summarizing*"];
+

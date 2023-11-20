@@ -21,3 +21,5 @@ export const linq = "Max";
 export const lodash = "max";
 export const rxjs = "max";
 export const fsharp = "max";
+export const kotlin = "maxOf";
+export const java = "max";

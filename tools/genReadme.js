@@ -16,15 +16,17 @@ var otherLibs = {
     "jsarray": "[JS Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)",
     "lodash": "[lodash](https://lodash.com/docs/4.17.2)",
     "rxjs": "[RxJS](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html)",
-    "fsharp": "[F#](https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.seq-module-%5bfsharp%5d)",
+    "fsharp": "[F#](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-seqmodule.html)",
+    "clojure": "[Clojure](https://clojure.org/api/cheatsheet)",
+    "kotlin": "[Kotlin](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/)",
+    "java": "[Java](https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/stream/Stream.html)",
     "ixjs/ix.net": "?",
-    "scala": "",
-    "java": "",
+    "scala": ""
 }
 
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
-var counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp"];
+var counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
 var mappingTable = generateMappingTable(operators.concat(enumerable).sort(), githubAddressPrefix, counterparts);
 
 
@@ -152,8 +154,8 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
     var content = "";
 
     // header
-    content += "|" + ["powerseq"].concat(counterparts.map(n => otherLibs[n])).join("|") + "|" + os.EOL;
-    content += "|" + ["powerseq"].concat(counterparts).map(_ => "---").join("|") + "|" + os.EOL;
+    content += "|" + ["powerseq"].concat(counterparts.map(n => otherLibs[n])).concat(["powerseq"]).join("|") + "|" + os.EOL;
+    content += "|" + ["powerseq"].concat(counterparts).concat(["powerseq"]).map(_ => "---").join("|") + "|" + os.EOL;
 
     // content
     for (var methodName of methods) {
@@ -161,7 +163,7 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
         unitTestModule = require(unitTestModulePath);
 
         var maxMatchingOperators = counterparts.map(c => unitTestModule[c]).filter(ops => Array.isArray(ops)).reduce((p, c) => Math.max(p, c.length), 0);
-        content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c])).map(o => formatOperators(o, maxMatchingOperators)).join("|") + "|" + os.EOL;
+        content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c])).map(o => formatOperators(o, maxMatchingOperators)).concat([methodName]).join("|") + "|" + os.EOL;
         //content += "|" + [methodName].concat(counterparts.map(c => (unitTestModule[c] || "").toString().replace(/\,/g, "</br>"))).join("|") + "|" + os.EOL;
     }
 
@@ -266,7 +268,28 @@ function formatResultValue(value) {
 
 
 
-// ** JS Array
+// gdy przegladalem operatory dla poszczegolnych technologii to notowalem co w nich jest ciekawe i czego ewentualnie brakuje w powerfp
+
+// todo: ewentualnie kiedys dopisac/zmienic w powerseq 2.0
+// - podniesc wersje TS, na nowo zbudowac jak to chyba w innym branchu zrobil Maciej Jur
+// - scan - powinien zwracac pierwszy element 'seed' od ktorego zaczynamy
+// - groupjoin - dziala inaczej jak w LINQ, w .net zwraca takze elementy ktory nie maja pasujacego elementu, powerseq pomija takie
+// - share/memoize - ktore dziala zdaje sie jak 'share' w bibliotekac, zaimplementowane jest w nawet w repo 'misc' 
+// (zobaczyc jak F# 'cache' to dziala pod spodem, chyba czysci cache na koncu)
+// - partition-by - dzialanie jak w clojure, to nawet gdzies w repo "misc" jest zaimplementowane, zwraca Iterable<T[]>
+// - countBy - ktory liczy wystapienia dla wskazanego klucza, aby nie robic recznie groupby(x=>x.id).toobject(x=>x.key, x => count(x))
+// - pairwise - mozna to samo osiadnac buffer wiec pewnie nie warto to pisac 
+// - unzip - przeciwienstwo zip
+// - shuffle - miesza elementy, ale chyba sie nie nadaje do leniwej biblioteki, ale wiele bibliotek ma, ale nigdy nie potrzebowalem w sumie
+// - interleave, interpose, take-nth,  - clojure nizej w sumie fajne operatory
+// - choose/pick - takie z F# moze warto napisac, nawet moze gdy brak wartosci to null/undefined czyli jak dzialaja (chyba) 
+// opertory ?. ?? ??= w JS i sie nie cyrtola (tak samo w clojure obslugiwany jest brak wartosci)
+// - unfold - gdy juz jakos bedziemy obslugiwac 'Option' to mozna takze to, ale to samo da sie 'expand' zrobic to moze nie warto
+
+
+
+// -----> JS Array
+
 // copyWithin
 // fill
 // ?? indexOf
@@ -337,9 +360,7 @@ function formatResultValue(value) {
 // _.shuffle
 
 
-
-
-// ** Rx JS
+// -----> Rx JS
 // - catch(selector: function): Observable
 // Catches errors on the observable to be handled by returning a new observable or throwing an error.
 // - partition -> to mial lodash i 
@@ -347,11 +368,9 @@ function formatResultValue(value) {
 // - retry -> jesli moze znajdzie sie jakis fajny case rzeczywistego uzycia? (generalnie inne takze do wyjatkow moze byc fajne jesli sie znajdzie przypadek)
 
 
-
-
 // -----> F#
 // - cache -> taki memoize zdaje sie, ale niby poki idziem po nim to keszuje, ale jak dojdziemy do konca to czysci
-// - choose
+// - choose - w powerseq takiego nie ma bo w sumie nie mamy "Option<T>", moze zwykly undefined/null mozna do tego wykorzystac
 // - compareWith - ciekawa metoda ktora dziala jak comparator (zwraca -1,0,1) ale dziala dla calej kolekcji, moze warto zaimplementowac :) choc tutaj zadna metoda powerseq nie przujmuje comparatora ale moze dla keySelectora warto zaimplementowac
 // - concat -> tutaj 2 F# to jakby flatten czyli z [[T],[T]] robi [T,T], to samo mozna osiagnac flatmap
 // - countBy -> czyli zliczania tworzac grupy, takie cos mial takze lodash, tutaj mozna groupby i count zrobic
@@ -369,71 +388,7 @@ function formatResultValue(value) {
 // - unfold -> ciekawa w sumie odwrotnosc fold, byc moze warto zaimplementowac (tyle ze tutaj metoda nazywa sie reduce)
 
 
-
-
-
-
-
-
-
-// <style>
-//     .wrapper {
-//       color: #555;
-//       position: relative;
-//     }
-
-//     .wrapper .tooltip {
-//       width: 300px;
-//       z-index: 1;
-//       background: lightgray;
-//       color: black;
-//       white-space: pre-line;
-//       /* widać białe znaki */
-//       top: 100%;
-//       display: block;
-//       margin-top: 10px;
-//       opacity: 0;
-//       padding: 10px;
-//       pointer-events: none;
-//       position: absolute;
-//       transition: all 0.2s ease;
-//     }
-
-//     /*This bridges the gap so you can mouse into the tooltip without it disappearing */
-//     /*
-//     .wrapper .tooltip:before {
-//       top: -10px;
-//       content: " ";
-//       display: block;
-//       height: 10px;
-//       left: 0;
-//       position: absolute;
-//       width: 100%;
-//     }
-//     */
-
-//     .wrapper .tooltip:after {
-//       /*strzałka*/
-//       border-left: solid transparent 7px;
-//       border-right: solid transparent 7px;
-//       border-bottom: solid lightgray 7px;
-//       top: -7px;
-//       margin-left: -7px;
-//       content: " ";
-//       height: 0;
-//       left: 14px;
-//       position: absolute;
-//       width: 0;
-//     }
-
-//     .wrapper:hover .tooltip {
-//       opacity: 1;
-//       pointer-events: auto;
-//     }
-//   </style>
-
-
-
+// --->>> Ix
 
 //https://github.com/ReactiveX/IxJS/tree/master/iterable
 //https://github.com/Reactive-Extensions/IxJS/wiki/Enumerable
@@ -511,8 +466,90 @@ function formatResultValue(value) {
 // - Average (average)
 
 
+// --->>> clojure
+// https://clojure.org/api/cheatsheet
+// https://clojure-doc.org/articles/language/collections_and_sequences/ !!
+// https://aphyr.com/posts/304-clojure-from-the-ground-up-sequences !!
+
+// - remove - to takie zaprzeczenie filter
+// - keep - to takie polaczenie filter i map, to taki choose z F#, jak zwraca nil to mam pomijac, jak inna wartosc to ja zwracac
+// - take-nth - zwraca co nty element w kolekcj
+// - interleave - przyjmuje 2 (albo wiecej) sekwencji i zwraca jedna sekwencje gdzie sa wszystkie pierwsze, potem wszystkie drugie, wszystkie trzecie, ... w sumie podobne do zip ale nie laczy tylko elementow tylko zwraca kolejne, to wygodne jak z 2 kolekcji chcemy zrobic mape gdzie nieparzyste to klucze a parzyste to wartosci
+// - interpose - dajemy separator ktory bedzie wstawiany pomiedzy elementy sekwencji takze przekazanej
+// - partition, partition-by - podaje sie 'n' elemento w paczce oraz opcjonlanie 'step' dzieki temu to moze dzialac jak chunk (gdzie paczki elementow sa jedna po drugiej) lub 'windowed/pairwise' gdzie nachodza na siebie 
+// - partition-by - jest inny jak partition/partition-by bo nie podaje sie ilosc elementow ale funkcje ktora decyduje czy nastepna pacza ma powstarac, w innych technologiach jest "partition" ale tak przekazuje sie funkche ktora zwraca 'boolean' i finalnie zwracana jest para kolekcji, tutaj jest to bardziej uniwersalne
+// - (split-at n coll) - Returns a vector of [(take n coll) (drop n coll)]
+// - (split-with pred coll) - Returns a vector of [(take-while pred coll) (drop-while pred coll)]
 
 
+/// ----->>> kotlin
+// https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/
+// - ogolne uwagi do operatorow:
+// -- funkcje xxxTo - czesto dzialaja jak ich odpowiedniki xxx tylko przyjmuja MutableList/MutableMap do ktorego wbijaja dane i go zwracaja
+// -- funcje xxxWith - taki minWith przyjmuje implementacja interfejsu Comparator<T>, minBy przyjmuje lamde, to w kilku miejcach jest konwencja np sortedWith
+// -- associateTo/associateByTo/WithTo - jak bez ...To
+
+// - fun <T> Sequence<T>.constrainOnce(): Sequence<T> -Returns a wrapper sequence that provides values of this sequence, but ensures it can be iterated only one time. The operation is intermediate and stateless. IllegalStateException is thrown on iterating the returned sequence for the second time and the following times.
+// - contains - Returns true if element is found in the sequence.
+// - fun <reified R> Sequence<*>.filterIsInstance(): Sequence<R> Returns a sequence containing all elements that are instances of specified type parameter R. The operation is intermediate and stateless. "animals.filterIsInstance<Cat>()"
+// - fun <T> Sequence<T>.filterNot( predicate: (T) -> Boolean): Sequence<T> Returns a sequence containing all elements not matching the given predicate. The operation is intermediate and stateless.
+// - inline fun <T> Sequence<T>.indexOfLast( predicate: (T) -> Boolean ): Int Returns index of the last element matching the given predicate, or -1 if the sequence does not contain such element. The operation is terminal.
+// - joinTo/joinToString - dosyc rozbudowana funkcja z wieloma opcjonalnymi argumentami ktora potrafi polaczyc wszystkie elementy do jednej wartosci np String, ale wlasnie nie koniecznie
+// - minus, minusElement, plus, plusElement - to potem w kodzie mozna napisac operator + lub - 
+// - inline fun <T> Sequence<T>.partition( predicate: (T) -> Boolea ): Pair<List<T>, List<T>> Splits the original sequence into pair of lists, where first list contains elements for which predicate yielded true, while second list contains elements for which predicate yielded false.
+// - shuffled - zwraca pomieszane elementy
+// - unzip - odwrotnosc "zip"
+// - fun <T> Sequence<T>.withIndex(): Sequence<IndexedValue<T>> (source) - zwraca 'IndexedValue(index: Int, value: T)'
+
+
+
+/// ----->>> java
+// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/stream/Stream.html
+// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/stream/package-summary.html#MutableReduction
+// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/stream/Collectors.html
+
+// - collect(Collector<? super T,A,R> collector) - Performs a mutable reduction operation on the elements of this stream using a Collector.
+// - noneMatch(Predicate<? super T> predicate) Returns whether no elements of this stream match the provided predicate.
+// - Java nawet miala collector ktory robil "partitioningBy" ale niestety lambda zwraca boolean czyli dzieli jedynie na 2 zbiory
+// -- static <T> Collector<T,?,Map<Boolean,List<T>>> partitioningBy(Predicate<? super T> predicate) Returns a Collector which partitions the input elements according to a Predicate, and organizes them into a Map<Boolean, List<T>>.
+// - flatMap/map/mapMulti ... To ... Double/Long/Double - dedykowane metody dla prymitywow
+
+// - LINQ/strumienie w Java to jest jakas masakra, w sumie nie dziwie sie ze strumienie moga zniechecic do korzystania
+// -- w powerseq -> pipe(people, groupby(p => p.city), toobject( gr => gr.key, gr => maxBy(gr, byHeight))
+// -- nizej w Java ->
+//  Comparator<Person> byHeight = Comparator.comparing(Person::getHeight);
+//  Map<City, Optional<Person>> tallestByCity
+//    = people.stream().collect(
+//      groupingBy(Person::getCity,
+//                 reducing(BinaryOperator.maxBy(byHeight))));
+
+// - maja taki collector ktory potrafi na raz liczy wiele agregatow min/max/count/avg/sum, ale w sumie to mozna 'reduce' zrobic
+// -- https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/DoubleSummaryStatistics.html
+// -- https://ramj2ee.blogspot.com/2017/09/how-to-use-averagingint-summingint-and.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <span data-tooltip="Sentence one here. Sentence&#xa;two here. Sentence three here.">See my CSS tooltip with HTML-entity &amp;#xa; line break:</span>
 
 // <style>
 //  [data-tooltip] {
@@ -529,4 +566,59 @@ function formatResultValue(value) {
 // </style>
 
 
-// <span data-tooltip="Sentence one here. Sentence&#xa;two here. Sentence three here.">See my CSS tooltip with HTML-entity &amp;#xa; line break:</span>
+
+// <style>
+//     .wrapper {
+//       color: #555;
+//       position: relative;
+//     }
+
+//     .wrapper .tooltip {
+//       width: 300px;
+//       z-index: 1;
+//       background: lightgray;
+//       color: black;
+//       white-space: pre-line;
+//       /* widać białe znaki */
+//       top: 100%;
+//       display: block;
+//       margin-top: 10px;
+//       opacity: 0;
+//       padding: 10px;
+//       pointer-events: none;
+//       position: absolute;
+//       transition: all 0.2s ease;
+//     }
+
+//     /*This bridges the gap so you can mouse into the tooltip without it disappearing */
+//     /*
+//     .wrapper .tooltip:before {
+//       top: -10px;
+//       content: " ";
+//       display: block;
+//       height: 10px;
+//       left: 0;
+//       position: absolute;
+//       width: 100%;
+//     }
+//     */
+
+//     .wrapper .tooltip:after {
+//       /*strzałka*/
+//       border-left: solid transparent 7px;
+//       border-right: solid transparent 7px;
+//       border-bottom: solid lightgray 7px;
+//       top: -7px;
+//       margin-left: -7px;
+//       content: " ";
+//       height: 0;
+//       left: 14px;
+//       position: absolute;
+//       width: 0;
+//     }
+
+//     .wrapper:hover .tooltip {
+//       opacity: 1;
+//       pointer-events: auto;
+//     }
+//   </style>

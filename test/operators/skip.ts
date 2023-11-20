@@ -17,5 +17,8 @@ export const samples = [
 export const linq = "Skip";
 export const lodash = ["drop", "tail"];
 export const rxjs = "skip";
-export const fsharp = ["skip~"];
+export const fsharp = "skip~";
+export const kotlin = "drop";
+export const clojure = "drop";
+export const java = "skip";
 

@@ -43,4 +43,7 @@ export const jsarray = "sort";
 export const linq = "OrderBy";
 export const lodash = ["orderBy", "sortBy"];
 export const fsharp = ["sort", "sortBy"];
+export const kotlin = ["sorted", "sortedBy"];
+export const clojure = ["sort", "sort-by"];
+export const java = "sorted";
 

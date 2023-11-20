@@ -13,3 +13,5 @@ export const samples = [
 
 export const jsarray = "of";
 export const rxjs = "of";
+export const kotlin = "sequenceOf";
+export const java = "of";

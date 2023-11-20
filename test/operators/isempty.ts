@@ -15,3 +15,5 @@ export const samples = [
 
 export const rxjs = "isEmpty";
 export const fsharp = "isEmpty";
+export const kotlin = "none";
+export const clojure = "empty?";

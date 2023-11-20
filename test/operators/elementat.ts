@@ -19,3 +19,5 @@ export const samples = [
 export const lodash = "nth";
 export const rxjs = "elementAt";
 export const fsharp = "nth";
+export const kotlin = ["elementAt", "elementAtOrElse", "elementAtOrNull"];
+export const clojure = ["nth", "get~"];

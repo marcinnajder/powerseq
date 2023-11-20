@@ -19,3 +19,6 @@ export const linq = "SkipWhile";
 export const lodash = "dropWhile";
 export const rxjs = "skipWhile";
 export const fsharp = "skipWhile";
+export const kotlin = "dropWhile";
+export const clojure = "drop-while";
+export const java = "dropwhile";

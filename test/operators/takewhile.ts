@@ -19,3 +19,6 @@ export const linq = "TakeWhile";
 export const lodash = "takeWhile";
 export const rxjs = "takeWhile";
 export const fsharp = "takeWhile";
+export const kotlin = "takeWhile";
+export const clojure = "take-while";
+export const java = "takeWhile";

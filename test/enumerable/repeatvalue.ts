@@ -11,3 +11,5 @@ export const samples = [
     () => repeatvalue(true, 4),
     () => take(repeatvalue(true), 2),
 ];
+
+export const clojure = "repeat";

@@ -13,3 +13,5 @@ export const samples = [
     () => repeat([1, 2, 3], 2),
     () => take(repeat([1, 2, 3]), 5)
 ];
+
+export const clojure = "cycle";

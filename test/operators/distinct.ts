@@ -18,6 +18,8 @@ export const linq = "Distinct";
 export const lodash = ["uniq", "uniqBy", "uniqWith"];
 export const rxjs = "distinct";
 export const fsharp = ["distinct", "distinctBy"];
-
+export const kotlin = ["distinct", "distinctBy"];
+export const clojure = "distinct";
+export const java = "distinct";
 
 

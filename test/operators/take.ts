@@ -18,3 +18,6 @@ export const linq = "Take";
 export const lodash = "take";
 export const rxjs = "take";
 export const fsharp = ["truncate", "~take"];
+export const kotlin = "take";
+export const clojure = "take";
+export const java = "limit";

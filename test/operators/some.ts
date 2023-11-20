@@ -21,3 +21,6 @@ export const jsarray = "some";
 export const linq = "Any";
 export const lodash = "some";
 export const fsharp = "exists";
+export const kotlin = "any";
+export const clojure = "some";
+export const java = "anyMatch";

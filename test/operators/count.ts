@@ -20,3 +20,6 @@ export const linq = "Count";
 export const lodash = "size";
 export const rxjs = "count";
 export const fsharp = "length";
+export const kotlin = "count";
+export const clojure = "count";
+export const java = ["count", "C.counting", "C.summarizing*"];

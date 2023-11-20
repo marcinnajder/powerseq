@@ -24,7 +24,9 @@ export const samples = [
     () => buffer([1, 2, 3, 4, 5, 6, 7], 2, /*skip*/4)
 ];
 
-
+export const linq = "Chunk";
 export const lodash = "chunk";
 export const rxjs = ["bufferCount", "pairwise"];
 export const fsharp = ["windowed", "pairwise"];
+export const kotlin = ["windowed", "chunk"];
+export const clojure = ["partition-all", "partition~"];

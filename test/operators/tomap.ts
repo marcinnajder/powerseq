@@ -21,3 +21,7 @@ export const samples = [
     () => tomap(['a', 'bb', 'ccc'], x => x.length),
     () => tomap(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase())
 ];
+
+export const linq = "ToDictionary";
+export const kotlin = "toMap";
+export const java = "C.toMap";

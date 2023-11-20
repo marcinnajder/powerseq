@@ -15,3 +15,4 @@ export const samples = [
 export const linq = "Range";
 export const lodash = "range";
 export const rxjs = "range";
+export const clojure = "range";
