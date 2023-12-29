@@ -1,4 +1,5 @@
 import { Operator, OperatorR } from "./types";
+import { isNotNothing } from "./utils";
 
 export function wrapInIterable<T>(generator: () => Iterator<T>): Iterable<T> {
     return { [Symbol.iterator]: generator }
@@ -6,7 +7,7 @@ export function wrapInIterable<T>(generator: () => Iterator<T>): Iterable<T> {
 
 export function wrapInThunk(args: IArguments, operator: Function): Operator<any, any> | OperatorR<any, any> | any | Iterable<any> {
     if (isIterable(args[0])) {
-        return operator(...argumentsToIterable(args));
+        return operator(...argumentsToIterable(args)); // call operator function
     }
     return wrapInThunkAlways(args, operator);
 }
@@ -23,7 +24,7 @@ export function wrapInThunkAlways(args: IArguments, operator: Function): Operato
 }
 
 export function isIterable<T>(iterable: Iterable<T> | T): iterable is Iterable<T> {
-    return typeof iterable !== "undefined" && typeof iterable[Symbol.iterator] !== "undefined";
+    return isNotNothing(iterable) && typeof (iterable as any)[Symbol.iterator] !== "undefined";
 }
 
 /** in IE 11 arguments is not a iterable and this can't be polyfilled  */

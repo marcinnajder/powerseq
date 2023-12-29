@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, tomap } from "../../src/enumerable";
+import { tomap } from "../../src/index";
 
 it('tomap', function () {
     for (var m1 of [
@@ -11,7 +11,7 @@ it('tomap', function () {
         assert.strictEqual(m1.get(2), 2);
     }
 
-    var m2 = Enumerable.from([1, 1, 2]).tomap(x => x, x => x.toString());
+    var m2 = tomap([1, 1, 2], x => x, x => x.toString());
     assert.equal(m2.size, 2);
     assert.strictEqual(m2.get(1), "1");
     assert.strictEqual(m2.get(2), "2");

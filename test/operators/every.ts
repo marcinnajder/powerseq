@@ -1,12 +1,10 @@
 import * as assert from "assert";
-import { Enumerable, every } from "../../src/enumerable";
+import { every } from "../../src/index";
 
 it('every', function () {
     assert.deepEqual(every([1, 2], x => x > 0), true);
-    assert.deepEqual(Enumerable.from([1, 2]).every(x => x > 0), true);
-    assert.deepEqual(Enumerable.from([1, 2]).every(x => x > 1), false);
-
-    assert.deepEqual(every(x => x > 0)([1, 2]), true);
+    assert.deepEqual(every([1, 2], x => x > 1), false);
+    assert.deepEqual(every((x: number) => x > 0)([1, 2]), true);
 });
 
 

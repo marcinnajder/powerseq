@@ -1,14 +1,15 @@
 import * as assert from "assert";
-import { Enumerable, skipwhile } from "../../src/enumerable";
+import { skipwhile } from "../../src/index";
 
 it('skipwhile', function () {
-    assert.deepEqual(Array.from(skipwhile([1, 2, 3, 4], x => x < 3)), [3, 4]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile(x => true).toarray(), []);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile(x => false).toarray(), [1, 2, 3, 4]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile(x => x < 3).toarray(), [3, 4]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).skipwhile((x, index) => index < 3).toarray(), [4]);
+    assert.deepEqual([...skipwhile([1, 2, 3, 4], x => x < 3)], [3, 4]);
 
-    assert.deepEqual(Array.from(skipwhile(x => x < 3)([1, 2, 3, 4])), [3, 4]);
+    assert.deepEqual([...skipwhile([1, 2, 3, 4], x => true)], []);
+    assert.deepEqual([...skipwhile([1, 2, 3, 4], x => false)], [1, 2, 3, 4]);
+    assert.deepEqual([...skipwhile([1, 2, 3, 4], x => x < 3)], [3, 4]);
+    assert.deepEqual([...skipwhile([1, 2, 3, 4], (x, index) => index < 3)], [4]);
+
+    assert.deepEqual([...skipwhile((x: number) => x < 3)([1, 2, 3, 4])], [3, 4]);
 });
 
 export const samples = [

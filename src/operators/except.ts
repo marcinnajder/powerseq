@@ -1,5 +1,4 @@
 import { keySelector, Operator } from "../common/types";
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
 function _except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>) {
@@ -30,11 +29,3 @@ export function except<T>(source2: Iterable<T>, keySelector?: keySelector<T, any
 export function except() {
     return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _except);
 }
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        except(source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T>;
-    }
-}
-Enumerable.prototype.except = function <T>(this: Enumerable<T>, source2: Iterable<T>, keySelector?: keySelector<T, any>): Enumerable<T> {
-    return new Enumerable<T>(_except<T>(this, source2, keySelector));
-};

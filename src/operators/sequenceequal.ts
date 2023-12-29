@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInThunkAlways } from "../common/wrap";
 import { OperatorR } from "../common/types";
 
@@ -9,7 +8,7 @@ export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, sou
 export function sequenceequal<T>(...args: Iterable<T>[]): boolean;
 export function sequenceequal<T>(...args: Iterable<T>[]): boolean {
     var iterators = args.map((i: Iterable<any>) => i[Symbol.iterator]());
-    var value: IteratorResult<any>, firstValue: IteratorResult<any>;
+    var value: IteratorResult<any>, firstValue: IteratorResult<any> | undefined;
 
     while (true) {
         firstValue = undefined;
@@ -39,17 +38,3 @@ export function sequenceequalp<T>(...args: Iterable<T>[]): OperatorR<T, boolean>
 export function sequenceequalp() {
     return wrapInThunkAlways(arguments, sequenceequal);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        sequenceequal(source2: Iterable<T>): boolean;
-        sequenceequal(source2: Iterable<T>, source3: Iterable<T>): boolean;
-        sequenceequal(source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>): boolean;
-        sequenceequal(source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>, source5: Iterable<T>): boolean;
-        sequenceequal(...args: Iterable<T>[]): boolean;
-    }
-}
-Enumerable.prototype.sequenceequal = function <T>(this: Enumerable<T>, ...args): boolean {
-    return sequenceequal.apply(null, [this, ...args]);
-};

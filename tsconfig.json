@@ -1,3 +1,20 @@
 {
-    "extends": "./tsconfig.cjs_es6.json"
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "es2015",
+        "strict": true,        
+        "sourceMap": true,
+        "inlineSources": true,
+        "declaration": true,
+        "lib": [
+            "es2015"
+        ],
+        "moduleResolution": "node",        
+        "rootDir": "./",        
+        "outDir": "./dist",
+    },
+    "include": [
+        "src/**/*.ts",
+        "test/**/*.ts"
+    ]
 }

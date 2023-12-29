@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { Operator } from "../common/types";
 
@@ -19,12 +18,3 @@ export function take<T>(count: number): Operator<T, T>;
 export function take() {
     return wrapInThunk(arguments, _take);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        take(count: number): Enumerable<T>;
-    }
-}
-Enumerable.prototype.take = function <T>(this: Enumerable<T>, count: number) {
-    return new Enumerable<T>(_take<T>(this, count));
-};

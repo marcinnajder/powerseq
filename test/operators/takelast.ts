@@ -1,12 +1,12 @@
 import * as assert from "assert";
-import { Enumerable, takelast } from "../../src/enumerable";
+import { takelast } from "../../src/index";
 
 it('takelast', function () {
     assert.deepEqual(Array.from(takelast([1, 2, 3], 2)), [2, 3]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takelast(0).toarray(), []);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takelast(1).toarray(), [4]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takelast(5).toarray(), [1, 2, 3, 4]);
-    assert.deepEqual(Enumerable.from([]).takelast(5).toarray(), []);
+    assert.deepEqual([...takelast([1, 2, 3, 4], 0)], []);
+    assert.deepEqual([...takelast([1, 2, 3, 4], 1)], [4]);
+    assert.deepEqual([...takelast([1, 2, 3, 4], 5)], [1, 2, 3, 4]);
+    assert.deepEqual([...takelast([], 5)], []);
 
     assert.deepEqual(Array.from(takelast(2)([1, 2, 3])), [2, 3]);
 });

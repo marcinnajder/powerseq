@@ -1,0 +1,3 @@
+- remove entries funcrion, there is builtin Object.entries from ES2017 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+- remove Enumerable. support
+- ... 

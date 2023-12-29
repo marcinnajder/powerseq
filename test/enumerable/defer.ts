@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, defer, filter } from "../../src/enumerable";
+import { defer } from "../../src/index";
 
 it('defer', function () {
     var couter = 0;

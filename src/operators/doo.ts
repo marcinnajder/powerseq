@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { Operator } from "../common/types";
 
@@ -17,12 +16,3 @@ export function doo<T>(action: (item: T, index: number) => void): Operator<T, T>
 export function doo() {
     return wrapInThunk(arguments, _doo);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        doo(action: (item: T, index: number) => void): Enumerable<T>;
-    }
-}
-Enumerable.prototype.doo = function <T>(this: Enumerable<T>, action: (item: T, index: number) => void): Enumerable<T> {
-    return new Enumerable(_doo(this, action));
-};

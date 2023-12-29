@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { Operator } from "../common/types";
 
@@ -60,14 +59,3 @@ export function buffer<T>(count: number, skip?: number): Operator<T, T[]>;
 export function buffer() {
     return wrapInThunk(arguments, _buffer);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        buffer(count: number, skip?: number): Enumerable<T[]>;
-    }
-}
-Enumerable.prototype.buffer = function <T>(this: Enumerable<T>, count: number, skip?: number) {
-    return new Enumerable<T[]>(_buffer<T>(this, count, skip));
-};
-

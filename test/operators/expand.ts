@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, expand, take } from "../../src/enumerable";
+import { expand } from "../../src/index";
 
 it('expand', function () {
     assert.deepEqual(Array.from(expand([1], x => x > 8 ? [] : [x * 2])), [1, 2, 4, 8, 16]);
@@ -13,8 +13,8 @@ it('expand', function () {
     },
     { name: "x", children: [] }];
 
-    assert.deepEqual(Enumerable.from(tree).expand(x => x.children).map(x => x.name).toarray(), ["a", "x", "d", "w", "dd"]);
-    assert.deepEqual(Array.from(expand<number>(x => x > 8 ? [] : [x * 2])([1])), [1, 2, 4, 8, 16]);
+    assert.deepEqual([...expand(tree, x => x.children)].map(x => x.name), ["a", "x", "d", "w", "dd"]);
+    assert.deepEqual([...expand((x: number) => x > 8 ? [] : [x * 2])([1])], [1, 2, 4, 8, 16]);
 });
 
 export const samples = [

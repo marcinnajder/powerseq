@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, flatmap } from "../../src/enumerable";
+import { flatmap } from "../../src/index";
 
 it('flatmap', function () {
     var items = [
@@ -8,12 +8,12 @@ it('flatmap', function () {
         { name: "c", items: [1, 2], },
     ];
     type ItemType = typeof items[0];
-    assert.deepEqual(Array.from(flatmap(items, x => x.items)), [1, 1, 2]);
-    assert.deepEqual(Enumerable.from(items).flatmap(x => x.items).toarray(), [1, 1, 2]);
-    assert.deepEqual(Enumerable.from(items).flatmap((x, index) => [index].concat(x.items)).toarray(), [0, 1, 1, 2, 1, 2]);
-    assert.deepEqual(Enumerable.from(items).flatmap(x => x.items, (item, subitem) => item.name + subitem).toarray(), ["b1", "c1", "c2"]);
+    assert.deepEqual([...flatmap(items, x => x.items)], [1, 1, 2]);
+    assert.deepEqual([...flatmap(items, x => x.items)], [1, 1, 2]);
+    assert.deepEqual([...flatmap(items, (x, index) => [index].concat(x.items))], [0, 1, 1, 2, 1, 2]);
+    assert.deepEqual([...flatmap(items, x => x.items, (item, subitem) => item.name + subitem)], ["b1", "c1", "c2"]);
 
-    assert.deepEqual(Array.from(flatmap<ItemType, number>(x => x.items)(items)), [1, 1, 2]);
+    assert.deepEqual([...flatmap<ItemType, number>(x => x.items)(items)], [1, 1, 2]);
 });
 
 export const samples = [

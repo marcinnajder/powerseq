@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, join } from "../../src/enumerable";
+import { join } from "../../src/index";
 
 it('join', function () {
     var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three_" }, { id: 3, name: "three__" }];
@@ -7,8 +7,9 @@ it('join', function () {
 
     type ItemType1 = typeof items1[0];
     type ItemType2 = typeof items2[0];
+
     var reses = [
-        Enumerable.from(items1).join(items2, x => x.id, y => y.id, (x, y) => ({ name: x.name, value: y.value })).toarray(),
+        [...join(items1, items2, x => x.id, y => y.id, (x, y) => ({ name: x.name, value: y.value }))],
         [...join<ItemType1, ItemType2, number, { name: string, value: string }>(items2, x => x.id, y => y.id, (x, y) => ({ name: x.name, value: y.value }))(items1)]
     ];
 

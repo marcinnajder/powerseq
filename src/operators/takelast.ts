@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
@@ -9,7 +8,7 @@ function _takelast<T>(source: Iterable<T>, count: number) {
         }
 
         var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T>;
+        var value: IteratorResult<T> | undefined;
 
         if (count === 1) {
             while (true) {
@@ -61,12 +60,3 @@ export function takelast<T>(count: number): Operator<T, T>;
 export function takelast() {
     return wrapInThunk(arguments, _takelast);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        takelast(count: number): Enumerable<T>;
-    }
-}
-Enumerable.prototype.takelast = function <T>(this: Enumerable<T>, count: number) {
-    return new Enumerable<T>(_takelast<T>(this, count));
-};

@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
@@ -25,12 +24,3 @@ export function last<T>(predicate?: predicate<T>): OperatorR<T, T | undefined>;
 export function last() {
     return wrapInThunk(arguments, _last);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        last(predicate?: predicate<T>): T | undefined;
-    }
-}
-Enumerable.prototype.last = function <T>(this: Enumerable<T>, predicate?: predicate<T>): T | undefined {
-    return _last(this, predicate);
-};

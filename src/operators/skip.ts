@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { Operator } from "../common/types";
 
@@ -28,13 +27,3 @@ export function skip<T>(count: number): Operator<T, T>;
 export function skip() {
     return wrapInThunk(arguments, _skip);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        skip(count: number): Enumerable<T>;
-    }
-}
-Enumerable.prototype.skip = function <T>(this: Enumerable<T>, count: number) {
-    return new Enumerable<T>(_skip<T>(this, count));
-};

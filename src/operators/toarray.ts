@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { OperatorR } from "../common/types";
 
@@ -18,12 +17,3 @@ export function toarray<T>(): OperatorR<T, T[]>;
 export function toarray() {
     return wrapInThunk(arguments, _toarray);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        toarray(): T[]
-    }
-}
-Enumerable.prototype.toarray = function <T>(this: Enumerable<T>) {
-    return _toarray(this._iterable);
-};

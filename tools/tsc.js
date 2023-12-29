@@ -1,17 +1,17 @@
-var child_process =  require('child_process');
-var {exec} = child_process;
+var child_process = require('child_process');
+var { exec } = child_process;
 
 var watchMode = process.argv.length === 3;
 
 cmd(formatTscCmd("./", watchMode));
-cmd(formatTscCmd("./samples/", watchMode));
+// cmd(formatTscCmd("./samples/", watchMode));
 
 function cmd(command, execOptions, options, callback) {
     options = options || {};
 
     console.log("CMD:", command);
-    var newProcess = exec(command, execOptions, function(err, stdout, stderr) {
-        if(callback){
+    var newProcess = exec(command, execOptions, function (err, stdout, stderr) {
+        if (callback) {
             callback(err);
         }
     });
@@ -24,6 +24,6 @@ function cmd(command, execOptions, options, callback) {
     return newProcess;
 }
 
-function formatTscCmd(tsconfigFolder, watch){
-    return `"./node_modules/.bin/tsc" -p ${tsconfigFolder} ${watch? "-w" : ""}`;
+function formatTscCmd(tsconfigFolder, watch) {
+    return `"./node_modules/.bin/tsc" -p ${tsconfigFolder} ${watch ? "-w" : ""}`;
 }

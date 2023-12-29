@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, cast } from "../../src/enumerable";
+import { cast } from "../../src/index";
 
 class Animal {
     type = "animal";
@@ -10,16 +10,15 @@ class Dog extends Animal {
 
 it('cast', function () {
     var animals: any[] = [new Animal(), new Animal(), new Dog()];
-    assert.deepEqual(Array.from(cast<Animal>(animals, Animal)).length, 3);
-    assert.deepEqual(Enumerable.from(animals).cast<Animal>(Animal).toarray().length, 3);
+    assert.deepEqual([...cast<Animal>(animals, Animal)].length, 3);
+    assert.deepEqual([...cast<Animal>(animals, Animal)].length, 3);
     assert.throws(() => {
-        var r = Enumerable.from(animals).cast<Dog>(Dog).toarray();
+        var r = [...cast<Dog>(animals, Dog)];
     }, "An element in the sequence cannot be cast to type TResult.")
 
-    assert.deepEqual(Array.from(cast<Animal>(Animal)(animals)).length, 3);
+    assert.deepEqual([...cast<Animal>(Animal)(animals)].length, 3);
 
 });
-
 
 export const samples = [
     () => cast<number>([new Number(1), new Number(2), 's', false], Number),

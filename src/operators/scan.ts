@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { Operator } from "../common/types";
 
@@ -6,12 +5,14 @@ function _scan<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, it
     return wrapInIterable(function* () {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
-        var accumulator = seed;
+        var accumulator: TAccumulate;
 
         if (typeof seed === "undefined") {
             value = iterator.next();
             if (value.done) return;
             accumulator = <any>value.value;
+        } else {
+            accumulator = seed;
         }
 
         while (true) {
@@ -31,14 +32,3 @@ export function scan<T, TAccumulate>(func: (prev: TAccumulate, item: T) => TAccu
 export function scan() {
     return wrapInThunk(arguments, _scan);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        scan(func: (prev: T, item: T) => T): Enumerable<T>;
-        scan<TAccumulate>(func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): Enumerable<TAccumulate>;
-    }
-}
-Enumerable.prototype.scan = function <T, TAccumulate>(this: Enumerable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): Enumerable<TAccumulate> {
-    return new Enumerable(_scan(this, func, seed));
-};

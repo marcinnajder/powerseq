@@ -1,11 +1,10 @@
 import * as assert from "assert";
-import { Enumerable, repeat, take, toarray } from "../../src/enumerable";
+import { repeat, take } from "../../src/index";
 
 it('repeat', function () {
     assert.deepEqual(Array.from(repeat([1, 2, 3], 2)), [1, 2, 3, 1, 2, 3]);
-    assert.deepEqual(Enumerable.from([1, 2, 3]).repeat().take(10).toarray(), [1, 2, 3, 1, 2, 3, 1, 2, 3, 1]);
-    assert.deepEqual(Enumerable.from([1, 2, 3]).repeat(0).toarray(), []);
-
+    assert.deepEqual([...take(repeat([1, 2, 3]), 10)], [1, 2, 3, 1, 2, 3, 1, 2, 3, 1]);
+    assert.deepEqual([...repeat([1, 2, 3], 0)], []);
     assert.deepEqual([...repeat(2)([1, 2, 3])], [1, 2, 3, 1, 2, 3]);
 });
 
@@ -14,4 +13,5 @@ export const samples = [
     () => take(repeat([1, 2, 3]), 5)
 ];
 
+export const rxjs = "repeat";
 export const clojure = "cycle";

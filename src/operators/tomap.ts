@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInThunk } from "../common/wrap";
 import { Operator, OperatorR } from "../common/types";
 
@@ -26,14 +25,3 @@ export function tomap<T, TKey, TElement>(keySelector: (item: T) => TKey, element
 export function tomap() {
     return wrapInThunk(arguments, _tomap);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        tomap<TKey>(keySelector: (item: T) => TKey): Map<TKey, T>;
-        tomap<TKey, TElement>(keySelector: (item: T) => TKey, elementSelector: (item: T) => TElement): Map<TKey, TElement>;
-    }
-}
-Enumerable.prototype.tomap = function <T, TKey, TElement>(this: Enumerable<T>, keySelector: (item: T) => TKey, elementSelector?: (item: T) => TElement): Map<TKey, TElement> {
-    return _tomap(this._iterable, keySelector, elementSelector);
-};

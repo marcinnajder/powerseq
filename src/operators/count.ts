@@ -1,5 +1,4 @@
 import { predicate, OperatorR } from "../common/types";
-import { Enumerable } from "../enumerable_";
 import { wrapInThunk } from "../common/wrap";
 
 function _count<T>(source: Iterable<T>, predicate?: predicate<T>): number {
@@ -29,12 +28,3 @@ export function count<T>(predicate?: predicate<T>): OperatorR<T, number>;
 export function count() {
     return wrapInThunk(arguments, _count);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        count(predicate?: predicate<T>): number;
-    }
-}
-Enumerable.prototype.count = function <T>(this: Enumerable<T>, predicate?: predicate<T>): number {
-    return _count(this, predicate);
-};

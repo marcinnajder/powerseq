@@ -1,14 +1,14 @@
 import * as assert from "assert";
-import { Enumerable, takewhile } from "../../src/enumerable";
+import { takewhile } from "../../src/index";
 
 it('takewhile', function () {
-    assert.deepEqual(Array.from(takewhile([1, 2, 3, 4], x => x < 3)), [1, 2]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile(x => true).toarray(), [1, 2, 3, 4]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile(x => false).toarray(), []);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile(x => x < 3).toarray(), [1, 2]);
-    assert.deepEqual(Enumerable.from([1, 2, 3, 4]).takewhile((x, index) => index < 3).toarray(), [1, 2, 3]);
+    assert.deepEqual([...takewhile([1, 2, 3, 4], x => x < 3)], [1, 2]);
+    assert.deepEqual([...takewhile([1, 2, 3, 4], x => true)], [1, 2, 3, 4]);
+    assert.deepEqual([...takewhile([1, 2, 3, 4], x => false)], []);
+    assert.deepEqual([...takewhile([1, 2, 3, 4], x => x < 3)], [1, 2]);
+    assert.deepEqual([...takewhile([1, 2, 3, 4], (x, index) => index < 3)], [1, 2, 3]);
 
-    assert.deepEqual(Array.from(takewhile(x => x < 3)([1, 2, 3, 4])), [1, 2]);
+    assert.deepEqual([...takewhile((x: number) => x < 3)([1, 2, 3, 4])], [1, 2]);
 });
 
 export const samples = [

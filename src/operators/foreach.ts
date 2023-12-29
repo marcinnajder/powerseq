@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
@@ -20,12 +19,3 @@ export function foreach<T>(action?: (item: T, index: number) => void): OperatorR
 export function foreach() {
     return wrapInThunk(arguments, _foreach);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        foreach(action?: (item: T, index: number) => void): void;
-    }
-}
-Enumerable.prototype.foreach = function <T>(this: Enumerable<T>, action?: (item: T, index: number) => void) {
-    _foreach(this, action);
-};

@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable } from "../common/wrap";
 
 export function repeatvalue<T>(value: T, count?: number) {
@@ -14,12 +13,4 @@ export function repeatvalue<T>(value: T, count?: number) {
             }
         }
     });
-}
-declare module '../enumerable_' {
-    namespace Enumerable {
-        export function repeatvalue<T>(value: T, count?: number): Enumerable<T>;
-    }
-}
-Enumerable.repeatvalue = function <T>(value: T, count?: number): Enumerable<T> {
-    return new Enumerable<T>(repeatvalue(value, count));
 }

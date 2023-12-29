@@ -1,9 +1,12 @@
+
 export type selector<T, TResult> = (item: T, index: number) => TResult;
 export type predicate<T> = (item: T, index: number) => boolean;
 export type comparer<T> = (a: T, b: T) => number;
+
 export type Dictionary<T> = {
     [key: string]: T;
 }
+
 export type keySelector<T, TKey> = (item: T) => TKey;
 
 // this was try to resolve TS inference problem  
@@ -18,15 +21,15 @@ export type EIterable<T> = Iterable<T>;
 // EIterable<T> still exist as a marker of problematic cases, probable it will be removed in the future.
 
 
-export type func0<TResult> = () => TResult;
-export type func1<TArg, TResult> = (arg: TArg) => TResult;
-export type func2<TArg1, TArg2, TResult> = (arg1: TArg1, arg2: TArg2) => TResult;
+// export type func0<TResult> = () => TResult;
+// export type func1<TArg, TResult> = (arg: TArg) => TResult;
+// export type func2<TArg1, TArg2, TResult> = (arg1: TArg1, arg2: TArg2) => TResult;
 
-// operator with R_esult and A_rgument
-export interface OperatorRA<T, R> {
-    (source: T): R;
-}
-export interface OperatorR<T, R> extends OperatorRA<Iterable<T>, R> {
-}
-export interface Operator<T, R> extends OperatorR<T, Iterable<R>> {
-}
+
+export type OperatorTR<T, R> = (source: T) => R;
+
+export type OperatorR<T, R> = OperatorTR<Iterable<T>, R>;
+
+export type Operator<T, R> = OperatorTR<Iterable<T>, Iterable<R>>;
+
+export type Nothing = null | undefined;

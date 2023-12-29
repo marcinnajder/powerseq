@@ -1,5 +1,4 @@
-import { predicate, Operator } from "../common/types";
-import { Enumerable } from "../enumerable_";
+import { Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 
@@ -21,14 +20,3 @@ export function cast<TResult>(type: Function): Operator<any, TResult>;
 export function cast() {
     return wrapInThunk(arguments, _cast);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        cast<TResult>(type: Function): Enumerable<TResult>;
-    }
-}
-Enumerable.prototype.cast = function <T, TResult>(this: Enumerable<T>, type: Function) {
-    return new Enumerable<TResult>(_cast<TResult>(this, type));
-};
-

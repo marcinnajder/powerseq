@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { keySelector, OperatorR } from "../common/types";
 import { maxmin } from "../common/maxmin";
 import { wrapInThunk } from "../common/wrap";
@@ -14,14 +13,3 @@ export function max<T, TValue>(valueSelector: keySelector<T, TValue>): OperatorR
 export function max() {
     return wrapInThunk(arguments, _max);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        max(): T | undefined;
-        max<TValue>(valueSelector: keySelector<T, TValue>): TValue | undefined;
-    }
-}
-Enumerable.prototype.max = function <T, TValue>(this: Enumerable<T>, valueSelector?: keySelector<T, TValue>): T | TValue | undefined {
-    return _max(this, valueSelector);
-};

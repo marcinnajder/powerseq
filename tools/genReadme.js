@@ -271,21 +271,74 @@ function formatResultValue(value) {
 // gdy przegladalem operatory dla poszczegolnych technologii to notowalem co w nich jest ciekawe i czego ewentualnie brakuje w powerfp
 
 // todo: ewentualnie kiedys dopisac/zmienic w powerseq 2.0
-// - podniesc wersje TS, na nowo zbudowac jak to chyba w innym branchu zrobil Maciej Jur
-// - scan - powinien zwracac pierwszy element 'seed' od ktorego zaczynamy
-// - groupjoin - dziala inaczej jak w LINQ, w .net zwraca takze elementy ktory nie maja pasujacego elementu, powerseq pomija takie
-// - share/memoize - ktore dziala zdaje sie jak 'share' w bibliotekac, zaimplementowane jest w nawet w repo 'misc' 
-// (zobaczyc jak F# 'cache' to dziala pod spodem, chyba czysci cache na koncu)
+// - moze funkncje nazwa cycle zamiasat repeat, bo jeszcze jest repeatvalue :/ 
+// - moze taki takeWhileIncluded i skipWhileIncluded
+// - dodac singleOrDefault() i inne analogiczne aby byla wresja bez wyjatka
+// - podniesc wersje TS, zbudowac na mniej sposobow
+// - moze usunac wsparcie dla fluent interface -> Enumerable.map().filter(), sprawdzic kto z tego korzysta
+// - nowa dokumentacja pod tabelka jako opcja dla tooltip
+// - dodac index do flatmap
+// - scan - zmiana, powinien zwracac pierwszy element 'seed' od ktorego zaczynamy
+// - groupjoin - zmiana, dziala inaczej jak w LINQ, w .net zwraca takze elementy ktory nie maja pasujacego elementu, powerseq pomija takie
+// - memoize - implementowalem juz memoize tutaj https://github.com/marcinnajder/misc/blob/master/2022_07_22_code_snippets/TypesScript/seq/quicksort.js#L139
+// a tutaj implementacja threadsafe w F# https://github.com/dotnet/fsharp/blob/main/src/FSharp.Core/seq.fs#L1214 
+// - share - to nie memoize chodzi o cos takiego
+// https://github.com/marcinnajder/misc/blob/master/2021_12_24_advent_of_code_in_fsharp/AdventOfCode/AdventOfCode2021/Day16_packets.fs#L28
 // - partition-by - dzialanie jak w clojure, to nawet gdzies w repo "misc" jest zaimplementowane, zwraca Iterable<T[]>
+// -- niby taki parition dzielacy na 2 mozna zrobic groupby ale kto by o tym pamietal skoro sam zapominam :/
+// - toLookup/assign - ktory dziala jak groupBy ale zwraca Map<K, V[]>
 // - countBy - ktory liczy wystapienia dla wskazanego klucza, aby nie robic recznie groupby(x=>x.id).toobject(x=>x.key, x => count(x))
 // - pairwise - mozna to samo osiadnac buffer wiec pewnie nie warto to pisac 
 // - unzip - przeciwienstwo zip
 // - shuffle - miesza elementy, ale chyba sie nie nadaje do leniwej biblioteki, ale wiele bibliotek ma, ale nigdy nie potrzebowalem w sumie
 // - interleave, interpose, take-nth,  - clojure nizej w sumie fajne operatory
+// - indexed - moze warto dodac aby nie pisac .map( (i,e) => ({i,e}))
 // - choose/pick - takie z F# moze warto napisac, nawet moze gdy brak wartosci to null/undefined czyli jak dzialaja (chyba) 
+// -- tylko pod nazwami filtermap i findmap
 // opertory ?. ?? ??= w JS i sie nie cyrtola (tak samo w clojure obslugiwany jest brak wartosci)
 // - unfold - gdy juz jakos bedziemy obslugiwac 'Option' to mozna takze to, ale to samo da sie 'expand' zrobic to moze nie warto
+// - https://fxts.dev/docs/map/ po przeglagnieciu 
+// -- distinctby, unionby, 	intersectby, exceptby <- ale to wszystko juz mamy przeladowaniacj tych funkcji distinct, .. 
+// (trzeba pomyslec na lepszej dokumentacji bo sam tego nie pamietam :/ czy na pewno wszystkie przyklady w dokumentacji
+// pokazuja wszystkie przeladniwaa ?? moze tak, dokumentacja na stronie obok tej w tooltip moze poprawi szukanie tych
+// operatorow, mozna wtedy mona dodac notatkw ze w innych jezykach ten operator to: ... )
+// -- ewentualnie czesc funkcji nie dla kolekcji mozna wrzuci do powerfp
+// - https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-seqmodule.html#mapFold warto chyba dodac
 
+
+
+
+
+// function filter<T>(items : Iterable<T>, f: (item: T) => boolean): Iterable<T>{
+//     return [];
+// }
+// function map<T, R>(items : Iterable<T>, f: (item: T) => R): Iterable<R>{
+//     return [];
+// }
+// function find<T>(items : Iterable<T>, f: (item: T) => boolean ): T | undefined{
+//     return undefined;
+// }
+// function filtermap<T,R>(items : Iterable<T>, f: (item: T) => null | undefined /*| false*/ | R): Iterable<R>{
+//     return [];
+// }
+// function findmap<T,R>(items : Iterable<T>, f: (item: T) => null | undefined /*| false*/ | R): R | undefined {
+//     return undefined;
+// }
+// interface Person{
+//     id: number;
+//     name: string;
+//     address?: {
+//         city:string
+//     };
+// }
+// var people : Person[] = [];
+// var aa0 = map(filter(people, p => p.id > 10), x => x.name);
+// var bb0 = find(people, p => p.id > 10)?.name;
+// var aa1 = filtermap(people, p => p.id > 10 ? p.name : undefined);
+// var aa2 = filtermap(people, p => p.id > 10 && p.name); 
+// var aa3 = filtermap(people, p => p.address?.city);
+// var aa00 = map(filter(people, p => !!p.address), p => p.address?.city);
+// var bb1 = findmap(people, p => p.id > 10 ? p.name : undefined);
 
 
 // -----> JS Array
@@ -515,7 +568,7 @@ function formatResultValue(value) {
 // - flatMap/map/mapMulti ... To ... Double/Long/Double - dedykowane metody dla prymitywow
 
 // - LINQ/strumienie w Java to jest jakas masakra, w sumie nie dziwie sie ze strumienie moga zniechecic do korzystania
-// -- w powerseq -> pipe(people, groupby(p => p.city), toobject( gr => gr.key, gr => maxBy(gr, byHeight))
+// -- w powerseq -> pipe(people, groupby(p => p.city), toobject( gr => gr.key, gr => maxBy(gr, g => g.height))
 // -- nizej w Java ->
 //  Comparator<Person> byHeight = Comparator.comparing(Person::getHeight);
 //  Map<City, Optional<Person>> tallestByCity

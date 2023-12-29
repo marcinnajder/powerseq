@@ -1,15 +1,15 @@
 import * as assert from "assert";
-import { Enumerable } from "../../src/enumerable";
+import { from } from "../../src/index";
 import { return123Iterator, } from "../common";
 
 it('from', function () {
-    assert.deepEqual(Enumerable.from(return123Iterator()).toarray(), [1, 2, 3]);
-    assert.deepEqual(Enumerable.from([1, 2, 3]).toarray(), [1, 2, 3]);
+    assert.deepEqual([...from(return123Iterator())], [1, 2, 3]);
+    assert.deepEqual([...from([1, 2, 3])], [1, 2, 3]);
 });
 
 export const samples = [
-    () => Enumerable.from([1, 2, 3]),
-    () => Enumerable.from((function* () { yield 1; })())
+    () => from([1, 2, 3]),
+    () => from((function* () { yield 1; })())
 ];
 
 

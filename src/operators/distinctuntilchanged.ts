@@ -1,5 +1,4 @@
 import { keySelector, Operator } from "../common/types";
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 function _distinctuntilchanged<T>(source: Iterable<T>, keySelector?: keySelector<T, any>) {
@@ -36,12 +35,3 @@ export function distinctuntilchanged<T>(keySelector?: keySelector<T, any>): Oper
 export function distinctuntilchanged() {
     return wrapInThunk(arguments, _distinctuntilchanged);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        distinctuntilchanged(keySelector?: keySelector<T, any>): Enumerable<T>;
-    }
-}
-Enumerable.prototype.distinctuntilchanged = function <T>(this: Enumerable<T>, keySelector?: keySelector<T, any>): Enumerable<T> {
-    return new Enumerable<T>(_distinctuntilchanged<T>(this, keySelector));
-};

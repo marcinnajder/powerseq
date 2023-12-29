@@ -1,10 +1,10 @@
 import * as assert from "assert";
-import { Enumerable, throww } from "../../src/enumerable";
+import { throww } from "../../src/index";
 
 it('throww', function () {
     assert.throws(() => {
-        Array.from(throww<string>(new Error("exception ...")));
-    }, "exception ...");
+        [...throww<string>(new Error("exception ..."))];
+    }, new Error("exception ..."));
 });
 
 export const samples = [

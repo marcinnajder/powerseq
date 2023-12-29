@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Enumerable, toobject } from "../../src/enumerable";
+import { toobject } from "../../src/index";
 
 it('toobject', function () {
     for (var o1 of [
@@ -11,7 +11,7 @@ it('toobject', function () {
         assert.strictEqual(o1[2], 2);
     }
 
-    var o2 = Enumerable.from([1, 1, 2]).toobject(x => x, x => x.toString());
+    var o2 = toobject([1, 1, 2], x => x, x => x.toString());
     assert.equal(Object.keys(o2).length, 2);
     assert.strictEqual(o2[1], "1");
     assert.strictEqual(o2[2], "2");

@@ -1,6 +1,8 @@
-import { Enumerable } from "../enumerable_";
 import { predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
+
+// ta funkcja jest dziwna bo rzuca blad jak jest wiecej jak jeden, ale jak nie ma zadnego to zwraca undefined tzn to jest 
+// niespojne, w Koltin jest SingleOrNull i to dziala spokojnie
 
 function _single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
     var hasValue = false;
@@ -39,12 +41,3 @@ export function single<T>(predicate?: predicate<T>): OperatorR<T, T | undefined>
 export function single() {
     return wrapInThunk(arguments, _single);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        single(predicate?: predicate<T>): T | undefined;
-    }
-}
-Enumerable.prototype.single = function <T>(this: Enumerable<T>, predicate?: predicate<T>): T | undefined {
-    return _single(this, predicate);
-};

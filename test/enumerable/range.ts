@@ -1,11 +1,11 @@
 import * as assert from "assert";
-import { range } from "../../src/enumerable";
-import { Enumerable } from "../../src/enumerable_";
+import { range } from "../../src/index";
+
 
 it('range', function () {
-    assert.deepEqual(Enumerable.range(0, 4).toarray(), [0, 1, 2, 3]);
-    assert.deepEqual(Enumerable.range(-2, 4).toarray(), [-2, -1, 0, 1]);
-    assert.deepEqual(Enumerable.range(0, -2).toarray(), []);
+    assert.deepEqual([...range(0, 4)], [0, 1, 2, 3]);
+    assert.deepEqual([...range(-2, 4)], [-2, -1, 0, 1]);
+    assert.deepEqual([...range(0, -2)], []);
 });
 
 export const samples = [

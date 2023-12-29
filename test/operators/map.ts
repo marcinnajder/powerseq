@@ -1,13 +1,10 @@
 import * as assert from "assert";
-import { Enumerable, map } from "../../src/enumerable";
+import { map } from "../../src/index";
 
 it('map', function () {
     assert.deepEqual(Array.from(map([1, 2, 3], x => x + 1)), [2, 3, 4]);
-
-    assert.deepEqual(Enumerable.from([1, 2, 3]).map(x => x + 1).toarray(), [2, 3, 4]);
-    assert.deepEqual(Enumerable.from([1, 2, 3]).map((x, index) => x + index).toarray(), [1, 3, 5]);
-
-    assert.deepEqual(Array.from(map<number, number>(x => x + 1)([1, 2, 3])), [2, 3, 4]);
+    assert.deepEqual([...map([1, 2, 3], (x, index) => x + index)], [1, 3, 5]);
+    assert.deepEqual([...map((x: number) => x + 1)([1, 2, 3])], [2, 3, 4]);
 });
 
 export const samples = [

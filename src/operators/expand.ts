@@ -1,12 +1,11 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
-import { EIterable, Operator } from "../common/types";
+import { Operator } from "../common/types";
 
 function _expand<T>(source: Iterable<T>, selector: (item: T, index?: number) => Iterable<T> | undefined) {
     return wrapInIterable(function* () {
         var head: Node<T> = { iter: source };
         var last = head;
-        var newIterable: Iterable<T>;
+        var newIterable: Iterable<T> | undefined;
 
         while (true) {
             var index = 0;
@@ -30,16 +29,6 @@ export function expand<T>(selector: (item: T, index?: number) => Iterable<T> | u
 export function expand() {
     return wrapInThunk(arguments, _expand);
 }
-
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        expand(selector: (item: T) => EIterable<T>): Enumerable<T>;
-    }
-}
-Enumerable.prototype.expand = function <T>(this: Enumerable<T>, selector: (item: T) => EIterable<T>): Enumerable<T> {
-    return new Enumerable(_expand(this, selector));
-};
 
 interface Node<T> {
     iter: Iterable<T>;

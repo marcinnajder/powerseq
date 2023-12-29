@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
@@ -18,12 +17,3 @@ export function findindex() {
     return wrapInThunk(arguments, _findindex);
 }
 
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        findindex(predicate: predicate<T>): number | undefined;
-    }
-}
-Enumerable.prototype.findindex = function <T>(this: Enumerable<T>, predicate: predicate<T>): number | undefined {
-    return _findindex(this, predicate);
-};

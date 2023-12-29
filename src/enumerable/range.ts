@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable } from "../common/wrap";
 
 export function range(start: number, count: number) {
@@ -8,12 +7,4 @@ export function range(start: number, count: number) {
             yield i;
         }
     });
-}
-declare module '../enumerable_' {
-    namespace Enumerable {
-        export function range(start: number, count: number): Enumerable<number>;
-    }
-}
-Enumerable.range = function (start: number, count: number): Enumerable<number> {
-    return new Enumerable<number>(range(start, count));
 }

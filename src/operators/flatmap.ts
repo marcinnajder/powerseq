@@ -1,5 +1,4 @@
 import { selector, EIterable, Operator } from "../common/types";
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 function _flatmap<T, TCollection, TResult>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>, resultSelector?: (item: T, collectionItem: TCollection) => TResult): Iterable<TResult> {
@@ -29,13 +28,3 @@ export function flatmap<T, TCollection, TResult>(collectionSelector: selector<T,
 export function flatmap() {
     return wrapInThunk(arguments, _flatmap);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        flatmap<TCollection>(collectionSelector: selector<T, EIterable<TCollection>>): Enumerable<TCollection>;
-        flatmap<TCollection, TResult>(collectionSelector: selector<T, EIterable<TCollection>>, resultSelector: (item: T, collectionItem: TCollection) => TResult): Enumerable<TResult>;
-    }
-}
-Enumerable.prototype.flatmap = function <T, TCollection, TResult>(this: Enumerable<T>, collectionSelector: selector<T, EIterable<TCollection>>, resultSelector?: (item: T, collectionItem: TCollection) => TResult): Enumerable<TResult> {
-    return new Enumerable<TResult>(_flatmap(this, collectionSelector, resultSelector));
-};

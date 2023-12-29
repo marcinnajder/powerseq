@@ -1,6 +1,6 @@
 {
   "name": "powerseq",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Sequence operators",
   "scripts": {
     "del": "npm-run-all del-dist del-npmpackage",
@@ -12,7 +12,8 @@
     "gen-package-json": "node tools/genPackageJson.js",
     "gen-readme-md": "node tools/genReadme.js",
     "watch": "node tools/tsc.js watch",
-    "test": "mocha ./dist/cjs_es6/test -R spec --recursive --timeout 30000",
+    "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
+    "test-old": "mocha ./dist/cjs_es6/test -R spec --recursive --timeout 30000",
     "rebuild": "npm-run-all del gen-methods tsc",
     "tsc-esm_es5": "tsc -p ./tsconfig.esm_es5.json",
     "copy-cjs_es6-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/cjs_es6/src/* ./npmpackage",
@@ -25,17 +26,16 @@
     "tslib": "^1.9.0"
   },
   "devDependencies": {
-    "@types/glob": "^5.0.30",
-    "@types/mocha": "^2.2.33",
-    "@types/node": "0.0.2",
-    "glob": "^7.1.1",
-    "mkdirp": "^0.5.1",
-    "mocha": "^3.2.0",
-    "npm-run-all": "^3.1.2",
-    "npm-scripts-info": "^0.3.6",
-    "rollup": "^0.37.0",
-    "shx": "^0.2.1",
-    "typescript": "^3.0.0"
+    "@types/mocha": "10.0.6",
+    "@types/node": "20.10.5",
+    "glob": "10.3.10",
+    "mkdirp": "3.0.1",
+    "mocha": "10.2.0",
+    "npm-run-all": "4.1.5",
+    "npm-scripts-info": "0.3.9",
+    "rollup": "4.9.1",
+    "shx": "0.3.4",
+    "typescript": "5.3.3"
   },
   "author": "Marcin Najder <marcin.najder@gmail.com>",
   "license": "MIT",

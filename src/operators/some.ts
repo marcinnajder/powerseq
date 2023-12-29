@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
@@ -25,12 +24,3 @@ export function some<T>(predicate?: predicate<T>): OperatorR<T, boolean>;
 export function some() {
     return wrapInThunk(arguments, _some);
 }
-
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        some(predicate?: predicate<T>): boolean;
-    }
-}
-Enumerable.prototype.some = function <T>(this: Enumerable<T>, predicate?: predicate<T>): boolean {
-    return _some(this, predicate);
-};

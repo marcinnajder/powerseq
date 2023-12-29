@@ -1,4 +1,3 @@
-import { Enumerable } from "../enumerable_";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 import { selector, Operator } from "../common/types";
 
@@ -16,11 +15,3 @@ export function map<T, TResult>(projection: selector<T, TResult>): Operator<T, T
 export function map() {
     return wrapInThunk(arguments, _map);
 }
-declare module '../enumerable_' {
-    interface Enumerable<T> {
-        map<TResult>(projection: selector<T, TResult>): Enumerable<TResult>;
-    }
-}
-Enumerable.prototype.map = function <T, TResult>(this: Enumerable<T>, projection: selector<T, TResult>) {
-    return new Enumerable<TResult>(_map(this, projection));
-};
