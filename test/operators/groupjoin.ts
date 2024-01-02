@@ -1,22 +1,40 @@
-// import * as assert from "assert";
-// import { Enumerable, groupjoin, toarray } from "../../src/enumerable";
+import * as assert from "assert";
+import { groupjoin, pipe } from "../../src/index";
 
-// it('groupjoin', function () {
-//     var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three_" }, { id: 3, name: "three__" }];
-//     var items2 = [{ id: 1, value: "ONE" }, { id: 3, value: "THREE" }, { id: 4, value: "FOUR" }];
+it('groupjoin', function () {
+    var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three!" }, { id: 3, name: "three!!" }];
+    var items2 = [{ id: 1, value: "ONE" }, { id: 1, value: "ONE!" }, { id: 3, value: "THREE" }, { id: 4, value: "FOUR" }];
 
-//     var res = Enumerable.from(items2).groupjoin(
-//         items1,
-//         x => x.id,
-//         y => y.id,
-//         (x, y) => ({ name: x.value, items: y.map(x => x.name).toarray().join(",") })
-//     ).toarray();
+    const res1 = [...groupjoin(
+        items1,
+        items2,
+        x => x.id,
+        y => y.id,
+        (item1, items2) => ({ name: item1.name, items: items2.map(x => x.value).join() })
+    )];
 
-//     assert.deepEqual(res, [{ name: 'ONE', items: 'one' }, { name: 'THREE', items: 'three_,three__' }])
-// });
+    const res2 = [...pipe(items1,
+        groupjoin(
+            items2,
+            x => x.id,
+            y => y.id,
+            (item1, items2) => ({ name: item1.name, items: items2.map(x => x.value).join() })
+        )
+    )];
 
-// export const linq = "GroupJoin";
+    for (const res of [res1, res2]) {
+        assert.deepEqual(res, [
+            { name: 'one', items: 'ONE,ONE!' },
+            { name: 'two', items: '' },
+            { name: 'three!', items: 'THREE' },
+            { name: 'three!!', items: 'THREE' }
+        ]);
+    }
 
-// export const samples = [
-//     () => groupjoin([1, 3, 2], ['a', 'b', 'cc'], x => x, y => y.length, (x, ys) => x + ':' + toarray(ys)),
-// ];
+});
+
+export const samples = [
+    () => groupjoin([1, 3, 2, 1], ['a', 'b', 'cc'], x => x, y => y.length, (x, ys) => x + ':' + ys),
+];
+
+export const linq = "GroupJoin";

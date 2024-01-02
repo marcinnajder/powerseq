@@ -1,16 +1,15 @@
-// import { OrderedEnumerable, OrderingState } from "../orderedEnumerable";
-// import { keySelector, OperatorR } from "../common/types";
-// import { ordebyImpl } from "../common/ordering";
-// import { wrapInThunk } from "../common/wrap";
+import { Selector, OperatorR } from "../common/types";
+import { ordebyImpl, OrderedIterable, OrderingState } from "../common/ordering";
+import { wrapInThunk } from "../common/wrap";
 
-// function _orderby<T>(source: Iterable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T> {
-//     var state: OrderingState<T> = { descending: false, keySelector, originalIterable: source };
-//     var sortingIterable = ordebyImpl(state);
-//     return new OrderedEnumerable<T>(sortingIterable, state);
-// }
+function _orderby<T>(source: Iterable<T>, keySelector: Selector<T, any>): OrderedIterable<T> {
+    var state: OrderingState<T> = { descending: false, keySelector, originalIterable: source };
+    var sortingIterable = ordebyImpl(state);
+    return { state, ...sortingIterable };
+}
 
-// export function orderby<T>(source: Iterable<T>, keySelector: keySelector<T, any>): OrderedEnumerable<T>;
-// export function orderby<T>(keySelector: keySelector<T, any>): OperatorR<T, OrderedEnumerable<T>>;
-// export function orderby() {
-//     return wrapInThunk(arguments, _orderby);
-// }
+export function orderby<T>(source: Iterable<T>, keySelector: Selector<T, any>): OrderedIterable<T>;
+export function orderby<T>(keySelector: Selector<T, any>): OperatorR<T, OrderedIterable<T>>;
+export function orderby() {
+    return wrapInThunk(arguments, _orderby);
+}

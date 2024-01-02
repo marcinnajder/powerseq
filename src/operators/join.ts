@@ -1,15 +1,14 @@
-import { keySelector, Operator } from "../common/types";
+import { Selector, Operator, Selector2 } from "../common/types";
 import { wrapInIterable, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-function _join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
-    key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult) {
+function _join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1Selector: Selector<T1, K>,
+    key2Selector: Selector<T2, K>, resultSelector: Selector2<T1, T2, R>) {
     return wrapInIterable(function* () {
-        var map2 = new Map<TKey, T2[]>();
-        var key: TKey, values: T2[] | undefined;
+        var map2 = new Map<K, T2[]>();
 
         for (var item2 of source2) {
-            key = key2Selector(item2);
-            values = map2.get(key)
+            const key = key2Selector(item2);
+            const values = map2.get(key)
             if (typeof values === "undefined") {
                 map2.set(key, [item2]);
             }
@@ -19,8 +18,8 @@ function _join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>
         }
 
         for (var item1 of source1) {
-            key = key1Selector(item1);
-            values = map2.get(key);
+            const key = key1Selector(item1);
+            const values = map2.get(key);
             if (typeof values !== "undefined") {
                 for (var item2 of values) {
                     yield resultSelector(item1, item2);
@@ -31,10 +30,10 @@ function _join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>
 }
 
 
-export function join<T, T2, TKey, TResult>(source1: Iterable<T>, source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
-    key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult): Iterable<TResult>;
-export function join<T, T2, TKey, TResult>(source2: Iterable<T2>, key1Selector: keySelector<T, TKey>,
-    key2Selector: keySelector<T2, TKey>, resultSelector: (item1: T, item2: T2) => TResult): Operator<T, TResult>;
+export function join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1Selector: Selector<T1, K>,
+    key2Selector: Selector<T2, K>, resultSelector: Selector2<T1, T2, R>): Iterable<R>;
+export function join<T1, T2, K, R>(source2: Iterable<T2>, key1Selector: Selector<T1, K>,
+    key2Selector: Selector<T2, K>, resultSelector: Selector2<T1, T2, R>): Operator<T1, R>;
 export function join() {
     return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _join);
 }

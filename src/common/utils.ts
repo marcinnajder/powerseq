@@ -7,3 +7,7 @@ export function isNothing<T>(value: T | Nothing): value is Nothing {
 export function isNotNothing<T>(value: T | Nothing): value is T {
     return !isNothing(value);
 }
+
+export function identity<T>(value: T) {
+    return value;
+}

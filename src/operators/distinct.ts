@@ -1,7 +1,7 @@
-import { keySelector, Operator } from "../common/types";
+import { Selector, Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-function _distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>) {
+function _distinct<T>(source: Iterable<T>, keySelector?: Selector<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -18,8 +18,8 @@ function _distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>) {
     });
 }
 
-export function distinct<T>(source: Iterable<T>, keySelector?: keySelector<T, any>): Iterable<T>;
-export function distinct<T>(keySelector?: keySelector<T, any>): Operator<T, T>;
+export function distinct<T>(source: Iterable<T>, keySelector?: Selector<T, any>): Iterable<T>;
+export function distinct<T>(keySelector?: Selector<T, any>): Operator<T, T>;
 export function distinct() {
     return wrapInThunk(arguments, _distinct);
 }
