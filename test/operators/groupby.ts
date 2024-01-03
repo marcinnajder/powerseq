@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { groupby, map, pipe, toarray } from "../../src/index";
+import { groupby, map, pipe, toarray, toobject } from "../../src/index";
 
 it('groupby', function () {
     const items = ["a", "b", "cc", "ddd"];
@@ -22,7 +22,8 @@ function groupToString<K, E>([key, values]: [K, E[]]) {
 export const samples = [
     () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length),
     () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, x => x.toUpperCase()),
-    () => pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), map(([key, values]) => ({ key, values })))
+    () => pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), map(([key, values]) => ({ key, values }))),
+    () => pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), toobject())
 ];
 
 export const linq = "GroupBy";

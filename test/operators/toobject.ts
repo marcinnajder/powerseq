@@ -15,12 +15,17 @@ it('toobject', function () {
     assert.equal(Object.keys(o2).length, 2);
     assert.strictEqual(o2[1], "1");
     assert.strictEqual(o2[2], "2");
+
+    assert.deepEqual(toobject(new Map([[1, "one"], [2, "two"]])), { "1": "one", "2": "two" });
 });
 
 export const samples = [
     () => toobject(['a', 'bb', 'ccc'], x => x.length),
-    () => toobject(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase())
+    () => toobject(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase()),
+    () => toobject(new Map([[1, "one"], [2, "two"]]))
 ];
+
+
 
 export const lodash = ["fromPairs", "keyBy"];
 export const kotlin = ["associate", "associateBy", "associateWith"];

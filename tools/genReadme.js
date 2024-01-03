@@ -304,7 +304,7 @@ function formatResultValue(value) {
 // operatorow, mozna wtedy mona dodac notatkw ze w innych jezykach ten operator to: ... )
 // -- ewentualnie czesc funkcji nie dla kolekcji mozna wrzuci do powerfp
 // - https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-seqmodule.html#mapFold warto chyba dodac
-
+// - linki z dokumetnacji do kodu a nie do testow
 
 
 

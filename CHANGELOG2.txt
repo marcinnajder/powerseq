@@ -2,6 +2,8 @@
 - TS strict option
 - remove Enumerable. type, so there is no alternative method of calling chained operators
 - breaking change: groupby, returing Map instead of custom type IterableGroup, no overload for resultSelector function (use map operator)
-- new operator: groupbytoobject
+(- new operator: groupbytoobject)
 - breaking change: groupjoin returns empty arrays for unmachted items
-- breaking change: new type definition for pipe
+- new more generic type definition of pipe function 
+- shorter generic argument names, introduction of Func<T,R>
+- new overload for toobject() passing Map type, usefull after groupby and countby
