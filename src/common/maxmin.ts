@@ -1,7 +1,7 @@
-import { Selector } from "../common/types";
+import { Func } from "../common/types";
 
-export function maxmin<T, TValue>(source: Iterable<T>, valueSelector: Selector<T, TValue>,
-    isGreaterOrLess: (key: TValue, minmaxKey: TValue) => boolean, returnValueOrItem: boolean): TValue | T | undefined {
+export function maxmin<T, V>(source: Iterable<T>, valueSelector: Func<T, V>,
+    isGreaterOrLess: (key: V, minmaxKey: V) => boolean, returnValueOrItem: boolean): V | T | undefined {
 
     var iterator = source[Symbol.iterator]();
     var iteratorValue = iterator.next();

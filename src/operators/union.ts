@@ -1,7 +1,7 @@
-import { Selector, Operator } from "../common/types";
+import { Func, Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-function _union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Selector<T, any>) {
+function _union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Func<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -25,8 +25,8 @@ function _union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Sele
     });
 }
 
-export function union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Selector<T, any>): Iterable<T>;
-export function union<T>(source2: Iterable<T>, keySelector?: Selector<T, any>): Operator<T, T>;
+export function union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Func<T, any>): Iterable<T>;
+export function union<T>(source2: Iterable<T>, keySelector?: Func<T, any>): Operator<T, T>;
 export function union() {
     return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _union);
 }

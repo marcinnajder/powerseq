@@ -1,8 +1,8 @@
-import { Selector, Operator, Selector2 } from "../common/types";
+import { Func, Operator, Func2 } from "../common/types";
 import { wrapInIterable, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-function _join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1Selector: Selector<T1, K>,
-    key2Selector: Selector<T2, K>, resultSelector: Selector2<T1, T2, R>) {
+function _join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1Selector: Func<T1, K>,
+    key2Selector: Func<T2, K>, resultSelector: Func2<T1, T2, R>) {
     return wrapInIterable(function* () {
         var map2 = new Map<K, T2[]>();
 
@@ -30,10 +30,8 @@ function _join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1S
 }
 
 
-export function join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1Selector: Selector<T1, K>,
-    key2Selector: Selector<T2, K>, resultSelector: Selector2<T1, T2, R>): Iterable<R>;
-export function join<T1, T2, K, R>(source2: Iterable<T2>, key1Selector: Selector<T1, K>,
-    key2Selector: Selector<T2, K>, resultSelector: Selector2<T1, T2, R>): Operator<T1, R>;
+export function join<T1, T2, K, R>(source1: Iterable<T1>, source2: Iterable<T2>, key1Selector: Func<T1, K>, key2Selector: Func<T2, K>, resultSelector: Func2<T1, T2, R>): Iterable<R>;
+export function join<T1, T2, K, R>(source2: Iterable<T2>, key1Selector: Func<T1, K>, key2Selector: Func<T2, K>, resultSelector: Func2<T1, T2, R>): Operator<T1, R>;
 export function join() {
     return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _join);
 }

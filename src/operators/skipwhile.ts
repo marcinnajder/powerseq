@@ -1,7 +1,7 @@
-import { predicate, Operator } from "../common/types";
+import { Predicate, Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-function _skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
+function _skipwhile<T>(source: Iterable<T>, predicate: Predicate<T>) {
     return wrapInIterable(function* () {
         var iterator = source[Symbol.iterator]();
         var value: IteratorResult<T>;
@@ -23,8 +23,8 @@ function _skipwhile<T>(source: Iterable<T>, predicate: predicate<T>) {
     });
 }
 
-export function skipwhile<T>(source: Iterable<T>, predicate: predicate<T>): Iterable<T>;
-export function skipwhile<T>(predicate: predicate<T>): Operator<T, T>;
+export function skipwhile<T>(source: Iterable<T>, predicate: Predicate<T>): Iterable<T>;
+export function skipwhile<T>(predicate: Predicate<T>): Operator<T, T>;
 export function skipwhile() {
     return wrapInThunk(arguments, _skipwhile);
 }

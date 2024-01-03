@@ -1,7 +1,7 @@
-import { predicate, OperatorR } from "../common/types";
+import { Predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-function _some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean {
+function _some<T>(source: Iterable<T>, predicate?: Predicate<T>): boolean {
     if (typeof predicate === "undefined") {
         for (var item of source) {
             return true;
@@ -19,8 +19,8 @@ function _some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean {
     }
 }
 
-export function some<T>(source: Iterable<T>, predicate?: predicate<T>): boolean;
-export function some<T>(predicate?: predicate<T>): OperatorR<T, boolean>;
+export function some<T>(source: Iterable<T>, predicate?: Predicate<T>): boolean;
+export function some<T>(predicate?: Predicate<T>): OperatorR<T, boolean>;
 export function some() {
     return wrapInThunk(arguments, _some);
 }

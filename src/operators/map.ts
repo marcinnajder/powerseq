@@ -1,7 +1,7 @@
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
-import { selector, Operator } from "../common/types";
+import { Func2, Operator } from "../common/types";
 
-function _map<T, TResult>(source: Iterable<T>, projection: selector<T, TResult>) {
+function _map<T, R>(source: Iterable<T>, projection: Func2<T, number, R>) {
     return wrapInIterable(function* () {
         var index = 0;
         for (var item of source) {
@@ -10,8 +10,8 @@ function _map<T, TResult>(source: Iterable<T>, projection: selector<T, TResult>)
     });
 }
 
-export function map<T, TResult>(source: Iterable<T>, projection: selector<T, TResult>): Iterable<TResult>;
-export function map<T, TResult>(projection: selector<T, TResult>): Operator<T, TResult>;
+export function map<T, R>(source: Iterable<T>, projection: Func2<T, number, R>): Iterable<R>;
+export function map<T, R>(projection: Func2<T, number, R>): Operator<T, R>;
 export function map() {
     return wrapInThunk(arguments, _map);
 }

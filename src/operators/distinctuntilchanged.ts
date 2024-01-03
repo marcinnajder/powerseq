@@ -1,7 +1,7 @@
-import { Selector, Operator } from "../common/types";
+import { Func, Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-function _distinctuntilchanged<T>(source: Iterable<T>, keySelector?: Selector<T, any>) {
+function _distinctuntilchanged<T>(source: Iterable<T>, keySelector?: Func<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -30,8 +30,8 @@ function _distinctuntilchanged<T>(source: Iterable<T>, keySelector?: Selector<T,
     });
 }
 
-export function distinctuntilchanged<T>(source: Iterable<T>, keySelector?: Selector<T, any>): Iterable<T>;
-export function distinctuntilchanged<T>(keySelector?: Selector<T, any>): Operator<T, T>;
+export function distinctuntilchanged<T>(source: Iterable<T>, keySelector?: Func<T, any>): Iterable<T>;
+export function distinctuntilchanged<T>(keySelector?: Func<T, any>): Operator<T, T>;
 export function distinctuntilchanged() {
     return wrapInThunk(arguments, _distinctuntilchanged);
 }

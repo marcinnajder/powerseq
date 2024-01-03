@@ -1,6 +1,7 @@
+import { Func } from "../common/types";
 import { wrapInIterable } from "../common/wrap";
 
-export function generate<TState, TResult>(initState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult) {
+export function generate<S, R>(initState: S, condition: Func<S, boolean>, iterate: Func<S, S>, resultSelector: Func<S, R>) {
     return wrapInIterable(function* () {
         for (var state = initState; condition(state); state = iterate(state)) {
             yield resultSelector(state);

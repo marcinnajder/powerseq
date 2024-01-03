@@ -1,10 +1,10 @@
 
-import { Selector, comparer } from "./types";
+import { Func, Comparer } from "./types";
 import { wrapInIterable } from "./wrap";
 
 export interface OrderingState<T> {
     originalIterable: Iterable<T>;
-    keySelector: Selector<T, any>;
+    keySelector: Func<T, any>;
     descending: boolean;
     prevState?: OrderingState<T>;
 }
@@ -19,7 +19,7 @@ export function ordebyImpl<T>(state: OrderingState<T>) {
     });
 }
 
-function buildComparer<T>(state: OrderingState<T>): comparer<T> {
+function buildComparer<T>(state: OrderingState<T>): Comparer<T> {
     if (state.prevState) {
         var prevComparer = buildComparer(state.prevState);
         return (a, b) => {

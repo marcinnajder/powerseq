@@ -8,6 +8,7 @@ export function concat<T>(...args: Iterable<T>[]): Iterable<T> {
         }
     });
 }
+
 export function concatp<T>(...args: Iterable<T>[]): Operator<T, T> {
     return wrapInThunkAlways(arguments, concat);
 }

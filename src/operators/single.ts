@@ -1,10 +1,10 @@
-import { predicate, OperatorR } from "../common/types";
+import { Predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
 // ta funkcja jest dziwna bo rzuca blad jak jest wiecej jak jeden, ale jak nie ma zadnego to zwraca undefined tzn to jest 
 // niespojne, w Koltin jest SingleOrNull i to dziala spokojnie
 
-function _single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined {
+function _single<T>(source: Iterable<T>, predicate?: Predicate<T>): T | undefined {
     var hasValue = false;
     var value: T | undefined = undefined;
 
@@ -36,8 +36,8 @@ function _single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefine
     return value;
 }
 
-export function single<T>(source: Iterable<T>, predicate?: predicate<T>): T | undefined;
-export function single<T>(predicate?: predicate<T>): OperatorR<T, T | undefined>;
+export function single<T>(source: Iterable<T>, predicate?: Predicate<T>): T | undefined;
+export function single<T>(predicate?: Predicate<T>): OperatorR<T, T | undefined>;
 export function single() {
     return wrapInThunk(arguments, _single);
 }

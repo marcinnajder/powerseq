@@ -1,7 +1,7 @@
-import { Dictionary, Operator, OperatorR, Selector } from "../common/types";
+import { Dictionary, Operator, OperatorR, Func } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-function _toobject<T, E>(source: Iterable<T>, keySelector: Selector<T, any>, elementSelector?: Selector<T, E>): Dictionary<E> {
+function _toobject<T, E>(source: Iterable<T>, keySelector: Func<T, any>, elementSelector?: Func<T, E>): Dictionary<E> {
     var map: Dictionary<E> = {};
 
     if (typeof elementSelector === "undefined") {
@@ -17,10 +17,10 @@ function _toobject<T, E>(source: Iterable<T>, keySelector: Selector<T, any>, ele
     return map;
 }
 
-export function toobject<T>(source: Iterable<T>, keySelector: Selector<T, any>): Dictionary<T>;
-export function toobject<T, E>(source: Iterable<T>, keySelector: Selector<T, any>, elementSelector: Selector<T, E>): Dictionary<E>;
-export function toobject<T>(keySelector: Selector<T, any>): OperatorR<T, Dictionary<T>>;
-export function toobject<T, E>(keySelector: Selector<T, any>, elementSelector: Selector<T, E>): OperatorR<T, Dictionary<E>>;
+export function toobject<T>(source: Iterable<T>, keySelector: Func<T, any>): Dictionary<T>;
+export function toobject<T, E>(source: Iterable<T>, keySelector: Func<T, any>, elementSelector: Func<T, E>): Dictionary<E>;
+export function toobject<T>(keySelector: Func<T, any>): OperatorR<T, Dictionary<T>>;
+export function toobject<T, E>(keySelector: Func<T, any>, elementSelector: Func<T, E>): OperatorR<T, Dictionary<E>>;
 export function toobject() {
     return wrapInThunk(arguments, _toobject);
 }

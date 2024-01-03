@@ -1,7 +1,7 @@
-import { Selector, Operator } from "../common/types";
+import { Func, Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
-function _except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Selector<T, any>) {
+function _except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Func<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
             keySelector = item => item;
@@ -24,8 +24,8 @@ function _except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Sel
     });
 }
 
-export function except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Selector<T, any>): Iterable<T>;
-export function except<T>(source2: Iterable<T>, keySelector?: Selector<T, any>): Operator<T, T>;
+export function except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Func<T, any>): Iterable<T>;
+export function except<T>(source2: Iterable<T>, keySelector?: Func<T, any>): Operator<T, T>;
 export function except() {
     return wrapInThunkIfOnlyFirstArgumentIsIterable(arguments, _except);
 }

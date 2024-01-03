@@ -1,10 +1,10 @@
 import { wrapInThunk } from "../common/wrap";
-import { OperatorR } from "../common/types";
+import { Func2, OperatorR } from "../common/types";
 
-function _reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed?: TAccumulate): TAccumulate {
+function _reduce<T, A>(source: Iterable<T>, func: Func2<A, T, A>, seed?: A): A {
     var iterator = source[Symbol.iterator]();
     var value: IteratorResult<T>;
-    var accumulator: TAccumulate;
+    var accumulator: A;
 
     if (typeof seed === "undefined") {
         value = iterator.next();
@@ -24,10 +24,10 @@ function _reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, 
     return accumulator;
 }
 
-export function reduce<T>(source: Iterable<T>, func: (prev: T, item: T) => T): T;
-export function reduce<T, TAccumulate>(source: Iterable<T>, func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): TAccumulate;
-export function reduce<T>(func: (prev: T, item: T) => T): OperatorR<T, T>;
-export function reduce<T, TAccumulate>(func: (prev: TAccumulate, item: T) => TAccumulate, seed: TAccumulate): OperatorR<T, TAccumulate>;
+export function reduce<T>(source: Iterable<T>, func: Func2<T, T, T>): T;
+export function reduce<T, A>(source: Iterable<T>, func: Func2<A, T, A>, seed: A): A;
+export function reduce<T>(func: Func2<T, T, T>): OperatorR<T, T>;
+export function reduce<T, A>(func: Func2<A, T, A>, seed: A): OperatorR<T, A>;
 export function reduce() {
     return wrapInThunk(arguments, _reduce);
 }

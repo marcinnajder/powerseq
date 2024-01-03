@@ -7,8 +7,8 @@ import { wrapInIterable } from "../common/wrap";
 export function entries<T>(o: ArrayLike<T>): [number, T][];
 export function entries<T>(o: {}): [string, any][]; // copied from definition of "Object.entries", avoids 'unknown' type
 export function entries<T>(o: { [s: string]: T; }): [string, T][];
-export function entries<TValue>(objOrArray: any) {
-    return wrapInIterable<[string | number, TValue]>(function* () {
+export function entries<T>(objOrArray: any) {
+    return wrapInIterable<[string | number, T]>(function* () {
         var keys: Iterable<string | number> = Array.isArray(objOrArray) ? objOrArray.keys() : Object.keys(objOrArray);
         for (var key of keys) {
             yield [key, objOrArray[key]];

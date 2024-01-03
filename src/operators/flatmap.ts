@@ -1,7 +1,7 @@
-import { selector, EIterable, Operator } from "../common/types";
+import { Func2, Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-function _flatmap<T, TCollection, TResult>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>, resultSelector?: (item: T, collectionItem: TCollection) => TResult): Iterable<TResult> {
+function _flatmap<T, C, R>(source: Iterable<T>, collectionSelector: Func2<T, number, Iterable<C>>, resultSelector?: Func2<T, C, R>): Iterable<R> {
     return wrapInIterable(function* () {
         var index = 0;
         if (typeof resultSelector === "undefined") {
@@ -21,10 +21,10 @@ function _flatmap<T, TCollection, TResult>(source: Iterable<T>, collectionSelect
     });
 }
 
-export function flatmap<T, TCollection>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>): Iterable<TCollection>;
-export function flatmap<T, TCollection, TResult>(source: Iterable<T>, collectionSelector: selector<T, Iterable<TCollection>>, resultSelector: (item: T, collectionItem: TCollection) => TResult): Iterable<TResult>;
-export function flatmap<T, TCollection>(collectionSelector: selector<T, Iterable<TCollection>>): Operator<T, TCollection>;
-export function flatmap<T, TCollection, TResult>(collectionSelector: selector<T, Iterable<TCollection>>, resultSelector: (item: T, collectionItem: TCollection) => TResult): Operator<T, TResult>;
+export function flatmap<T, C>(source: Iterable<T>, collectionSelector: Func2<T, number, Iterable<C>>): Iterable<C>;
+export function flatmap<T, C, R>(source: Iterable<T>, collectionSelector: Func2<T, number, Iterable<C>>, resultSelector: Func2<T, C, R>): Iterable<R>;
+export function flatmap<T, C>(collectionSelector: Func2<T, number, Iterable<C>>): Operator<T, C>;
+export function flatmap<T, C, R>(collectionSelector: Func2<T, number, Iterable<C>>, resultSelector: Func2<T, C, R>): Operator<T, R>;
 export function flatmap() {
     return wrapInThunk(arguments, _flatmap);
 }

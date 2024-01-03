@@ -1,8 +1,8 @@
 import { wrapInThunk } from "../common/wrap";
-import { Operator, OperatorR } from "../common/types";
+import { Func, OperatorR } from "../common/types";
 
-function _tomap<T, TKey, TElement>(source: Iterable<T>, keySelector: (item: T) => TKey, elementSelector?: (item: T) => TElement): Map<TKey, TElement> {
-    var map = new Map<TKey, TElement>();
+function _tomap<T, K, E>(source: Iterable<T>, keySelector: Func<T, K>, elementSelector?: Func<T, E>): Map<K, E> {
+    var map = new Map<K, E>();
 
     if (typeof elementSelector === "undefined") {
         for (var item of source) {
@@ -18,10 +18,10 @@ function _tomap<T, TKey, TElement>(source: Iterable<T>, keySelector: (item: T) =
     return map;
 }
 
-export function tomap<T, TKey>(source: Iterable<T>, keySelector: (item: T) => TKey): Map<TKey, T>;
-export function tomap<T, TKey, TElement>(source: Iterable<T>, keySelector: (item: T) => TKey, elementSelector: (item: T) => TElement): Map<TKey, TElement>;
-export function tomap<T, TKey>(keySelector: (item: T) => TKey): OperatorR<T, Map<TKey, T>>;
-export function tomap<T, TKey, TElement>(keySelector: (item: T) => TKey, elementSelector: (item: T) => TElement): OperatorR<T, Map<TKey, TElement>>;
+export function tomap<T, K>(source: Iterable<T>, keySelector: Func<T, K>): Map<K, T>;
+export function tomap<T, K, E>(source: Iterable<T>, keySelector: Func<T, K>, elementSelector: Func<T, E>): Map<K, E>;
+export function tomap<T, K>(keySelector: Func<T, K>): OperatorR<T, Map<K, T>>;
+export function tomap<T, K, E>(keySelector: Func<T, K>, elementSelector: Func<T, E>): OperatorR<T, Map<K, E>>;
 export function tomap() {
     return wrapInThunk(arguments, _tomap);
 }

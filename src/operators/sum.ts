@@ -1,7 +1,7 @@
-import { Selector, Operator, OperatorR } from "../common/types";
+import { Func, Operator, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-function _sum<T>(source: Iterable<T>, valueSelector?: Selector<T, number>): number {
+function _sum<T>(source: Iterable<T>, valueSelector?: Func<T, number>): number {
     var result = 0;
     if (typeof valueSelector === "undefined") {
         for (var item of source) {
@@ -15,8 +15,8 @@ function _sum<T>(source: Iterable<T>, valueSelector?: Selector<T, number>): numb
     return result;
 }
 
-export function sum<T>(source: Iterable<T>, valueSelector?: Selector<T, number>): number;
-export function sum<T>(valueSelector?: Selector<T, number>): OperatorR<T, number>;
+export function sum<T>(source: Iterable<T>, valueSelector?: Func<T, number>): number;
+export function sum<T>(valueSelector?: Func<T, number>): OperatorR<T, number>;
 export function sum() {
     return wrapInThunk(arguments, _sum);
 }

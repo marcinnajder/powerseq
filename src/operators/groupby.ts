@@ -1,5 +1,5 @@
 import { wrapInThunk } from "../common/wrap";
-import { OperatorR, SelectorI, Selector } from "../common/types";
+import { OperatorR, Func2, Func } from "../common/types";
 import { identity } from "../common/utils"
 
 // zmiany
@@ -8,7 +8,7 @@ import { identity } from "../common/utils"
 // - mniej przeladowac, kompletnie nie bedzie 'resultSelector'
 // - na przykladach poprawek w powerseq lub osobnych pokazac jak obecnie korzystac z groupby dla kazdego z poprzednich przeladowan
 
-export function _groupby<T, K, E = T>(source: Iterable<T>, keySelector: SelectorI<T, K>, elementSelector?: Selector<T, E>): Map<K, E[]> {
+export function _groupby<T, K, E = T>(source: Iterable<T>, keySelector: Func2<T, number, K>, elementSelector?: Func<T, E>): Map<K, E[]> {
     const result = new Map<K, E[]>();
     const eSelector = elementSelector ?? (identity as any);
     let index = 0;
@@ -28,10 +28,10 @@ export function _groupby<T, K, E = T>(source: Iterable<T>, keySelector: Selector
     return result;
 }
 
-export function groupby<T, K>(source: Iterable<T>, keySelector: SelectorI<T, K>): Map<K, T[]>;
-export function groupby<T, K, E>(source: Iterable<T>, keySelector: SelectorI<T, K>, elementSelector: Selector<T, E>): Map<K, E[]>;
-export function groupby<T, K>(keySelector: SelectorI<T, K>): OperatorR<T, Map<K, T[]>>;
-export function groupby<T, K, E>(keySelector: SelectorI<T, K>, elementSelector: Selector<T, E>): OperatorR<T, Map<K, E[]>>;
+export function groupby<T, K>(source: Iterable<T>, keySelector: Func2<T, number, K>): Map<K, T[]>;
+export function groupby<T, K, E>(source: Iterable<T>, keySelector: Func2<T, number, K>, elementSelector: Func<T, E>): Map<K, E[]>;
+export function groupby<T, K>(keySelector: Func2<T, number, K>): OperatorR<T, Map<K, T[]>>;
+export function groupby<T, K, E>(keySelector: Func2<T, number, K>, elementSelector: Func<T, E>): OperatorR<T, Map<K, E[]>>;
 export function groupby() {
     return wrapInThunk(arguments, _groupby);
 }

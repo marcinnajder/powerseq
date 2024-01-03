@@ -1,7 +1,7 @@
-import { predicate, OperatorR } from "../common/types";
+import { Predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-function _count<T>(source: Iterable<T>, predicate?: predicate<T>): number {
+function _count<T>(source: Iterable<T>, predicate?: Predicate<T>): number {
     var count = 0;
     if (typeof predicate === "undefined") {
         if (Array.isArray(source)) {
@@ -23,8 +23,8 @@ function _count<T>(source: Iterable<T>, predicate?: predicate<T>): number {
     }
 }
 
-export function count<T>(source: Iterable<T>, predicate?: predicate<T>): number;
-export function count<T>(predicate?: predicate<T>): OperatorR<T, number>;
+export function count<T>(source: Iterable<T>, predicate?: Predicate<T>): number;
+export function count<T>(predicate?: Predicate<T>): OperatorR<T, number>;
 export function count() {
     return wrapInThunk(arguments, _count);
 }
