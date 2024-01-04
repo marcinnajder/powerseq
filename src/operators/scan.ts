@@ -3,21 +3,26 @@ import { Func2, Operator } from "../common/types";
 
 function _scan<T, A>(source: Iterable<T>, func: Func2<A, T, A>, seed?: A): Iterable<A> {
     return wrapInIterable(function* () {
-        var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T>;
-        var accumulator: A;
+        const iterator = source[Symbol.iterator]();
+        let value: IteratorResult<T>;
+        let accumulator: A;
 
         if (typeof seed === "undefined") {
             value = iterator.next();
-            if (value.done) return;
+            if (value.done) {
+                return;
+            }
             accumulator = <any>value.value;
         } else {
             accumulator = seed;
+            yield accumulator;
         }
 
         while (true) {
             value = iterator.next();
-            if (value.done) return;
+            if (value.done) {
+                return;
+            }
 
             accumulator = func(accumulator, value.value);
             yield accumulator;

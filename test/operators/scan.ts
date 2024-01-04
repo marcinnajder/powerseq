@@ -2,14 +2,15 @@ import * as assert from "assert";
 import { scan } from "../../src/index";
 
 it('scan', function () {
-    assert.deepEqual(Array.from(scan([1, 2, 3], (p, c) => p + c)), [1 + 2, 3 + 3]);
+    assert.deepEqual([...scan([1, 2, 3], (p, c) => p + c)], [1 + 2, 3 + 3]);
 
-    assert.deepEqual([...scan([1, 2, 3], (p, c) => p + c, "")], ["" + 1, "1" + "2", "12" + "3"]);
+    assert.deepEqual([...scan([1, 2, 3], (p, c) => p + c, "")], ["", "" + 1, "1" + "2", "12" + "3"]);
+
 
     assert.deepEqual([...scan([], (p: number, c: number) => p + c)], []);
     assert.deepEqual([...scan([1], (p, c) => p + c)], []);
-    assert.deepEqual([...scan([], (p, c) => p + c, "")], []);
-    assert.deepEqual([...scan([1], (p, c) => p + c, "")], ["" + 1]);
+    assert.deepEqual([...scan([], (p, c) => p + c, "")], [""]);
+    assert.deepEqual([...scan([1], (p, c) => p + c, "")], ["", "" + 1]);
 
     assert.deepEqual([...scan<number>((p, c) => p + c)([1, 2, 3])], [1 + 2, 3 + 3]);
 });

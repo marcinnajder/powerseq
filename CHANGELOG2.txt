@@ -10,3 +10,4 @@
 - powerseq is compatible with |> operator
 - new memoize operator
 - new share operator
+- breaking change: scan is returing init value of acculumator
