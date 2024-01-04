@@ -14,3 +14,5 @@
 - breaking change: changing distinct, introducing distinctby
 - new distinctby operator
 - breaking change: changing implementation of last, adding parameter 'defaultValue'
+- breaking change: remove previous inconsistency (exception when more than one, 'undefined' when not found), now returing 
+always 'undefined' or 'defaultValue' parameter (so no exception at all)
