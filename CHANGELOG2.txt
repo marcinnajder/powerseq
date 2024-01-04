@@ -7,3 +7,6 @@
 - new more generic type definition of pipe function 
 - shorter generic argument names, introduction of Func<T,R>
 - new overload for toobject() passing Map type, usefull after groupby and countby
+- powerseq is compatible with |> operator
+- new memoize operator
+- new share operator

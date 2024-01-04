@@ -1,4 +1,11 @@
-import { pipe, groupby, map, toarray, toobject, flatmap, count, take } from "./index"
+import { pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share } from "./index"
+
+const exec = (transform: <T>(s: Iterable<T>) => Iterable<T>) =>
+    pipe(range(0, 4), map(i => ({ i })), transform, xs => zip(xs, xs, (x1, x2) => [x1.i, x2.i, x1 === x2]), toarray());
+
+console.log(exec(s => s));
+console.log(exec(memoize()));
+console.log(exec(share()));
 
 
 type Coder = { name: string; language: string; }
@@ -11,6 +18,15 @@ const coders: Coder[] = [{ name: "kalinka", language: "ts" }, { name: "michal", 
 
 // }
 
+
+function* return123() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+// var itera1 = return123();
+// var itera2 = return123();
+// console.log(itera1 === itera2);
 
 
 const result2 = pipe(coders, groupby(c => c.language));
