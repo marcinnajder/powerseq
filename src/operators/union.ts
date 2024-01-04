@@ -1,22 +1,21 @@
 import { Func, Operator } from "../common/types";
-import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
+import { identity } from "../common/utils";
+import { wrapInIterable, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
 function _union<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Func<T, any>) {
     return wrapInIterable(function* () {
-        if (typeof keySelector === "undefined") {
-            keySelector = item => item;
-        }
-        var set = new Set<any>();
-        var key;
-        for (var item of source) {
-            key = keySelector(item);
+        const kSelector = keySelector ?? (identity as any);
+        const set = new Set<any>();
+
+        for (const item of source) {
+            const key = kSelector(item);
             if (!set.has(key)) {
                 set.add(key);
                 yield item;
             }
         }
-        for (var item of source2) {
-            key = keySelector(item);
+        for (const item of source2) {
+            const key = kSelector(item);
             if (!set.has(key)) {
                 set.add(key);
                 yield item;

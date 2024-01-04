@@ -14,7 +14,7 @@ export const samples = [
     () => intersect(['a', 'c', 'ddd'], ['r', 'ww', 'ttt', 'oooo'], x => x.length)
 ];
 
-export const linq = "Intersect";
+export const linq = ["Intersect", "IntersectBy"];
 export const lodash = ["intersection", "intersectionBy", "intersectionWith"];
 export const kotlin = "intersect~";
 export const clojure = "intersection~";

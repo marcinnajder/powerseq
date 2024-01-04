@@ -12,7 +12,7 @@ export const samples = [
     () => union(['a', 'c', 'ddd'], ['r', 'ww', 'ttt', 'oooo'], x => x.length)
 ];
 
-export const linq = "Union";
+export const linq = ["Union", "UnionBy"];
 export const lodash = ["union", "unionBy", "unionWith"];
 export const kotlin = "union~";
 export const clojure = "union~";

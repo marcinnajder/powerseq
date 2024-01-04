@@ -11,3 +11,5 @@
 - new memoize operator
 - new share operator
 - breaking change: scan is returing init value of acculumator
+- breaking change: changing distinct, introducing distinctby
+- new distinctby operator

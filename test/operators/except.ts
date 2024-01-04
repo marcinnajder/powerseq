@@ -12,7 +12,7 @@ export const samples = [
     () => except(['a', 'b', 'ba', 'xde'], ['poc'], x => x.length),
 ];
 
-export const linq = "Except";
+export const linq = ["Except", "ExceptBy"];
 export const lodash = ["difference", "differenceBy", "differenceWith", "without"];
 export const kotlin = "minus~";
 export const clojure = "difference~";

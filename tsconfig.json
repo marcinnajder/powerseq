@@ -4,7 +4,7 @@
         "target": "es2015",
         "strict": true,        
         "sourceMap": true,
-        "inlineSources": true,
+        "inlineSources": false,
         "declaration": true,
         "lib": [
             "es2015"

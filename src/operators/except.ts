@@ -1,19 +1,19 @@
 import { Func, Operator } from "../common/types";
+import { identity } from "../common/utils";
 import { wrapInIterable, wrapInThunk, wrapInThunkIfOnlyFirstArgumentIsIterable } from "../common/wrap";
 
 function _except<T>(source: Iterable<T>, source2: Iterable<T>, keySelector?: Func<T, any>) {
     return wrapInIterable(function* () {
-        if (typeof keySelector === "undefined") {
-            keySelector = item => item;
+        const kSelector = keySelector ?? (identity as any);
+        const set = new Set<T>();
+        const set2 = new Set<T>();
+
+        for (const s of source2) {
+            set2.add(kSelector(s));
         }
-        var set = new Set<T>();
-        var set2 = new Set<T>();
-        var key;
-        for (var s of source2) {
-            set2.add(keySelector(s));
-        }
-        for (var item of source) {
-            key = keySelector(item);
+
+        for (const item of source) {
+            const key = kSelector(item);
             if (!set.has(key)) {
                 set.add(key);
                 if (!set2.has(key)) {

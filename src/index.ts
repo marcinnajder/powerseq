@@ -17,6 +17,7 @@ export { count } from "./operators/count";
 export { countby } from "./operators/countby";
 export { defaultifempty } from "./operators/defaultifempty";
 export { distinct } from "./operators/distinct";
+export { distinctby } from "./operators/distinctby";
 export { distinctuntilchanged } from "./operators/distinctuntilchanged";
 export { doo } from "./operators/doo";
 export { elementat } from "./operators/elementat";

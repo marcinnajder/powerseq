@@ -1,25 +1,25 @@
 import { Func, Operator } from "../common/types";
+import { identity } from "../common/utils";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-function _distinct<T>(source: Iterable<T>, keySelector?: Func<T, any>) {
+function _distinct<T, K = T>(source: Iterable<T>, keySelector?: Func<T, K>) {
     return wrapInIterable(function* () {
-        if (typeof keySelector === "undefined") {
-            keySelector = item => item;
-        }
-        var set = new Set<any>();
-        var key;
+        const kSelector = keySelector ?? (identity as any);
+        const set = new Set<K>();
         for (var item of source) {
-            key = keySelector(item);
+            const key = kSelector(item);
             if (!set.has(key)) {
                 set.add(key);
-                yield item;
+                yield key;
             }
         }
     });
 }
 
-export function distinct<T>(source: Iterable<T>, keySelector?: Func<T, any>): Iterable<T>;
-export function distinct<T>(keySelector?: Func<T, any>): Operator<T, T>;
+export function distinct<T>(source: Iterable<T>): Iterable<T>;
+export function distinct<T, K>(source: Iterable<T>, keySelector: Func<T, K>): Iterable<K>;
+export function distinct<T>(): Operator<T, T>;
+export function distinct<T, K>(keySelector: Func<T, K>): Operator<T, K>;
 export function distinct() {
     return wrapInThunk(arguments, _distinct);
 }
