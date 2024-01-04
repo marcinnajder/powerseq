@@ -2,7 +2,6 @@ import * as assert from "assert";
 import { distinctby } from "../../src/index";
 
 it('distinctby', function () {
-
     assert.deepEqual([...distinctby([1, 2, 3, 4, 5, 6], x => x % 3)], [1, 2, 3]);
     assert.deepEqual([...distinctby([1, 2, 3, 4, 5, 6].reverse(), x => x % 3)], [6, 5, 4]);
 

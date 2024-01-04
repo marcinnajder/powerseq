@@ -17,6 +17,7 @@ export const samples = [
 ];
 
 export const lodash = "nth";
+export const linq = ["ElementAt", "ElementAtOrDefault"];
 export const rxjs = "elementAt";
 export const fsharp = "nth";
 export const kotlin = ["elementAt", "elementAtOrElse", "elementAtOrNull"];

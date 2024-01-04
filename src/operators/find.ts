@@ -9,7 +9,7 @@ function _find<T>(source: Iterable<T>, predicate?: Predicate<T>, defaultValue?: 
         return defaultValue;
     }
     else {
-        var index = 0;
+        let index = 0;
         for (var item of source) {
             if (predicate(item, index++)) {
                 return item;

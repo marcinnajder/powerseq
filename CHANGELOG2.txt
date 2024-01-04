@@ -13,3 +13,4 @@
 - breaking change: scan is returing init value of acculumator
 - breaking change: changing distinct, introducing distinctby
 - new distinctby operator
+- breaking change: changing implementation of last, adding parameter 'defaultValue'

@@ -1,15 +1,11 @@
-import { wrapInIterable, wrapInThunk } from "../common/wrap";
+import { wrapInThunk } from "../common/wrap";
 import { OperatorR } from "../common/types";
 
 function _toarray<T>(source: Iterable<T>): T[] {
     if (Array.isArray(source)) {
         return source;
     }
-    var result: T[] = [];
-    for (var item of source) {
-        result.push(item);
-    }
-    return result;
+    return [...source];
 }
 
 export function toarray<T>(source: Iterable<T>): T[];

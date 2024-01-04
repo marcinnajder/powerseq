@@ -3,7 +3,7 @@ import { OperatorR } from "../common/types";
 
 function _elementat<T>(source: Iterable<T>, index: number, defaultValue?: T): T | undefined {
     if (index >= 0) {
-        var i = 0;
+        let i = 0;
         for (var item of source) {
             if (i++ === index) {
                 return item;
