@@ -1,6 +1,7 @@
 
 export type Func<T, R> = (arg: T) => R;
 export type Func2<T1, T2, R> = (arg1: T1, arg2: T2) => R;
+export type Func3<T1, T2, T3, R> = (arg1: T1, arg2: T2, arg3: T3) => R;
 
 export type Predicate<T> = (item: T, index: number) => boolean;
 export type Comparer<T> = (a: T, b: T) => number;

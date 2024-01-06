@@ -8,6 +8,8 @@ export { zipp } from "./operators/zip";
 
 export { OrderingState, OrderedIterable } from "./common/ordering"; // !!
 
+export { pairwise } from "./operators/pairwise";
+export { partitionby } from "./operators/partitionby";
 export { asiterable } from "./operators/asiterable";
 export { average } from "./operators/average";
 export { buffer } from "./operators/buffer";

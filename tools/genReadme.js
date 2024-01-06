@@ -306,7 +306,7 @@ function formatResultValue(value) {
 // - https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-seqmodule.html#mapFold warto chyba dodac
 // - linki z dokumetnacji do kodu a nie do testow
 // - moze zamiast tej tabelki mappingu ianczej prezentowac te dane jako np "- filter - filter (LINQ), ... " lub technologie jako podpunkty 
-
+// - allUniqueTyples ? 
 
 
 

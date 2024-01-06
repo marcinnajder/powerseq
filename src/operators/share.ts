@@ -26,7 +26,6 @@ export function share() {
 // function* _share<T>(source: Iterable<T>): Iterable<T> {
 //     yield* source;
 // }
-
 // - function above implemented using JS generator works almost correctly
 // - generator functions in JS return iterator object containing all 3 functions: 'next', 'return' and 'throw'
 // - when such an iterator is consumed inside for/of loop, at the end of iteration function 'return(undefined)' is called

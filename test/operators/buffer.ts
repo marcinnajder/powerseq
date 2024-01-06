@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { buffer } from "../../src/index";
 
 it('buffer', function () {
-    var from1to9 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const from1to9 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     assert.deepEqual([...buffer(from1to9, 3)], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
     assert.deepEqual([...buffer(from1to9, 4)], [[1, 2, 3, 4], [5, 6, 7, 8], [9]]);
     assert.deepEqual([...buffer([], 4)], []);
@@ -27,6 +27,6 @@ export const samples = [
 export const linq = "Chunk";
 export const lodash = "chunk";
 export const rxjs = ["bufferCount", "pairwise"];
-export const fsharp = ["windowed", "pairwise"];
-export const kotlin = ["windowed", "chunk"];
+export const fsharp = ["chunkBySize", "windowed", "pairwise",];
+export const kotlin = ["chunked", "windowed"];
 export const clojure = ["partition-all", "partition~"];
