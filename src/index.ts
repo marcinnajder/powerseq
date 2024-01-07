@@ -29,6 +29,7 @@ export { except } from "./operators/except";
 export { exceptby } from "./operators/exceptby";
 export { expand } from "./operators/expand";
 export { filter } from "./operators/filter";
+export { filtermap } from "./operators/filtermap";
 export { find } from "./operators/find";
 export { findindex } from "./operators/findindex";
 export { flatmap } from "./operators/flatmap";
