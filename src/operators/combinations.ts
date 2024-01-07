@@ -1,7 +1,7 @@
 import { Operator } from "../common/types";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
-function _subsets<T>(source: Iterable<T>, size: number) {
+function _combinations<T>(source: Iterable<T>, size: number) {
     return wrapInIterable(function* () {
         if (size <= 0) {
             return;
@@ -33,9 +33,9 @@ function _subsets<T>(source: Iterable<T>, size: number) {
     });
 }
 
-export function subsets<T>(source: Iterable<T>, size: number): Iterable<T[]>;
-export function subsets<T>(size: number): Operator<T, T[]>;
-export function subsets() {
-    return wrapInThunk(arguments, _subsets);
+export function combinations<T>(source: Iterable<T>, size: number): Iterable<T[]>;
+export function combinations<T>(size: number): Operator<T, T[]>;
+export function combinations() {
+    return wrapInThunk(arguments, _combinations);
 }
 

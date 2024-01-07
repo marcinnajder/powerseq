@@ -5,7 +5,7 @@ export function zip<T1, T2, R>(source1: Iterable<T1>, source2: Iterable<T2>, fun
 export function zip<T1, T2, T3, R>(source1: Iterable<T1>, source2: Iterable<T2>, source3: Iterable<T3>, func: (item1: T1, item2: T2, item3: T3) => R): Iterable<R>;
 export function zip<T1, T2, T3, T4, R>(source1: Iterable<T1>, source2: Iterable<T2>, source3: Iterable<T3>, source4: Iterable<T4>, func: (item1: T1, item2: T2, item3: T3, item4: T4) => R): Iterable<R>;
 export function zip<T1, T2, T3, T4, T5, R>(source1: Iterable<T1>, source2: Iterable<T2>, source3: Iterable<T3>, source4: Iterable<T4>, source5: Iterable<T5>, func: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5) => R): Iterable<R>;
-export function zip(...args: any[]): any;
+export function zip(...args: any[]): Iterable<any>;
 export function zip<R>(...args: any[]): Iterable<R> {
     return wrapInIterable(function* () {
         var iterators = args.slice(0, args.length - 1).map((i: Iterable<any>) => i[Symbol.iterator]());

@@ -19,6 +19,7 @@ export { defaultifemptyp } from "./operators/defaultifempty";
 export { includesp } from "./operators/includes";
 export { sequenceequalp } from "./operators/sequenceequal";
 export { zipp } from "./operators/zip";
+export { interleavep } from "./operators/interleave";
 
 export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc } from "./operators/groupby";
 

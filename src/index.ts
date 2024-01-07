@@ -8,7 +8,8 @@ export { zipp } from "./operators/zip";
 
 export { OrderingState, OrderedIterable } from "./common/ordering"; // !!
 
-export { subsets } from "./operators/subsets";
+export { interpose } from "./operators/interpose";
+export { combinations } from "./operators/combinations";
 export { pairwise } from "./operators/pairwise";
 export { partitionby } from "./operators/partitionby";
 export { asiterable } from "./operators/asiterable";
@@ -35,6 +36,8 @@ export { findindex } from "./operators/findindex";
 export { flatmap } from "./operators/flatmap";
 export { foreach } from "./operators/foreach";
 export { groupby } from "./operators/groupby";
+export { interleave } from "./operators/interleave";
+export { interleavep } from "./operators/interleave";
 // export { groupbytoobject } from "./operators/groupbytoobject";
 export { groupjoin } from "./operators/groupjoin";
 export { ignoreelements } from "./operators/ignoreelements";
