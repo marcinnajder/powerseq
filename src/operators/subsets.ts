@@ -6,6 +6,7 @@ function _subsets<T>(source: Iterable<T>, size: number) {
         if (size <= 0) {
             return;
         }
+
         if (Array.isArray(source)) {
             if (size > source.length) {
                 return;
@@ -16,25 +17,18 @@ function _subsets<T>(source: Iterable<T>, size: number) {
             }
         }
 
-        if (size === 1) {
-            for (const item of source) {
-                yield [item];
-            }
-        } else {
-            const allTuples: T[][] = [];
-            for (const item of source) {
-                const newTuples: T[][] = [];
-                for (const tuple of allTuples) {
-                    const newTuple = [...tuple, item];
-                    if (newTuple.length === size) {
-                        yield newTuple;
-                    } else {
-                        newTuples.push(newTuple);
-                    }
+        const allTuples: T[][] = [[]];
+        for (const item of source) {
+            const newTuples: T[][] = [];
+            for (const tuple of allTuples) {
+                const newTuple = [...tuple, item];
+                if (newTuple.length === size) {
+                    yield newTuple;
+                } else {
+                    newTuples.push(newTuple);
                 }
-                newTuples.push([item]);
-                allTuples.push(...newTuples);
             }
+            allTuples.push(...newTuples);
         }
     });
 }

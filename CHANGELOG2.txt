@@ -19,3 +19,5 @@ always 'undefined' or 'defaultValue' parameter (so no exception at all)
 - new pairwise operator
 - new partitionby operator
 - new subsets operator
+- breaking change: new unionby, intersectby, exceptby operators extracted from union, intersect, except
+
