@@ -18,3 +18,4 @@
 always 'undefined' or 'defaultValue' parameter (so no exception at all)
 - new pairwise operator
 - new partitionby operator
+- new subsets operator
