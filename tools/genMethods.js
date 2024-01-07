@@ -4,14 +4,11 @@ var path = require("path");
 var os = require("os");
 
 var operators = glob.sync("./src/operators/*.ts");
-var enumerable = glob.sync("./src/enumerable/*.ts");
-var files = operators
-    .concat(enumerable)
-    .map(p => p.replace("src" + path.sep, "").replace(".ts", ""));
+var creators = glob.sync("./src/creators/*.ts");
 
-var indexContent = files
-    .map(p => `export { ${p.split("/")[2]} } from "${p}";`)
-    .join(os.EOL);
+var files = operators.concat(creators).map(p => p.replace("src" + path.sep, "").replace(".ts", ""));
+var indexContent = files.map(p => `export { ${p.split("/")[1]} } from "./${p}";`).join(os.EOL);
+
 saveFile("./src/index.ts",
     `export { pipe } from "./pipe";
 export { concatp } from "./operators/concat";
@@ -21,20 +18,9 @@ export { sequenceequalp } from "./operators/sequenceequal";
 export { zipp } from "./operators/zip";
 export { interleavep } from "./operators/interleave";
 
-export { IterableGroup, EnumerableGroup, KeySelectorFunc, ElementSelectorFunc, ResultSelectorFunc } from "./operators/groupby";
+export { OrderingState, OrderedIterable } from "./common/ordering";
 
 ${indexContent}`);
-
-var imports = files
-    .map(p => `import "${p}"; `)
-    .join(os.EOL);
-
-saveFile("./src/enumerable.ts",
-    `export * from "./enumerable_";
-export * from "./orderedEnumerable";        
-export * from "./index";
-${imports}
-`);
 
 
 function saveFile(filePath, fileContent) {

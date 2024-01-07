@@ -7,7 +7,7 @@ var os = require("os");
 global.it = global.describe = () => { }; // fake mocha methods
 var _maxColumns = 4;
 var _maxRows = 6;
-var enumerable = listMethods("./src/enumerable/*.ts");
+var creators = listMethods("./src/creators/*.ts");
 var operators = listMethods("./src/operators/*.ts");
 var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master";
 
@@ -25,9 +25,9 @@ var otherLibs = {
 }
 
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
-var enumerableTable = generateTable(_maxColumns, _maxRows, enumerable, githubAddressPrefix, "enumerable");
+var enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "enumerable");
 var counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
-var mappingTable = generateMappingTable(operators.concat(enumerable).sort(), githubAddressPrefix, counterparts);
+var mappingTable = generateMappingTable(operators.concat(creators).sort(), githubAddressPrefix, counterparts);
 
 
 var readmeContent =
@@ -51,22 +51,6 @@ for(var item of filter([1,2,3,4,5], x => x % 2 === 0)){
 chaining many operators 
 
 \`\`\`javascript
-import { Enumerable } from "powerseq/enumerable";  
-// use 'Enumerable' class ONLY on the server side !! (use 'pipe' method on the client side )
-
-const items = Enumerable
-    .range(1,Number.MAX_VALUE)
-    .filter( x => x % 2 === 0)
-    .take(5)
-    .reverse()
-    .toarray();
-
-console.log(items);
-\`\`\`
-
-chaining many operators using **pipe** method (it allows code tree shaking)
-
-\`\`\`javascript
 import { pipe, range, filter, take, reverse, toarray } from "powerseq";
 
 const items = pipe(
@@ -79,13 +63,13 @@ const items = pipe(
 console.log(items);
 \`\`\`
 
-most of the operators can be used as a single operator (\`filter([1,2,3,4,5], x => x % 2 === 0)\`) or as a part of the operator chain \`pipe([1, 2, 3, 4, 5], filter(x => x % 2 === 0), ... )\`.But some operators have special counterparts (concatp, defaultifemptyp, includesp, sequenceequalp, zipp) when used with pipe, so we call \`concat([1,2,3], [4,5,6])\` but we have to call \`pipe([1,2,3], concatp([4,5,6]), ... )\` if we want to chain \`concat\` with other operators.
+most of the operators can be used as a single operator (\`filter([1,2,3,4,5], x => x % 2 === 0)\`) or as a part of the operator chain \`pipe([1, 2, 3, 4, 5], filter(x => x % 2 === 0), ... )\`.But some operators have special counterparts (concatp, defaultifemptyp, includesp, sequenceequalp, zipp, interleavep) when used with pipe, so we call \`concat([1,2,3], [4,5,6])\` but we have to call \`pipe([1,2,3], concatp([4,5,6]), ... )\` if we want to chain \`concat\` with other operators.
 
 ## operators
 - each operator below has **tooltip with documentation**
 - [click](${githubAddressPrefix}/docs/mapping.md) to see mapping powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
 
-enumerable
+creators
 ${enumerableTable}
 operators
 ${operatorsTable}
@@ -100,8 +84,6 @@ ${mappingTable}
 `
 fs.writeFileSync("./docs/mapping.md", mappingContent);
 console.log("./docs/mapping.md", " file generated");
-
-
 
 
 
@@ -133,7 +115,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
                 break;
             }
 
-            unitTestModule = require("../dist/cjs_es6/test/" + enumerableOrOpertor + "/" + methodName + ".js");
+            unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
 
             // linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
             // content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
@@ -150,6 +132,8 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
 
 function generateMappingTable(methods, urlPrefix, counterparts) {
+    // console.log(methods);
+
     var methodName, unitTestModule, unitTestModulePath;
     var content = "";
 
@@ -159,7 +143,7 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
 
     // content
     for (var methodName of methods) {
-        var unitTestModulePath = ["/operators", "/enumerable"].map(f => path.resolve(__dirname, "../dist/cjs_es6/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
+        var unitTestModulePath = ["/operators", "/creators"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
         unitTestModule = require(unitTestModulePath);
 
         var maxMatchingOperators = counterparts.map(c => unitTestModule[c]).filter(ops => Array.isArray(ops)).reduce((p, c) => Math.max(p, c.length), 0);

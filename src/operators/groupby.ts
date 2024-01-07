@@ -2,12 +2,6 @@ import { wrapInThunk } from "../common/wrap";
 import { OperatorR, Func2, Func } from "../common/types";
 import { identity } from "../common/utils"
 
-// zmiany
-// - zwaracamy zawsze Map ktora jest iterowalana, wartoscia jest tablica a nie Enumerable<T>
-// - teraz funkcja nie bedzie "leniwa", tylko od razu zwraca rezultat
-// - mniej przeladowac, kompletnie nie bedzie 'resultSelector'
-// - na przykladach poprawek w powerseq lub osobnych pokazac jak obecnie korzystac z groupby dla kazdego z poprzednich przeladowan
-
 export function _groupby<T, K, E = T>(source: Iterable<T>, keySelector: Func2<T, number, K>, elementSelector?: Func<T, E>): Map<K, E[]> {
     const result = new Map<K, E[]>();
     const eSelector = elementSelector ?? (identity as any);

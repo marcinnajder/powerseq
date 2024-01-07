@@ -10,7 +10,6 @@ export type Dictionary<T> = {
     [key: string]: T;
 }
 
-
 export type OperatorTR<T, R> = (source: T) => R;
 
 export type OperatorR<T, R> = OperatorTR<Iterable<T>, R>;
