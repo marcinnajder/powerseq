@@ -5,10 +5,13 @@ var util = require("util");
 var os = require("os");
 
 global.it = global.describe = () => { }; // fake mocha methods
+
 var _maxColumns = 4;
 var _maxRows = 6;
 var creators = listMethods("./src/creators/*.ts");
 var operators = listMethods("./src/operators/*.ts");
+var allFunctions = operators.concat(creators);
+var allFunctionsCallsMapping = allFunctions.concat(["pipe"]).map(functionName => [`(0, index_1.${functionName})`, functionName]);
 var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master";
 
 var otherLibs = {
@@ -24,10 +27,14 @@ var otherLibs = {
     "scala": ""
 }
 
+console.log(generateDocs(operators, githubAddressPrefix, "operators"));
+console.log(generateDocs(creators, githubAddressPrefix, "creators"));
+
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
-var enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "enumerable");
+var enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
 var counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
-var mappingTable = generateMappingTable(operators.concat(creators).sort(), githubAddressPrefix, counterparts);
+var mappingTable = generateMappingTable([...allFunctions].sort(), githubAddressPrefix, counterparts);
+
 
 
 var readmeContent =
@@ -74,16 +81,16 @@ ${enumerableTable}
 operators
 ${operatorsTable}
 `
-fs.writeFileSync("./README.md", readmeContent);
-console.log("./README.md", " file generated");
+// fs.writeFileSync("./README.md", readmeContent);
+// console.log("./README.md", " file generated");
 
 
-var mappingContent =
-    `
-${mappingTable}
-`
-fs.writeFileSync("./docs/mapping.md", mappingContent);
-console.log("./docs/mapping.md", " file generated");
+// var mappingContent =
+//     `
+// ${mappingTable}
+// `
+// fs.writeFileSync("./docs/mapping.md", mappingContent);
+// console.log("./docs/mapping.md", " file generated");
 
 
 
@@ -102,7 +109,7 @@ function findTableSize(columnCount, rowCount, methodCount) {
     return { rowCount, columnCount };
 }
 
-function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOpertor) {
+function generateTable(maxColumns, maxRows, methods, urlPrefix, creatorsOrOpertors) {
     var { rowCount, columnCount } = findTableSize(maxColumns, maxRows, methods.length);
     var methodName, unitTestModule, linq, samples;
     var content = "";
@@ -115,11 +122,11 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
                 break;
             }
 
-            unitTestModule = require("../dist/test/" + enumerableOrOpertor + "/" + methodName + ".js");
+            unitTestModule = require("../dist/test/" + creatorsOrOpertors + "/" + methodName + ".js");
 
             // linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
             // content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
-            content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a></span></td>`;
+            content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${creatorsOrOpertors}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a></span></td>`;
             //content += `<td><div class="wrapper"><a href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts">${methodName}</a> <div class="tooltip">${formatSamplesTooltip(methodName, unitTestModule.samples)}</div> ${linq}</div></td>`;
         }
         content += "</tr>";
@@ -127,6 +134,24 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, enumerableOrOper
 
     return `<table>${content}</table>`;
 }
+
+
+function generateDocs(methods, urlPrefix, creatorsOrOpertors) {
+
+    var content = "";
+
+    for (const methodName of methods) {
+        const unitTestModule = require("../dist/test/" + creatorsOrOpertors + "/" + methodName + ".js");
+        const docs = formatSamplesList(methodName, unitTestModule.samples).map(sample => `  - ${sample}`).join(os.EOL);
+
+        content += `- ${methodName}
+${docs}
+`;
+    }
+
+    return content;
+}
+
 
 
 
@@ -218,6 +243,43 @@ function formatSamplesTooltip(methodName, samples) {
     return `title="${samplesText}"`;
 }
 
+function formatSamplesList(methodName, samples) {
+    if (typeof samples === "undefined") {
+        console.warn("no samples for operator: ", methodName);
+        return "";
+    }
+
+    return samples.map(sampleFunc => {
+        var error;
+        var sampleBody = sampleFunc.toString();
+        sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 3);
+
+        sampleBody = allFunctionsCallsMapping.reduce((prev, [funcCall, funcName]) => prev.replace(funcCall, funcName), sampleBody);
+
+        // sampleBody = sampleBody.replace(/enumerable_1\./g, "");
+        sampleBody = sampleBody.replace(/\"/g, "'");
+
+        var sampleResult;
+        try {
+            sampleResult = sampleFunc();
+
+            // try to catch any exception thrown during the iteration
+            if (sampleResult && sampleResult[Symbol.iterator]) {
+                Array.from(sampleResult);
+            }
+
+            // if(sampleBody.indexOf ("take") !== -1 && sampleBody.indexOf ("repeat") !== -1) {
+            // }
+        }
+        catch (err) {
+            error = err;
+        }
+
+        return ` \`\`\`${sampleBody}\`\`\` -> \`\`\`${formatResultValue(error || sampleResult)}\`\`\` `
+    });
+}
+
+
 
 
 
@@ -238,23 +300,29 @@ function formatResultValue(value) {
         return `Map {${Array.from(value.entries()).map(([key, v]) => `${formatResultValue(key)} => ${formatResultValue(v)}`).join(", ")}}`;
     }
     if (value && value.constructor && (value.constructor.name === "Enumerable" || value.constructor.name === "OrderedEnumerable")) {
-        return "enumerable [" + Array.from(value).map(formatResultValue).join(", ") + "]";
+        return "enum [" + Array.from(value).map(formatResultValue).join(", ") + "]";
     }
     if (value[Symbol.iterator]) {
         return "seq [" + Array.from(value).map(formatResultValue).join(", ") + "]";
     }
 
     if (util.isObject(value)) {
-        return `{ ${Object.keys(value).map(key => `${key}:${value[key]}`).join(", ")} }`;
+        return `{ ${Object.keys(value).map(key => `${key}:${formatResultValue(value[key])}`).join(", ")} }`;
     }
     return value;
 }
 
 
 
+
+
+
+
+
 // gdy przegladalem operatory dla poszczegolnych technologii to notowalem co w nich jest ciekawe i czego ewentualnie brakuje w powerfp
 
 // todo: ewentualnie kiedys dopisac/zmienic w powerseq 2.0
+// - !! pozbyc sie Enumerable.from(cmds) tzn samo FROM juz chyba niejest potrzebna jak nie ma Enumerable, i inne analogiczne
 // - moze funkncje nazwa cycle zamiasat repeat, bo jeszcze jest repeatvalue :/ 
 // - moze taki takeWhileIncluded i skipWhileIncluded
 // - dodac singleOrDefault() i inne analogiczne aby byla wresja bez wyjatka
@@ -291,6 +359,7 @@ function formatResultValue(value) {
 // - linki z dokumetnacji do kodu a nie do testow
 // - moze zamiast tej tabelki mappingu ianczej prezentowac te dane jako np "- filter - filter (LINQ), ... " lub technologie jako podpunkty 
 // - allUniqueTyples ? 
+// - napisac dokument "migration guid" i na postawie mozna zrobic prezentacje dla zespolu
 
 
 

@@ -1,0 +1,57 @@
+#### `Enumerable.`, `scan`, `groupjoin`, `distinct`, `union, intersect, except `, `groupby`
+
+- `Enumerable`
+	- nie ma już tego typu i pisania na zasadzie ```Enumerable.of(....).filter(...).map(...)```
+	- teraz piszemy tylko `pipe(..., filter(...), map(...) )`
+	- take przepisywanie robi się w miarę automatycznie ale, pewne operatory są takie mają specjalną wersję gdy stosujemy z pipe np. ```Enumerable.of(....).zip(..., (a,b) => ...)``` i  ```zip(..., ..., (a,b) => ... )``` ale już z `pipe` musimy dodać literkę "p" czyli ```pipe(..., zipp(..., (a,b) => ... )``` 
+	- do tej pory w powerseq1 operatory który takie były to `concatp, defaultifemptyp, includesp, sequenceequalp, zipp`
+	- TS nie zawsze powiem nam o tym że jest błąd, czyli ja przepisując kod mogłem zapomnieć o "p" i mamy lipę
+-  `scan`, `groupjoin`
+	- te dwa operatory mają dokładnie takie samo API, ale inne działanie
+	- na szczęście tym nie musicie się przyjmować, bo chyba używane był tylko raz i to w moim kodzie :) i poprawiłem, kiedyś tam wyjaśnię na czym polega zmiana
+	- `distinct`
+		- to jest przewalony przypadek, pojawił się nowy operator `distinctby( ... => ...)` i teraz i on powinien być stosowany wszędzie tam gdzie było w kodzie `distinct( ... => ...)` (czyli mówimy tutaj o przeładowaniu z lambdą)
+		- co ciekawe ciągle `distinct( ... => ...)` można napisać, tylko to robi co innego co `distinctby( ... => ...)` : //
+		- TS przeważnie wyłapuje ten błąd, ale nie zawsze :( generalnie w powerseq2 inny typ zwraca `distinct( ... => ...)` a inny `distinctby( ... => ...)`, ale czasemi  wkodzie mamy coś takiego `pipe(..., distinct[by]( ... => ...), count())` i nie ma możliwości aby TS to wyłapał :/ a działanie jest inne
+
+- `union, intersect, except`
+	- tutaj jest w miarę prosto ponieważ pojawiły się nowe `unionby, intersectby, exceptby` które przyjmują lambdy, a ten `union, intersect, except` już nie przyjmują (w wcześniej przyjmowały)
+- `groupby` :/
+- tylko grupowanie
+	-  ```groupby1(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length)```
+		- -> ```seq [enum ['a', 'b'], enum ['cc', 'xx'], enum ['ddd']]``` 
+	-  ```groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length)```
+		- -> ```Map {1 => ['a', 'b'], 2 => ['cc', 'xx'], 3 => ['ddd']}``` 
+- grupowanie i zmiana elementu w grupie (`elementSelector`)
+	-  ```groupby1(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, x => x.toUpperCase())```
+		- -> ```seq [enum ['A', 'B'], enum ['CC', 'XX'], enum ['DDD']]``` 
+	-  ```groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, x => x.toUpperCase())```
+		- -> ```Map {1 => ['A', 'B'], 2 => ['CC', 'XX'], 3 => ['DDD']}``` 
+- grupowanie i zmiana finalnego rezultatu (`resultSelector`)
+	-  ```groupby1(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, x => x, (key, values) => ({ key, values: [...values], min: min(values) }))```
+		- -> ```seq [{ key:1, values:['a', 'b'], min:'a' }, { key:2, values:['cc', 'xx'], min:'cc' }, { key:3, values:['ddd'], min:'ddd' }]``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), map(([key, values]) => ({ key, values, min: min(values) })))```
+		- -> ```seq [{ key:1, values:['a', 'b'], min:'a' }, { key:2, values:['cc', 'xx'], min:'cc' }, { key:3, values:['ddd'], min:'ddd' }]``` 
+- grupowanie i stworzenie obiektu JS gdzie wartości są tablicą
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby1(x => x.length), toobject(gr => gr.key, gr => [...gr]))``` 
+		- -> ```{ 1:['a', 'b'], 2:['cc', 'xx'], 3:['ddd'] }``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), toobject())``` 
+		- -> ```{ 1:['a', 'b'], 2:['cc', 'xx'], 3:['ddd'] }``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], toobjectgrouping(x => x.length))``` 
+		- -> ```{ 1:['a', 'b'], 2:['cc', 'xx'], 3:['ddd'] }``` 
+- grupowanie i stworzenie obiektu JS gdzie wartości są tablicą ale element jest innego typu
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby1(x => x.length), toobject(gr => gr.key, gr => [...gr].map(x => x.toUpperCase())))``` 
+		- -> ```{ 1:['A', 'B'], 2:['CC', 'XX'], 3:['DDD'] }``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length, x => x.toUpperCase()), toobject())```
+		- -> ```{ 1:['A', 'B'], 2:['CC', 'XX'], 3:['DDD'] }``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], toobjectgrouping(x => x.length, valies => valies.map(x => x.toUpperCase())))``` 
+		- -> ```{ 1:['A', 'B'], 2:['CC', 'XX'], 3:['DDD'] }``` 
+- grupowanie i stworzenie obiektu JS gdzie wartości są wartością skalarną
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby1(x => x.length, x => x, (key, values) => ({ key, min: min(values) })), toobject(({ key }) => key, ({ min }) => min))```
+		- -> ```{ 1:'a', 2:'cc', 3:'ddd' }```
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby1(x => x.length), toobject(gr => gr.key, gr => min(gr)))```
+		- -> ```{ 1:'a', 2:'cc', 3:'ddd' }``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), toobject(([key, values]) => key, ([key, values]) => min(values)))``` 
+		- -> ```{ 1:'a', 2:'cc', 3:'ddd' }``` 
+	-  ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], toobjectgrouping(x => x.length, values => min(values)))``` 
+		- -> ```{ 1:'a', 2:'cc', 3:'ddd' }``` 

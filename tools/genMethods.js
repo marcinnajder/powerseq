@@ -19,6 +19,7 @@ export { zipp } from "./operators/zip";
 export { interleavep } from "./operators/interleave";
 
 export { OrderingState, OrderedIterable } from "./common/ordering";
+export { identity } from "./common/utils";
 
 ${indexContent}`);
 

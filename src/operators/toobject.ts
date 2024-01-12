@@ -1,33 +1,38 @@
-import { Dictionary, OperatorR, Func, OperatorTR } from "../common/types";
+import { Dictionary, OperatorR, OperatorTR, Func2 } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
+function _toobject<T, K, E>(source: Iterable<T>, keySelector?: Func2<T, number, K>, elementSelector?: Func2<T, K, E>): Dictionary<E | T> {
+    if (typeof keySelector === "undefined") {
+        if (source instanceof Map) {
+            return Object.fromEntries(source);
+        }
 
-function _toobject<T, E>(source: Iterable<T> | Map<any, any>, keySelector: Func<T, any>, elementSelector?: Func<T, E>): Dictionary<E> {
-    if (source instanceof Map) {
-        return Object.fromEntries(source);
+        throw new TypeError("Only Map or Iterable types can be passed ingo 'toobject' operator");
     }
 
-    var map: Dictionary<E> = {};
+    const result: Dictionary<E | T> = {};
 
     if (typeof elementSelector === "undefined") {
-        for (var item of source) {
-            map[keySelector(item)] = <any>item;
+        let index = 0;
+        for (const item of source) {
+            result[keySelector(item, index++) as string] = item;
+        }
+    } else {
+        let index = 0;
+        for (const item of source) {
+            const key = keySelector(item, index++);
+            result[key as string] = elementSelector(item, key);
         }
     }
-    else {
-        for (var item of source) {
-            map[keySelector(item)] = elementSelector(item);
-        }
-    }
-    return map;
+    return result;
 }
 
-export function toobject<K, V>(source: Map<K, V>): Dictionary<V>;
-export function toobject<T>(source: Iterable<T>, keySelector: Func<T, any>): Dictionary<T>;
-export function toobject<T, E>(source: Iterable<T>, keySelector: Func<T, any>, elementSelector: Func<T, E>): Dictionary<E>;
-export function toobject<K, V>(): OperatorTR<Map<K, V>, Dictionary<V>>;
-export function toobject<T>(keySelector: Func<T, any>): OperatorR<T, Dictionary<T>>;
-export function toobject<T, E>(keySelector: Func<T, any>, elementSelector: Func<T, E>): OperatorR<T, Dictionary<E>>;
+export function toobject<K, E>(source: Map<K, E>): Dictionary<E>;
+export function toobject<T, K>(source: Iterable<T>, keySelector: Func2<T, number, K>): Dictionary<T>;
+export function toobject<T, K, E>(source: Iterable<T>, keySelector: Func2<T, number, K>, elementSelector: Func2<T, K, E>): Dictionary<E>;
+export function toobject<K, E>(): OperatorTR<Map<K, E>, Dictionary<E>>;
+export function toobject<T, K>(keySelector: Func2<T, number, K>): OperatorR<T, Dictionary<T>>;
+export function toobject<T, K, E>(keySelector: Func2<T, number, K>, elementSelector: Func2<T, K, E>): OperatorR<T, Dictionary<E>>;
 export function toobject() {
     return wrapInThunk(arguments, _toobject);
 }

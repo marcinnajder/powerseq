@@ -9,6 +9,8 @@ it('groupby', function () {
     assert.deepEqual([...groupby(items, x => x.length, x => x + x)].map(groupToString), ["1:aa,bb", "2:cccc", "3:dddddd"]); // elementSelector
     assert.deepEqual([...pipe(items, groupby(x => x.length), map(groupToString))], ["1:a,b", "2:cc", "3:ddd"]); // "resultSelector"
 
+    assert.deepEqual([...pipe(items, groupby(x => x.length, (x, k) => k), map(groupToString))], ["1:1,1", "2:2", "3:3"]); // "resultSelector" with key
+
     assert.deepEqual(pipe(items, groupby(x => x.length, x => x + x), map(groupToString), toarray()), ["1:aa,bb", "2:cccc", "3:dddddd"]);
 
     assert.deepEqual([...groupby((x: string) => x.length)(items)].map(groupToString), ["1:a,b", "2:cc", "3:ddd"]);
@@ -22,6 +24,7 @@ function groupToString<K, E>([key, values]: [K, E[]]) {
 export const samples = [
     () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length),
     () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, x => x.toUpperCase()),
+    () => groupby(['a', 'b', 'cc', 'ddd', 'xx'], x => x.length, (x, k) => k),
     () => pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), map(([key, values]) => ({ key, values }))),
     () => pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), toobject())
 ];

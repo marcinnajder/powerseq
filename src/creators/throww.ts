@@ -1,8 +1,13 @@
 
-import { wrapInIterable } from "../common/wrap";
 
-export function throww<T>(error: any) {
-    return wrapInIterable<T>(function* () {
-        throw error;
-    });
+export function throww<T>(error: any): Iterable<T> {
+    return {
+        [Symbol.iterator]() {
+            return {
+                next() {
+                    throw error;
+                }
+            };
+        }
+    };
 }

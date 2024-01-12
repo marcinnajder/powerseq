@@ -8,7 +8,10 @@ export { zipp } from "./operators/zip";
 export { interleavep } from "./operators/interleave";
 
 export { OrderingState, OrderedIterable } from "./common/ordering";
+export { identity } from "./common/utils";
 
+export { toobjectgrouping } from "./operators/toobjectgrouping";
+export { groupby1 } from "./operators/groupby1";
 export { zip } from "./operators/zip";
 export { unionby } from "./operators/unionby";
 export { union } from "./operators/union";
@@ -81,9 +84,7 @@ export { asiterable } from "./operators/asiterable";
 export { throww } from "./creators/throww";
 export { repeatvalue } from "./creators/repeatvalue";
 export { range } from "./creators/range";
-export { of } from "./creators/of";
 export { generate } from "./creators/generate";
-export { from } from "./creators/from";
 export { entries } from "./creators/entries";
 export { empty } from "./creators/empty";
 export { defer } from "./creators/defer";

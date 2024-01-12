@@ -1,12 +1,12 @@
-import { wrapInIterable, wrapInThunk } from "../common/wrap";
-import { Func2, Operator } from "../common/types";
+import { wrapInThunk } from "../common/wrap";
+import { Operator } from "../common/types";
 
 function _memoize<T>(source: Iterable<T>): Iterable<T> {
     const results: IteratorResult<T, any>[] = [], iterator = source[Symbol.iterator]();
 
     return {
         [Symbol.iterator]() {
-            var i = 0;
+            let i = 0;
             return {
                 next() {
                     if (i < results.length) {

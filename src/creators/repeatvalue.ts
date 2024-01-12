@@ -6,9 +6,8 @@ export function repeatvalue<T>(value: T, count?: number) {
             while (true) {
                 yield value;
             }
-        }
-        else {
-            for (var i = 0; i < count; i++) {
+        } else {
+            for (let i = 0; i < count; i++) {
                 yield value;
             }
         }

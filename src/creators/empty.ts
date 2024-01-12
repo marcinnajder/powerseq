@@ -1,6 +1,12 @@
-import { wrapInIterable } from "../common/wrap";
 
-export function empty<T>() {
-    return wrapInIterable<T>(function* () {
-    });
+export function empty<T>(): Iterable<T> {
+    return {
+        [Symbol.iterator]() {
+            return {
+                next() {
+                    return { done: true, value: undefined };
+                }
+            };
+        }
+    }
 }

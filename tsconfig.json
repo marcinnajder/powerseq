@@ -3,9 +3,9 @@
         "module": "CommonJS",
         "target": "es2015",
         "strict": true,        
-        "sourceMap": true,
+        "sourceMap": false,
         "inlineSources": false,
-        "declaration": true,
+        "declaration": false,
         "lib": [
             "es2015"
         ],
