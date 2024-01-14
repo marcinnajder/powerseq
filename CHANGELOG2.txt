@@ -10,6 +10,7 @@
 - powerseq is compatible with |> operator
 - new memoize operator
 - new share operator
+- breaking change: single does not throw exception !!
 - breaking change: scan is returing init value of acculumator
 - breaking change: changing distinct, introducing distinctby (caution: previously distinct with lambda worked like today's distinctby !)
 - new distinctby operator
@@ -22,5 +23,6 @@ always 'undefined' or 'defaultValue' parameter (so no exception at all)
 - breaking change: new unionby, intersectby, exceptby operators extracted from union, intersect, except
 - new filtermap operator
 - new interleave operator
-- breaking change: creators of and from deleted
+- breaking change: creators 'of' and 'from' deleted
+- new flat operator
 

@@ -26,11 +26,12 @@
 |filtermap</br></br>|</br></br>|</br></br>|</br></br>|</br></br>|choose</br></br>|keep</br></br>|mapNotNull</br>mapIndexedNotNull|</br></br>|filtermap|
 |find</br></br></br>|First</br>FirstOrDefault</br></br>|find</br>first</br></br>|find</br></br></br>|first</br>head</br>find|find~</br>tryFind</br>head|first~</br></br></br>|find</br>first~</br></br>|findFirst~</br></br></br>|find|
 |findindex</br></br>|</br></br>|findIndex</br></br>|findIndex</br></br>|findIndex</br></br>|findIndex~</br>tryFindIndex|</br></br>|indexOfFirst</br>indexOf~|</br></br>|findindex|
-|flatmap</br></br>|SelectMany</br></br>|</br></br>|</br></br>|flatten</br>flatMap|collect</br></br>|mapcat</br>flatten~|flatMap</br>flatten~|flatMap</br>mapMulti|flatmap|
+|flat|||flat~|flatten||flatten~|flatten||flat|
+|flatmap</br></br>|SelectMany</br></br>|</br></br>|flatMap</br></br>|flatMap</br></br>|collect</br></br>|mapcat</br></br>|flatMap</br></br>|flatMap</br>mapMulti|flatmap|
 |foreach</br></br>|</br></br>|</br></br>|forEach</br></br>|each</br>forEach|iter</br>iteri|</br></br>|forEach</br>forEachIndexed|forEach</br></br>|foreach|
-|from||from|from||||||from|
 |generate</br></br>|</br></br>|</br></br>|</br></br>|</br></br>|init</br>initInfinite|iterate</br>repeatedly|generate</br></br>|iterate</br></br>|generate|
 |groupby</br></br>|GroupBy</br></br>|groupBy</br></br>|</br></br>|groupBy</br></br>|groupBy</br></br>|group-by</br></br>|groupBy</br>groupingBy|C.groupingBy</br></br>|groupby|
+|groupby1|||||||||groupby1|
 |groupjoin|GroupJoin||||||||groupjoin|
 |ignoreelements||ignoreElements|||||||ignoreelements|
 |includes|Contains||includes|includes|contains|contains?|contains||includes|
@@ -47,7 +48,6 @@
 |memoize|||||cache||||memoize|
 |min|Min|min||min|min||minOf|min|min|
 |minby</br></br>|MinBy</br></br>|</br></br>|</br></br>|minBy</br></br>|minBy</br></br>|min-key</br></br>|minBy</br></br>|C.minBy</br>C.summarizing*|minby|
-|of||of|of||||sequenceOf|of|of|
 |oftype|OfType||||||||oftype|
 |orderby</br></br>|OrderBy</br></br>|</br></br>|sort</br></br>|orderBy</br>sortBy|sort</br>sortBy|sort</br>sort-by|sorted</br>sortedBy|sorted</br></br>|orderby|
 |orderbydescending</br></br>|OrderByDescending</br></br>|</br></br>|sort</br></br>|orderBy</br>sortBy|sort</br>sortBy|</br></br>|sortedDescending</br>sortedByDescending|</br></br>|orderbydescending|
@@ -76,6 +76,7 @@
 |toarray</br></br></br>|ToArray</br></br></br>|</br></br></br>|</br></br></br>|</br></br></br>|toArray</br></br></br>|</br></br></br>|toList</br></br></br>|toArray</br>toList</br>C.toList|toarray|
 |tomap|ToDictionary||||||toMap|C.toMap|tomap|
 |toobject</br></br></br>|</br></br></br>|</br></br></br>|</br></br></br>|fromPairs</br>keyBy</br></br>|</br></br></br>|</br></br></br>|associate</br>associateBy</br>associateWith|C.toMap</br></br></br>|toobject|
+|toobjectgrouping|||||||||toobjectgrouping|
 |union|Union|||union||union~|union~||union|
 |unionby</br></br>|UnionBy</br></br>|</br></br>|</br></br>|unionBy</br>unionWith|</br></br>|</br></br>|</br></br>|</br></br>|unionby|
 |zip</br></br>|Zip</br></br>|zip</br></br>|</br></br>|zip</br>zipWith|zip</br>zip3|map</br></br>|zip</br></br>|</br></br>|zip|

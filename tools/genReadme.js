@@ -27,8 +27,8 @@ var otherLibs = {
     "scala": ""
 }
 
-console.log(generateDocs(operators, githubAddressPrefix, "operators"));
-console.log(generateDocs(creators, githubAddressPrefix, "creators"));
+// console.log(generateDocs(operators, githubAddressPrefix, "operators"));
+// console.log(generateDocs(creators, githubAddressPrefix, "creators"));
 
 var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
 var enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
@@ -81,16 +81,16 @@ ${enumerableTable}
 operators
 ${operatorsTable}
 `
-// fs.writeFileSync("./README.md", readmeContent);
-// console.log("./README.md", " file generated");
+fs.writeFileSync("./README.md", readmeContent);
+console.log("./README.md", " file generated");
 
 
-// var mappingContent =
-//     `
-// ${mappingTable}
-// `
-// fs.writeFileSync("./docs/mapping.md", mappingContent);
-// console.log("./docs/mapping.md", " file generated");
+var mappingContent =
+    `
+${mappingTable}
+`
+fs.writeFileSync("./docs/mapping.md", mappingContent);
+console.log("./docs/mapping.md", " file generated");
 
 
 

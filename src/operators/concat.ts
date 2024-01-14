@@ -3,7 +3,7 @@ import { Operator } from "../common/types";
 
 export function concat<T>(...args: Iterable<T>[]): Iterable<T> {
     return wrapInIterable(function* () {
-        for (var arg of args) {
+        for (const arg of args) {
             yield* arg;
         }
     });
