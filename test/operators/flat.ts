@@ -2,9 +2,6 @@ import * as assert from "assert";
 import { flat, pipe } from "../../src/index";
 
 it('flat', function () {
-    // const a = flat([0, [1], [[2]], [[[3]]]]);
-    // console.log([...a]);
-
     assert.deepEqual([...flat([1, 2, 3])], [1, 2, 3]);
     assert.deepEqual([...flat([1, [2, 3], [], 4])], [1, 2, 3, 4]);
 

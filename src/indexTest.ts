@@ -19,11 +19,15 @@ const coders: Coder[] = [{ name: "kalinka", language: "ts" }, { name: "michal", 
 // }
 
 
+
 function* return123() {
     yield 1;
     yield 2;
     yield 3;
 }
+
+
+
 // var itera1 = return123();
 // var itera2 = return123();
 // console.log(itera1 === itera2);

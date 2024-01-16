@@ -3,11 +3,7 @@ import { wrapInThunk } from "../common/wrap";
 
 function _toobject<T, K, E>(source: Iterable<T>, keySelector?: Func2<T, number, K>, elementSelector?: Func2<T, K, E>): Dictionary<E | T> {
     if (typeof keySelector === "undefined") {
-        if (source instanceof Map) {
-            return Object.fromEntries(source);
-        }
-
-        throw new TypeError("Only Map or Iterable types can be passed ingo 'toobject' operator");
+        return Object.fromEntries(source as Iterable<[K, E]>);
     }
 
     const result: Dictionary<E | T> = {};
@@ -27,10 +23,10 @@ function _toobject<T, K, E>(source: Iterable<T>, keySelector?: Func2<T, number, 
     return result;
 }
 
-export function toobject<K, E>(source: Map<K, E>): Dictionary<E>;
+export function toobject<K, E>(source: Iterable<[K, E]>): Dictionary<E>;
 export function toobject<T, K>(source: Iterable<T>, keySelector: Func2<T, number, K>): Dictionary<T>;
 export function toobject<T, K, E>(source: Iterable<T>, keySelector: Func2<T, number, K>, elementSelector: Func2<T, K, E>): Dictionary<E>;
-export function toobject<K, E>(): OperatorTR<Map<K, E>, Dictionary<E>>;
+export function toobject<K, E>(): OperatorTR<Iterable<[K, E]>, Dictionary<E>>;
 export function toobject<T, K>(keySelector: Func2<T, number, K>): OperatorR<T, Dictionary<T>>;
 export function toobject<T, K, E>(keySelector: Func2<T, number, K>, elementSelector: Func2<T, K, E>): OperatorR<T, Dictionary<E>>;
 export function toobject() {

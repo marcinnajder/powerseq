@@ -27,15 +27,16 @@ var otherLibs = {
     "scala": ""
 }
 
-// console.log(generateDocs(operators, githubAddressPrefix, "operators"));
-// console.log(generateDocs(creators, githubAddressPrefix, "creators"));
 
-var operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
-var enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
-var counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
-var mappingTable = generateMappingTable([...allFunctions].sort(), githubAddressPrefix, counterparts);
+const operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
+const enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
+const counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
+const mappingTable = generateMappingTable([...allFunctions].sort(), githubAddressPrefix, counterparts);
+const creatorsDocs = generateDocs(creators, githubAddressPrefix, "creators");
+const operatorsDocs = generateDocs(operators, githubAddressPrefix, "operators");
 
-
+console.log(creatorsDocs);
+console.log(operatorsDocs);
 
 var readmeContent =
     `
@@ -73,13 +74,19 @@ console.log(items);
 most of the operators can be used as a single operator (\`filter([1,2,3,4,5], x => x % 2 === 0)\`) or as a part of the operator chain \`pipe([1, 2, 3, 4, 5], filter(x => x % 2 === 0), ... )\`.But some operators have special counterparts (concatp, defaultifemptyp, includesp, sequenceequalp, zipp, interleavep) when used with pipe, so we call \`concat([1,2,3], [4,5,6])\` but we have to call \`pipe([1,2,3], concatp([4,5,6]), ... )\` if we want to chain \`concat\` with other operators.
 
 ## operators
-- each operator below has **tooltip with documentation**
 - [click](${githubAddressPrefix}/docs/mapping.md) to see mapping powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
 
 creators
 ${enumerableTable}
 operators
 ${operatorsTable}
+
+
+creators
+${creatorsDocs}
+operators
+${operatorsDocs}
+
 `
 fs.writeFileSync("./README.md", readmeContent);
 console.log("./README.md", " file generated");
@@ -126,7 +133,7 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, creatorsOrOperto
 
             // linq = typeof unitTestModule.linq === "undefined" ? "" : "(" + unitTestModule.linq + ")";
             // content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a> ${linq}</span></td>`;
-            content += `<td><span><a class="tooltip" href="${urlPrefix}/test/${creatorsOrOpertors}/${methodName}.ts" ${formatSamplesTooltip(methodName, unitTestModule.samples)}>${methodName}</a></span></td>`;
+            content += `<td><span><a href="${urlPrefix}/src/${creatorsOrOpertors}/${methodName}.ts">${methodName}</a></span></td>`;
             //content += `<td><div class="wrapper"><a href="${urlPrefix}/test/${enumerableOrOpertor}/${methodName}.ts">${methodName}</a> <div class="tooltip">${formatSamplesTooltip(methodName, unitTestModule.samples)}</div> ${linq}</div></td>`;
         }
         content += "</tr>";
@@ -137,15 +144,20 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, creatorsOrOperto
 
 
 function generateDocs(methods, urlPrefix, creatorsOrOpertors) {
+    //return ` \`\`\`${sampleBody}\`\`\` -> \`\`\`${formatResultValue(error || sampleResult)}\`\`\` `
+    const ticks = `\`\`\``;
 
     var content = "";
 
     for (const methodName of methods) {
         const unitTestModule = require("../dist/test/" + creatorsOrOpertors + "/" + methodName + ".js");
-        const docs = formatSamplesList(methodName, unitTestModule.samples).map(sample => `  - ${sample}`).join(os.EOL);
+        const samples = formatSamplesList(methodName, unitTestModule.samples);
+
+        // const lines = samples.map(([code, result]) => `  - ${ticks}${code}${ticks}${os.EOL}       - ${ticks}${result}${ticks}`)
+        const lines = samples.map(([code, result]) => `    - ${ticks}${code}${ticks}${(code.length > 70 ? os.EOL + "        - " : " -> ")}${ticks}${result}${ticks}`)
 
         content += `- ${methodName}
-${docs}
+${lines.join(os.EOL)}
 `;
     }
 
@@ -235,12 +247,12 @@ function formatSamplesTooltip(methodName, samples) {
                 error = err;
             }
 
-            return `${sampleBody} -> ${formatResultValue(error || sampleResult)}`
+            return `${sampleBody} -> ${formatResultValue(error || sampleResult)} `
         })
         .join("&#013;");
     //.join("</br>");
 
-    return `title="${samplesText}"`;
+    return `title = "${samplesText}"`;
 }
 
 function formatSamplesList(methodName, samples) {
@@ -275,7 +287,8 @@ function formatSamplesList(methodName, samples) {
             error = err;
         }
 
-        return ` \`\`\`${sampleBody}\`\`\` -> \`\`\`${formatResultValue(error || sampleResult)}\`\`\` `
+        //return ` \`\`\`${sampleBody}\`\`\` -> \`\`\`${formatResultValue(error || sampleResult)}\`\`\` `
+        return [sampleBody, formatResultValue(error || sampleResult)];
     });
 }
 
@@ -322,6 +335,9 @@ function formatResultValue(value) {
 // gdy przegladalem operatory dla poszczegolnych technologii to notowalem co w nich jest ciekawe i czego ewentualnie brakuje w powerfp
 
 // todo: ewentualnie kiedys dopisac/zmienic w powerseq 2.0
+// - co z sum i avarage ... ? moze am powinny byc sumby i avarageby ? ?? :/
+// - moze zip gdy nie ma ostatniej funkcji to powinien zwraca tuple ?
+// - kurcze moze dodac "toset" ?? 
 // - !! pozbyc sie Enumerable.from(cmds) tzn samo FROM juz chyba niejest potrzebna jak nie ma Enumerable, i inne analogiczne
 // - moze funkncje nazwa cycle zamiasat repeat, bo jeszcze jest repeatvalue :/ 
 // - moze taki takeWhileIncluded i skipWhileIncluded

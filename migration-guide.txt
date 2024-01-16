@@ -1,3 +1,9 @@
+- tutaj doszedl dodatkowy typ generyczny (drugi lub trzeba w zaleznosci od przeladowania)
+toobject<any, any, any>(response.result, b => b._id, b => b.name);
+
+
+
+
 #### `Enumerable.`, `scan`, `groupjoin`, `distinct`, `union, intersect, except `, `groupby`
 
 - `Enumerable`
