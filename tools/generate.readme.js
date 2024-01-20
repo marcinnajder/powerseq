@@ -149,7 +149,7 @@ function generateDocs(methods, urlPrefix, creatorsOrOpertors) {
         // const lines = samples.map(([code, result]) => `  - ${ticks}${code}${ticks}${os.EOL}       - ${ticks}${result}${ticks}`)
         const lines = samples.map(([code, result]) => `- ${ticks}${code}${ticks}${(code.length > 70 ? os.EOL + "        - " : " -> ")}${ticks}${result}${ticks}`)
 
-        content += `##### ${methodName} [up](#functions)
+        content += `##### ${methodName}
 ${lines.join(os.EOL)}
 `;
     }
