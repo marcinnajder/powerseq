@@ -1,5 +1,9 @@
 import { pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share } from "./index"
 
+
+const coders: Coder[] = [{ name: "kalinka", language: "ts" }, { name: "michal", language: "ts" }, { name: "maciek", language: "haskell" },]
+
+
 const exec = (transform: <T>(s: Iterable<T>) => Iterable<T>) =>
     pipe(range(0, 4), map(i => ({ i })), transform, xs => zip(xs, xs, (x1, x2) => [x1.i, x2.i, x1 === x2]), toarray());
 
@@ -10,7 +14,7 @@ console.log(exec(share()));
 
 type Coder = { name: string; language: string; }
 
-const coders: Coder[] = [{ name: "kalinka", language: "ts" }, { name: "michal", language: "ts" }, { name: "maciek", language: "haskell" },]
+
 
 // const result1 = groupby(coders, c => c.language)
 
@@ -20,11 +24,11 @@ const coders: Coder[] = [{ name: "kalinka", language: "ts" }, { name: "michal", 
 
 
 
-function* return123() {
-    yield 1;
-    yield 2;
-    yield 3;
-}
+// function* return123() {
+//     yield 1;
+//     yield 2;
+//     yield 3;
+// }
 
 
 

@@ -1,5 +1,6 @@
 import * as assert from "assert";
-import { groupby, map, pipe, toobject, groupby1, min, toobjectgrouping } from "../../src/index";
+import { groupby, map, pipe, toobject, min, toobjectgrouping } from "../../src/index";
+import { groupby1 } from "../../src/operators/groupby1";
 
 it('groupby1', function () {
 

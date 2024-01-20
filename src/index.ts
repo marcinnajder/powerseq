@@ -1,12 +1,7 @@
 // file has been generated automatically
 export { pipe } from "./pipe";
 
-export { concatp } from "./operators/concat";
-export { defaultifemptyp } from "./operators/defaultifempty";
-export { includesp } from "./operators/includes";
-export { sequenceequalp } from "./operators/sequenceequal";
-export { zipp } from "./operators/zip";
-export { interleavep } from "./operators/interleave";
+export { Func, Func2, Func3, Operator, OperatorTR, OperatorR, Predicate, Comparer, Dictionary, Nothing } from "./common/types";
 
 export { OrderingState, OrderedIterable } from "./common/ordering";
 export { identity } from "./common/utils";

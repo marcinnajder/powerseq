@@ -7,8 +7,7 @@ function _find<T>(source: Iterable<T>, predicate?: Predicate<T>, defaultValue?: 
             return item;
         }
         return defaultValue;
-    }
-    else {
+    } else {
         let index = 0;
         for (var item of source) {
             if (predicate(item, index++)) {

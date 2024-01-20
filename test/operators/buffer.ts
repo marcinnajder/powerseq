@@ -27,6 +27,6 @@ export const samples = [
 export const linq = "Chunk";
 export const lodash = "chunk";
 export const rxjs = ["bufferCount", "pairwise"];
-export const fsharp = ["chunkBySize", "windowed", "pairwise",];
+export const fsharp = ["chunkBySize", "windowed", "pairwise"];
 export const kotlin = ["chunked", "windowed"];
 export const clojure = ["partition-all", "partition~"];

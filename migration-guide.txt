@@ -1,8 +1,57 @@
-- tutaj doszedl dodatkowy typ generyczny (drugi lub trzeba w zaleznosci od przeladowania)
-toobject<any, any, any>(response.result, b => b._id, b => b.name);
 
+## Co nowego w powerseq 2.0
 
+- https://github.com/marcinnajder/powerseq/blob/master/README.md - stara dokumentacja
+	- https://github.com/marcinnajder/powerseq/blob/master/docs/mapping.md
+- https://github.com/marcinnajder/powerseq/blob/powerseq2/README.md - nowa dokumentacja
+	- https://github.com/marcinnajder/powerseq/blob/master/docs/mapping.md
 
+####  "breaking changes"
+
+- nowy TS, z wersji 3 na 5 :), kompilacja powerseq przy włączonej opcji `"strict": true,`
+- `Enumerable.`
+	- brak wsparcia dla `Enumerable.from([1,2,3]).filter(...).map(...))`
+	- obecnie można jedynie `pipe([1,2,3]), filter(...), map(...))`
+	- całkowicie usunięto funkcje `of` i `from`
+- `scan` i `groupjoin`
+	- to samo API ale lekko zmienione działanie operatorów `scan` i `groupjoin`
+	- `scan` zwraca także pierwszy element od którego startujemy (seed/init)
+	- `groupjoin` zwraca także elementy które nie zostały "z-join-owane"
+- `single`
+	- `single` gdy nie ma elementu lub jest więcej jak jeden, to zwracany jest zawsze `undefined`
+	- wcześniej rzucany był wyjątek w drugi przypadku
+- `distinct`
+	- zamiast `distinct(person => person.city)` używamy nowego operatora `distinctby(person => person.city)`
+	- ... to wywołanie  zwraca "osoby posiadające unikatowe miasta"
+	- w nowym powerseq wywołanie`distinct(person => person.city)`zwróci "unikatowe miasta"
+	- pojawiły się także nowe `unionby, intersectby, exceptby` które także zwracają sekwencję wejściowych typów
+- `pipe`
+	- obecnie `pipe` nie wspiera jedynie typów `Itearble<T>`  ale dowolny typ `T`
+	- więc można zapisać coś takiego `pipe(getUserName(user), name => name + " - " + name.toUpperCase() )`
+	- ... gdy nie chcemy definiować nowej zmiennej pomocniczej `name` bo np. jesteśmy w "wyrażeniu JS" (lambda, ...)
+- `toobject`
+	- dodany został argument generyczny `K` (key) który jest używany w ostatniej opcjonalnej lambdzie `elementSelector?: Func2<T, K, E>`
+	- możemy napisać  `toobject([{...}], p => p.id, (p,id) => id + " " + p.name)`
+	- problemy kompilacji pojawiały się przy jawnym podawaniu wartości typów generycznych, trzeba podawać o jeden więcej  `toobject<Person,string,string>(...)` zamiast `toobject<Person,string>(...)` 
+	- do `groupby` także doszedł parametrem z kluczem `K`, `elementSelector: Func2<T, K, E>`
+- `groupby`
+	- zmienił się rezultat zwracany, teraz jest to `Map<K,V>`
+	- zostało usunięte przeładowanie przyjmujące lambda `resultSelector`
+	- pojawiło się nowe przeładowanie bezparametrowe `toobject()`
+	- pojawił się nowy operator `toobjectgrouping()`
+ 
+#### Nowe operatory
+
+- `groupbytoobject`,  `countby`
+- `unionby, intersectby, exceptby distinctby`
+- `pairwise, partitionby, combinations`
+- `interleave, interpose`
+- `memoize, share`
+- `filtermap`
+- `flat`
+
+	
+------
 
 #### `Enumerable.`, `scan`, `groupjoin`, `distinct`, `union, intersect, except `, `groupby`
 

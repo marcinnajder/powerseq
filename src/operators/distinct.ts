@@ -6,7 +6,7 @@ function _distinct<T, K = T>(source: Iterable<T>, keySelector?: Func<T, K>) {
     return wrapInIterable(function* () {
         const kSelector = keySelector ?? (identity as any);
         const set = new Set<K>();
-        for (var item of source) {
+        for (const item of source) {
             const key = kSelector(item);
             if (!set.has(key)) {
                 set.add(key);

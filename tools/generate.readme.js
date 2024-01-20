@@ -1,20 +1,18 @@
-var glob = require("glob");
-var fs = require("fs");
-var path = require("path");
-var util = require("util");
-var os = require("os");
+const glob = require("glob");
+const fs = require("fs");
+const path = require("path");
+const util = require("util");
+const os = require("os");
+const { creators, operators, allFunctions, pOperators } = require("./generate.config");
 
-global.it = global.describe = () => { }; // fake mocha methods
 
-var _maxColumns = 4;
-var _maxRows = 6;
-var creators = listMethods("./src/creators/*.ts");
-var operators = listMethods("./src/operators/*.ts");
-var allFunctions = operators.concat(creators);
-var allFunctionsCallsMapping = allFunctions.concat(["pipe"]).map(functionName => [`(0, index_1.${functionName})`, functionName]);
-var githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master";
+const _maxColumns = 4;
+const _maxRows = 6;
 
-var otherLibs = {
+const allFunctionsImportPrefix = allFunctions.concat(["pipe"]).map(functionName => [`(0, index_1.${functionName})`, functionName]);
+const githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master";
+
+const otherLibs = {
     "linq": "[LINQ](https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx)",
     "jsarray": "[JS Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)",
     "lodash": "[lodash](https://lodash.com/docs/4.17.2)",
@@ -32,60 +30,55 @@ const operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAdd
 const enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
 const counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
 const mappingTable = generateMappingTable([...allFunctions].sort(), githubAddressPrefix, counterparts);
+const mappingLines = generateMappingLines([...allFunctions].sort(), githubAddressPrefix, counterparts);
+
 const creatorsDocs = generateDocs(creators, githubAddressPrefix, "creators");
 const operatorsDocs = generateDocs(operators, githubAddressPrefix, "operators");
 
-console.log(creatorsDocs);
-console.log(operatorsDocs);
+// console.log(creatorsDocs);
+// console.log(operatorsDocs);
+// creators
+// ${enumerableTable}
+// operators
+// ${operatorsTable}
+
 
 var readmeContent =
-    `
-## installation and usage
+    `## Documentation
 
-\`\`\`
-npm install powerseq
-\`\`\`
+\`\`\`typescript
+import { pipe, range, filter, take, toarray } from "powerseq"; // npm install powerseq
 
-executing single operator
-
-\`\`\`javascript 
-import { filter } from "powerseq";
-
+// calling one operator
 for(var item of filter([1,2,3,4,5], x => x % 2 === 0)){
     console.log(item);
 }
-\`\`\`
 
-chaining many operators 
-
-\`\`\`javascript
-import { pipe, range, filter, take, reverse, toarray } from "powerseq";
-
-const items = pipe(
-    range(1, Number.MAX_VALUE),
-    filter(x => x % 2 === 0),
-    take(5),
-    reverse(),
-    toarray());
-
+// chaining many operators 
+const items = pipe(range(1, Number.MAX_VALUE), filter(x => x % 2 === 0), take(5), toarray());
 console.log(items);
 \`\`\`
 
-most of the operators can be used as a single operator (\`filter([1,2,3,4,5], x => x % 2 === 0)\`) or as a part of the operator chain \`pipe([1, 2, 3, 4, 5], filter(x => x % 2 === 0), ... )\`.But some operators have special counterparts (concatp, defaultifemptyp, includesp, sequenceequalp, zipp, interleavep) when used with pipe, so we call \`concat([1,2,3], [4,5,6])\` but we have to call \`pipe([1,2,3], concatp([4,5,6]), ... )\` if we want to chain \`concat\` with other operators.
+- thanks to function overloading the same operator can be called alone or as a part of \`pipe(..., operator(), ...)\` expression
+- for some operators a special counterparts ending with \`p\` are provided (${pOperators.map(o => `\`${o}p\``)}), those functions must be used inside \`pipe(..., opp())\`, so we call \`concat([1,2,3], [4,5,6])\` or \`pipe([1,2,3], concatp([4,5,6]) )\`  
+- [mapping](#mapping) powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
 
-## operators
-- [click](${githubAddressPrefix}/docs/mapping.md) to see mapping powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
+### functions
 
-creators
-${enumerableTable}
-operators
-${operatorsTable}
+- creators: ${creators.map(f => `[${f}](#${f})`).join(", ")}
+- operators: ${operators.map(f => `[${f}](#${f})`).join(", ")}
 
+### creators
 
-creators
 ${creatorsDocs}
-operators
+
+### operators
+
 ${operatorsDocs}
+
+### mapping
+
+${mappingLines}
 
 `
 fs.writeFileSync("./README.md", readmeContent);
@@ -101,9 +94,9 @@ console.log("./docs/mapping.md", " file generated");
 
 
 
-function listMethods(globbingPattern) {
-    return glob.sync(globbingPattern).map(p => path.basename(p, '.ts')).sort();
-}
+// function listMethods(globbingPattern) {
+//     return glob.sync(globbingPattern).map(p => path.basename(p, '.ts')).sort();
+// }
 
 function findTableSize(columnCount, rowCount, methodCount) {
     while (columnCount * rowCount < methodCount) {
@@ -154,9 +147,9 @@ function generateDocs(methods, urlPrefix, creatorsOrOpertors) {
         const samples = formatSamplesList(methodName, unitTestModule.samples);
 
         // const lines = samples.map(([code, result]) => `  - ${ticks}${code}${ticks}${os.EOL}       - ${ticks}${result}${ticks}`)
-        const lines = samples.map(([code, result]) => `    - ${ticks}${code}${ticks}${(code.length > 70 ? os.EOL + "        - " : " -> ")}${ticks}${result}${ticks}`)
+        const lines = samples.map(([code, result]) => `- ${ticks}${code}${ticks}${(code.length > 70 ? os.EOL + "        - " : " -> ")}${ticks}${result}${ticks}`)
 
-        content += `- ${methodName}
+        content += `##### ${methodName}
 ${lines.join(os.EOL)}
 `;
     }
@@ -183,6 +176,7 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
         var unitTestModulePath = ["/operators", "/creators"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
         unitTestModule = require(unitTestModulePath);
 
+
         var maxMatchingOperators = counterparts.map(c => unitTestModule[c]).filter(ops => Array.isArray(ops)).reduce((p, c) => Math.max(p, c.length), 0);
         content += "|" + [methodName].concat(counterparts.map(c => unitTestModule[c])).map(o => formatOperators(o, maxMatchingOperators)).concat([methodName]).join("|") + "|" + os.EOL;
         //content += "|" + [methodName].concat(counterparts.map(c => (unitTestModule[c] || "").toString().replace(/\,/g, "</br>"))).join("|") + "|" + os.EOL;
@@ -190,6 +184,25 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
 
     return content;
 }
+
+function generateMappingLines(methods, urlPrefix, counterparts) {
+    let content = "";
+
+    for (const methodName of methods) {
+        const unitTestModulePath = ["/operators", "/creators"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
+        const unitTestModule = require(unitTestModulePath);
+
+        const funcsByLang = counterparts
+            .map(lang => ({ lang, funcs: unitTestModule[lang] }))
+            .filter(({ funcs }) => funcs)
+            .map(({ lang, funcs }) => ({ lang, funcs: Array.isArray(funcs) ? funcs : [funcs] }));
+
+        content += `- **${methodName}** - ${funcsByLang.map(({ lang, funcs }) => `${funcs.join(", ")} (${lang})`).join(", ")}${os.EOL}`
+    }
+
+    return content;
+}
+
 
 
 function formatOperators(items, maxMatchingOperators) {
@@ -203,15 +216,17 @@ function formatOperators(items, maxMatchingOperators) {
 
     function fillWithEmptyStringsUpToXItems(items, x) {
         if (!Array.isArray(items)) {
-            items = [items];
+            return [items];
         }
         if (items.length === x) {
             return items;
         }
+
+        const itemsCopy = [...items]; // do not mutate array object exported from UT file
         for (var i = items.length; i < x + 1; i++) { // x + 1 
-            items.push("");
+            itemsCopy.push("");
         }
-        return items;
+        return itemsCopy;
     }
 }
 
@@ -266,7 +281,7 @@ function formatSamplesList(methodName, samples) {
         var sampleBody = sampleFunc.toString();
         sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 3);
 
-        sampleBody = allFunctionsCallsMapping.reduce((prev, [funcCall, funcName]) => prev.replace(funcCall, funcName), sampleBody);
+        sampleBody = allFunctionsImportPrefix.reduce((prev, [funcCall, funcName]) => prev.replace(funcCall, funcName), sampleBody);
 
         // sampleBody = sampleBody.replace(/enumerable_1\./g, "");
         sampleBody = sampleBody.replace(/\"/g, "'");
@@ -335,6 +350,8 @@ function formatResultValue(value) {
 // gdy przegladalem operatory dla poszczegolnych technologii to notowalem co w nich jest ciekawe i czego ewentualnie brakuje w powerfp
 
 // todo: ewentualnie kiedys dopisac/zmienic w powerseq 2.0
+// - przejrzec dokumntacja do wszystkich operatrow SHARE na pewno wyswietla bledy rezultat!!!!
+// - dodac "index"  do funkcji sum i potencjalnie wielu innych 
 // - co z sum i avarage ... ? moze am powinny byc sumby i avarageby ? ?? :/
 // - moze zip gdy nie ma ostatniej funkcji to powinien zwraca tuple ?
 // - kurcze moze dodac "toset" ?? 

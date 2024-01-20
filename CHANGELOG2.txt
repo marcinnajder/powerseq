@@ -1,29 +1,34 @@
 - upgrade dependencies, TS 3 -> TS 5
 - TS strict option
-- remove Enumerable. type, so there is no alternative method of calling chained operators
+
+- breaking change: remove Enumerable type and also 'of' and 'from' functions
 - breaking change: groupby, returing Map instead of custom type IterableGroup, no overload for resultSelector function (use map operator)
-(- new operator: groupbytoobject)
+- breaking change: changing distinct, introducing distinctby (caution: previously distinct with lambda worked like today's distinctby !)
+- breaking change: changing implementation of last, adding parameter 'defaultValue'
+- breaking change: single single does not throw exception !!, remove previous inconsistency (exception when more than one, 'undefined' when not found), now returing 
+always 'undefined' or 'defaultValue' parameter (so no exception at all)
+- breaking change: new unionby, intersectby, exceptby operators extracted from union, intersect, except
+- breaking change: scan is returing init value of acculumator
 - breaking change: groupjoin returns empty arrays for unmachted items
-- new more generic type definition of pipe function 
-- shorter generic argument names, introduction of Func<T,R>
+- breaking change: additional generic type argument to toobject function (second or third depending on the overload), 
+the new is for K for "key" and can be passed to element selector, problem occurs while explicte calls like toobject<any,any>()
+- breaking change: remove asiterable
+
 - new overload for toobject() passing Iterable<[K,E]> type (for example Map), usefull after groupby and countby
-- powerseq is compatible with |> operator
+
+- new operator groupbytoobject
+- new countby operator
 - new memoize operator
 - new share operator
-- breaking change: single does not throw exception !!
-- breaking change: scan is returing init value of acculumator
-- breaking change: changing distinct, introducing distinctby (caution: previously distinct with lambda worked like today's distinctby !)
-- new distinctby operator
-- breaking change: changing implementation of last, adding parameter 'defaultValue'
-- breaking change: remove previous inconsistency (exception when more than one, 'undefined' when not found), now returing 
-always 'undefined' or 'defaultValue' parameter (so no exception at all)
 - new pairwise operator
 - new partitionby operator
 - new combinations operator
-- breaking change: new unionby, intersectby, exceptby operators extracted from union, intersect, except
 - new filtermap operator
 - new interleave operator
-- breaking change: creators 'of' and 'from' deleted
+- new interpose operator
 - new flat operator
-- additional generic type argument to toobject function (second or third depending on the overload), the new is for K for "key" and can be passed to element selector 
+- new unionby, intersectby, exceptby, distinctby
 
+- shorter generic argument names, introduction of Func<T,R>
+- new more generic type definition of pipe function 
+- powerseq is compatible with |> operator

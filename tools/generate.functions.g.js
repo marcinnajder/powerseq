@@ -3,15 +3,20 @@ var fs = require("fs");
 var path = require("path");
 var os = require("os");
 
-var operators = glob.sync("./src/operators/*.ts");
-var creators = glob.sync("./src/creators/*.ts");
+const { creators, operators, pOperators } = require("./generate.config");
 
-var files = operators.concat(creators).map(p => p.replace("src" + path.sep, "").replace(".ts", ""));
-var indexContent = files.map(p => `export { ${p.split("/")[1]} } from "./${p}";`).join(os.EOL);
+var creatorsImports = creators.map(f => `export { ${f} } from "./creators/${f}";`).join(os.EOL);
+var operatorsImports = operators.map(f => `export { ${f} } from "./operators/${f}";`).join(os.EOL);
+var oOperatorsImports = pOperators.map(f => `export { ${f}p } from "./operators/${f}";`).join(os.EOL);
 
-saveFile("./src/functions.g.ts",
-    `
-${indexContent}`);
+
+saveFile("./src/functions.g.ts", `// creators
+${creatorsImports}
+// operators
+${operatorsImports}
+// p-operators
+${oOperatorsImports}
+`);
 
 function saveFile(filePath, fileContent) {
     fileContent = "// file has been generated automatically" + os.EOL + fileContent;
