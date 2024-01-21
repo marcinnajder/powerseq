@@ -2,8 +2,8 @@ import * as assert from "assert";
 import { groupjoin, pipe } from "../../src/index";
 
 it('groupjoin', function () {
-    var items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three!" }, { id: 3, name: "three!!" }];
-    var items2 = [{ id: 1, value: "ONE" }, { id: 1, value: "ONE!" }, { id: 3, value: "THREE" }, { id: 4, value: "FOUR" }];
+    const items1 = [{ id: 1, name: "one" }, { id: 2, name: "two" }, { id: 3, name: "three!" }, { id: 3, name: "three!!" }];
+    const items2 = [{ id: 1, value: "ONE" }, { id: 1, value: "ONE!" }, { id: 3, value: "THREE" }, { id: 4, value: "FOUR" }];
 
     const res1 = [...groupjoin(
         items1,

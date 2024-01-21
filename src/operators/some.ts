@@ -3,14 +3,13 @@ import { wrapInThunk } from "../common/wrap";
 
 function _some<T>(source: Iterable<T>, predicate?: Predicate<T>): boolean {
     if (typeof predicate === "undefined") {
-        for (var item of source) {
+        for (const item of source) {
             return true;
         }
         return false;
-    }
-    else {
-        var index = 0;
-        for (var item of source) {
+    } else {
+        let index = 0;
+        for (const item of source) {
             if (predicate(item, index++)) {
                 return true;
             }

@@ -12,6 +12,8 @@ it('single', function () {
 
 export const samples = [
     () => single([1]),
+    () => single([]),
+    //     () => single([], -1),
     () => single([1, 2, 3], x => x > 2),
     () => single([1, 2, 3], x => x > 10),
     () => single([1, 2, 3], x => x > 10, -1)

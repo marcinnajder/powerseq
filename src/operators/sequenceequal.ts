@@ -7,12 +7,12 @@ export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, sou
 export function sequenceequal<T>(source1: Iterable<T>, source2: Iterable<T>, source3: Iterable<T>, source4: Iterable<T>, source5: Iterable<T>): boolean;
 export function sequenceequal<T>(...args: Iterable<T>[]): boolean;
 export function sequenceequal<T>(...args: Iterable<T>[]): boolean {
-    var iterators = args.map((i: Iterable<any>) => i[Symbol.iterator]());
-    var value: IteratorResult<any>, firstValue: IteratorResult<any> | undefined;
+    const iterators = args.map((i: Iterable<any>) => i[Symbol.iterator]());
+    let value: IteratorResult<any>, firstValue: IteratorResult<any> | undefined;
 
     while (true) {
         firstValue = undefined;
-        for (var i = 0; i < iterators.length; i++) {
+        for (let i = 0; i < iterators.length; i++) {
             value = iterators[i].next();
             if (typeof firstValue === "undefined") {
                 firstValue = value;

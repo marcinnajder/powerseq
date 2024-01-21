@@ -2,19 +2,19 @@ import { Predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
 function _count<T>(source: Iterable<T>, predicate?: Predicate<T>): number {
-    var count = 0;
+    let count = 0;
     if (typeof predicate === "undefined") {
         if (Array.isArray(source)) {
             return source.length;
         }
-        for (var item of source) {
+        for (const _ of source) {
             count++;
         }
         return count;
     }
     else {
-        var index = 0;
-        for (var item of source) {
+        let index = 0;
+        for (const item of source) {
             if (predicate(item, index++)) {
                 count++;
             }

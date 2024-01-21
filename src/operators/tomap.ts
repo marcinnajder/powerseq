@@ -2,16 +2,16 @@ import { wrapInThunk } from "../common/wrap";
 import { Func, OperatorR } from "../common/types";
 
 function _tomap<T, K, E>(source: Iterable<T>, keySelector: Func<T, K>, elementSelector?: Func<T, E>): Map<K, E> {
-    var map = new Map<K, E>();
+    const map = new Map<K, E>();
 
     if (typeof elementSelector === "undefined") {
-        for (var item of source) {
+        for (const item of source) {
             //if(map.has(key)) throw new TypeError("keySelector produces duplicate keys for two elements");
             map.set(keySelector(item), <any>item);
         }
     }
     else {
-        for (var item of source) {
+        for (const item of source) {
             map.set(keySelector(item), elementSelector(item));
         }
     }

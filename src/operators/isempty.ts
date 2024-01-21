@@ -2,7 +2,7 @@ import { OperatorR } from "../common/types";
 import { wrapInThunkAlways, wrapInThunk } from "../common/wrap";
 
 function _isempty<T>(source: Iterable<T>): boolean {
-    for (var item of source) {
+    for (const item of source) {
         return false;
     }
     return true;

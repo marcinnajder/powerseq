@@ -1,8 +1,6 @@
 import { Predicate, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-// ta funkcja jest dziwna bo rzuca blad jak jest wiecej jak jeden, ale jak nie ma zadnego to zwraca undefined tzn to jest 
-// niespojne, w Koltin jest SingleOrNull i to dziala spokojnie
 
 function _single<T>(source: Iterable<T>, predicate?: Predicate<T>, defaultValue?: T): T | undefined {
     let hasValue = false;
@@ -32,6 +30,9 @@ function _single<T>(source: Iterable<T>, predicate?: Predicate<T>, defaultValue?
     }
     return value;
 }
+
+// "single(source: Iterable<T>, defaultValue: T): T" <- that overload would be very convenient,
+// but if type T is a function there in no way to differentiate from -> single(source: Iterable<T>, predicate?: Predicate<T>)
 
 export function single<T>(source: Iterable<T>, predicate?: Predicate<T>): T | undefined;
 export function single<T>(source: Iterable<T>, predicate: Predicate<T>, defaultValue: T): T;

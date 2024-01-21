@@ -4,18 +4,20 @@ import { Operator } from "../common/types";
 function _skip<T>(source: Iterable<T>, count: number) {
     return wrapInIterable(function* () {
         if (count >= 0) {
-            var iterator = source[Symbol.iterator]();
-            var value: IteratorResult<T>;
+            const iterator = source[Symbol.iterator]();
+            let value: IteratorResult<T>;
 
-            var i = 0;
+            let i = 0;
             while (i++ < count) {
                 value = iterator.next();
                 if (value.done) return;
             }
 
             while (true) {
-                var value = iterator.next();
-                if (value.done) return;
+                const value = iterator.next();
+                if (value.done) {
+                    return;
+                }
                 yield value.value;
             }
         }

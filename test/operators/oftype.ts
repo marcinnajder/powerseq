@@ -9,7 +9,7 @@ class Dog extends Animal {
 }
 
 it('oftype', function () {
-    var animals: any[] = [new Animal(), new Animal(), new Dog()];
+    const animals: any[] = [new Animal(), new Animal(), new Dog()];
     assert.deepEqual([...oftype<Animal>(animals, Animal)].length, 3);
     assert.deepEqual([...oftype<Animal>(animals, Animal)].length, 3);
     assert.deepEqual([...oftype<Dog>(animals, Dog)].length, 1);

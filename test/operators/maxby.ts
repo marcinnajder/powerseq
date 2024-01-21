@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { maxby } from "../../src/index";
 
 it('maxby', function () {
-    var items = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }];
+    const items = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }];
     type ItemType = typeof items[0];
     assert.deepEqual(maxby(items, x => x.id), { id: 3 });
     assert.deepEqual(maxby([], x => x), undefined);
@@ -10,7 +10,8 @@ it('maxby', function () {
 });
 
 export const samples = [
-    () => maxby(['a', 'bb', 'rrr', 'd'], x => x.length)
+    () => maxby(['a', 'bb', 'rrr', 'd'], x => x.length),
+    () => maxby(['a', 'bb', 'rrr', 'd'], (x, index) => x.length * index)
 ];
 
 export const linq = "MaxBy";

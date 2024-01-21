@@ -1,5 +1,5 @@
 import { wrapInThunk } from "../common/wrap";
-import { OperatorR, Func2, Func } from "../common/types";
+import { OperatorR, Func2 } from "../common/types";
 import { identity } from "../common/utils"
 
 

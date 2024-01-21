@@ -5,7 +5,7 @@ it('reduce', function () {
     assert.deepEqual(reduce([1, 2, 3, 4], (p, c) => p + c), 1 + 2 + 3 + 4);
 
     assert.throws(() => {
-        var r = reduce([], (p: number, c: number) => p + c);
+        const r = reduce([], (p: number, c: number) => p + c);
     }, "'Sequence contains no elements' exception should be thrown");
 
     assert.deepEqual(reduce([1, 2, 3, 4], (p, c) => ({ text: p.text + c }), { text: "-" }), { text: "-1234" });

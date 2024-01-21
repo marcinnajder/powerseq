@@ -1,5 +1,4 @@
 import { Func, Operator } from "../common/types";
-import { identity } from "../common/utils";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 function _partitionby<T>(source: Iterable<T>, keySelector: Func<T, any>) {
@@ -13,7 +12,7 @@ function _partitionby<T>(source: Iterable<T>, keySelector: Func<T, any>) {
             pack.push(result.value);
 
             while (!(result = iterator.next()).done) {
-                var currentKey = keySelector(result.value);
+                const currentKey = keySelector(result.value);
 
                 if (previousKey === currentKey) {
                     pack.push(result.value);

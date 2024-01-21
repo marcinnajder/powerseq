@@ -1,17 +1,19 @@
-import { Func, OperatorR } from "../common/types";
+import { Func2, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-function _average<T>(source: Iterable<T>, valueSelector?: Func<T, number>): number | undefined {
-    var result = 0;
-    var count = 0;
+function _average<T>(source: Iterable<T>, valueSelector?: Func2<T, number, number>): number | undefined {
+    let result = 0;
+    let count = 0;
+
     if (typeof valueSelector === "undefined") {
-        for (var item of source) {
+        for (const item of source) {
             result += <any>item;
             count++;
         }
     } else {
-        for (var item of source) {
-            result += valueSelector(item);
+
+        for (const item of source) {
+            result += valueSelector(item, count);
             count++
         }
     }
@@ -19,9 +21,9 @@ function _average<T>(source: Iterable<T>, valueSelector?: Func<T, number>): numb
 }
 
 export function average(source: Iterable<number>): number | undefined;
-export function average<T>(source: Iterable<T>, valueSelector: Func<T, number>): number | undefined;
+export function average<T>(source: Iterable<T>, valueSelector: Func2<T, number, number>): number | undefined;
 export function average<T>(): OperatorR<T, number | undefined>;
-export function average<T>(valueSelector: Func<T, number>): OperatorR<T, number | undefined>;
+export function average<T>(valueSelector: Func2<T, number, number>): OperatorR<T, number | undefined>;
 export function average() {
     return wrapInThunk(arguments, _average);
 }

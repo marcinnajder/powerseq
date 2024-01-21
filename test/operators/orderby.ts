@@ -15,7 +15,7 @@ export function test() {
         ['eight', 'seven', 'three', 'five', 'four', 'nine', 'one', 'six', 'ten', 'two']
     );
 
-    var items = [
+    const items = [
         { a: 3, b: 10, c: 200 },
         { a: 1, b: 20, c: 1 },
         { a: 2, b: 10, c: 1 },

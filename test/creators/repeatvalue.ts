@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import { repeatvalue, take } from "../../src/index";
 
-
 it('repeatvalue', function () {
     assert.deepEqual([...repeatvalue("a", 0)], []);
     assert.deepEqual([...repeatvalue("a", 3)], ["a", "a", "a"]);

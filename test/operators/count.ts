@@ -11,7 +11,8 @@ it('count', function () {
 
 export const samples = [
     () => count([2, 2, 2]),
-    () => count([2, 4, 6], x => x > 2)
+    () => count([2, 4, 6], x => x > 2),
+    () => count([2, 4, 6], (x, index) => index >= 2)
 ];
 
 export const linq = "Count";

@@ -8,10 +8,10 @@ it('every', function () {
 });
 
 
-
 export const samples = [
     () => every([1, 2, 12, 15], x => x > 0),
     () => every([1, 2, 12, 15], x => x < 10),
+    () => every([0, 1, 3, 3], (x, index) => x === index),
 ];
 
 export const linq = "All";

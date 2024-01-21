@@ -12,6 +12,9 @@ it('pairwise', function () {
 
 export const samples = [
     () => pairwise([1, 2, 3, 4]),
+    () => pairwise([1, 2]),
+    () => pairwise([1]),
+    () => pairwise([])
 ];
 
 export const rxjs = "pairwise";

@@ -8,7 +8,7 @@ function _repeat<T>(source: Iterable<T>, count?: number) {
                 yield* source;
             }
         } else {
-            for (var i = 0; i < count; i++) {
+            for (let i = 0; i < count; i++) {
                 yield* source;
             }
         }

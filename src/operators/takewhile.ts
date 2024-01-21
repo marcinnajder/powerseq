@@ -4,7 +4,7 @@ import { wrapInIterable, wrapInThunk } from "../common/wrap";
 function _takewhile<T>(source: Iterable<T>, predicate: Predicate<T>) {
     return wrapInIterable(function* () {
         let index = 0;
-        for (var item of source) {
+        for (const item of source) {
             if (!predicate(item, index++)) {
                 break;
             }

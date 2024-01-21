@@ -3,8 +3,8 @@ import { wrapInIterable, wrapInThunkAlways } from "../common/wrap";
 
 export function defaultifempty<T>(source: Iterable<T>, defaultValue?: T): Iterable<T> {
     return wrapInIterable(function* () {
-        var hasValue = false;
-        for (var item of source) {
+        let hasValue = false;
+        for (const item of source) {
             hasValue = true;
             yield item;
         }

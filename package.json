@@ -3,28 +3,21 @@
   "version": "2.0.0",
   "description": "Sequence operators",
   "scripts": {
+    "tsc": "tsc",
+    "watch": "tsc -w",
+    "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
     "del": "npm-run-all del-dist del-npmpackage",
     "del-node_modules": "shx rm -rf ./node_modules",
     "del-dist": "shx rm -rf ./dist",
     "del-npmpackage": "shx rm -rf ./npmpackage",
-    "tsc": "node tools/tsc.js",
     "generate-functions": "node tools/generate.functions.g.js",
-    "gen-package-json": "node tools/genPackageJson.js",
-    "gen-readme-md": "node tools/genReadme.js",
-    "watch": "node tools/tsc.js watch",
-    "test": "mocha ./dist/test -R spec --recursive --timeout 30000",
-    "test-old": "mocha ./dist/cjs_es6/test -R spec --recursive --timeout 30000",
+    "generate-readme": "node tools/generate.readme.js",
+    "generate-package-json": "node tools/generate.package.json.js",
     "rebuild": "npm-run-all del generate-functions tsc",
-    "tsc-esm_es5": "tsc -p ./tsconfig.esm_es5.json",
-    "copy-cjs_es6-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/cjs_es6/src/* ./npmpackage",
-    "copy-esm_es5-src-npmpackage": "mkdirp ./npmpackage/esm_es5 && shx cp -r ./dist/esm_es5/src/* ./npmpackage/esm_es5",
-    "bundles": "mkdirp ./npmpackage/bundles && node ./tools/make-umd-bundle.js",
-    "inject-ts-helpers": "node ./tools/inject-ts-helpers.js",
-    "build-npmpackage": "npm-run-all rebuild tsc-esm_es5 copy-cjs_es6-src-npmpackage copy-esm_es5-src-npmpackage gen-readme-md gen-package-json bundles inject-ts-helpers"
+    "copy-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/src/* ./npmpackage",
+    "build-npmpackage": "npm-run-all rebuild copy-src-npmpackage generate-readme generate-package-json"
   },
-  "dependencies": {
-    "tslib": "^1.9.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/mocha": "10.0.6",
     "@types/node": "20.10.5",
@@ -35,15 +28,13 @@
     "mkdirp": "3.0.1",
     "mocha": "10.2.0",
     "npm-run-all": "4.1.5",
-    "npm-scripts-info": "0.3.9",
-    "rollup": "4.9.1",
     "shx": "0.3.4",
     "typescript": "5.3.3"
   },
   "author": "Marcin Najder <marcin.najder@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=6.8.1"
+    "node": ">=8.17.0"
   },
   "bugs": {
     "url": "https://github.com/marcinnajder/powerseq/issues"

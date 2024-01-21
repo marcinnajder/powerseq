@@ -3,7 +3,7 @@ import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 function _oftype<R>(source: Iterable<any>, type: Function) {
     return wrapInIterable(function* () {
-        for (var item of source) {
+        for (const item of source) {
             if (item instanceof type) {
                 yield <R>item;
             }

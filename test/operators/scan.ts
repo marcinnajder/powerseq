@@ -6,7 +6,6 @@ it('scan', function () {
 
     assert.deepEqual([...scan([1, 2, 3], (p, c) => p + c, "")], ["", "" + 1, "1" + "2", "12" + "3"]);
 
-
     assert.deepEqual([...scan([], (p: number, c: number) => p + c)], []);
     assert.deepEqual([...scan([1], (p, c) => p + c)], []);
     assert.deepEqual([...scan([], (p, c) => p + c, "")], [""]);
@@ -17,7 +16,10 @@ it('scan', function () {
 
 export const samples = [
     () => scan([1, 2, 3], (a, x) => a + x),
-    () => scan([1, 2, 3], (a, x) => a + (x * 10), '')
+    () => scan([1], (a, x) => a + x),
+    () => scan([1, 2, 3], (a, x) => a + (x * 10), ''),
+    () => scan([1], (a, x) => a + (x * 10), ''),
+    () => scan([], (a, x) => a + (x * 10), ''),
 ];
 
 export const rxjs = "scan";

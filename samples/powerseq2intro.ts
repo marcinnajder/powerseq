@@ -1,6 +1,6 @@
 
-import { distinct, pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share, maxby, max, countby, toobjectgrouping, filter, filtermap, sum, flat } from "./index";
-import { groupby1 } from "./operators/groupby1";
+import { distinct, pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share, maxby, max, countby, toobjectgrouping, filter, filtermap, sum, flat } from "../src/index";
+import { groupby1 } from "../src/operators/groupby1";
 
 
 

@@ -3,16 +3,16 @@ import { wrapInThunkAlways } from "../common/wrap";
 
 export function includes<T>(source: Iterable<T>, searchElement: T, fromIndex?: number): boolean {
     if (typeof fromIndex === "undefined") {
-        for (var item of source) {
+        for (const item of source) {
             if (item === searchElement) {
                 return true;
             }
         }
         return false;
     } else {
-        var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T>;
-        var index = 0;
+        const iterator = source[Symbol.iterator]();
+        let value: IteratorResult<T>;
+        let index = 0;
 
         while (index < fromIndex) {
             value = iterator.next();

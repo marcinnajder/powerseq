@@ -7,12 +7,12 @@ function _takelast<T>(source: Iterable<T>, count: number) {
             return;
         }
 
-        var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T> | undefined;
+        const iterator = source[Symbol.iterator]();
+        let value: IteratorResult<T> | undefined;
 
         if (count === 1) {
             while (true) {
-                var temp = iterator.next();
+                const temp = iterator.next();
                 if (temp.done) {
                     if (value) {
                         yield value.value;
@@ -23,7 +23,7 @@ function _takelast<T>(source: Iterable<T>, count: number) {
             }
         }
 
-        var result: T[] = [];
+        const result: T[] = [];
 
         // process first 'count' items
         for (let i = 0; i < count; i++) {
@@ -38,11 +38,11 @@ function _takelast<T>(source: Iterable<T>, count: number) {
         }
 
         // process other items
-        var j = 0;
+        let j = 0;
         while (true) {
             value = iterator.next();
             if (value.done) {
-                for (var k = 0; k < count; k++) {
+                for (let k = 0; k < count; k++) {
                     yield result[(j + k) % count];
                 }
                 return;

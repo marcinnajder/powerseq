@@ -3,12 +3,11 @@ import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 function _skipwhile<T>(source: Iterable<T>, predicate: Predicate<T>) {
     return wrapInIterable(function* () {
-        var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T>;
-        var index = 0;
+        const iterator = source[Symbol.iterator]();
+        let index = 0;
 
         while (true) {
-            value = iterator.next();
+            const value = iterator.next();
             if (value.done) return;
             if (predicate(value.value, index++)) continue;
             yield value.value;
@@ -16,7 +15,7 @@ function _skipwhile<T>(source: Iterable<T>, predicate: Predicate<T>) {
         }
 
         while (true) {
-            var value = iterator.next();
+            const value = iterator.next();
             if (value.done) return;
             yield value.value;
         }

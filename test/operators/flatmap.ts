@@ -18,7 +18,8 @@ it('flatmap', function () {
 
 export const samples = [
     () => flatmap([{ ns: [1] }, { ns: [99, 10] }, { ns: [6, 3] }], x => x.ns),
-    () => flatmap(['abc', 'cd'], text => text, (text, char) => text + '-' + char)
+    () => flatmap([{ ns: [1] }, { ns: [99, 10] }, { ns: [6, 3] }], (x, index) => x.ns.map(n => [index, n])),
+    () => flatmap(['abc', 'cd'], text => text, (text, char, index) => `${index}. ${char} (${text})`)
 ];
 
 export const jsarray = "flatMap";

@@ -8,6 +8,8 @@ it('max', function () {
     assert.deepEqual(max([1, 2, 3, 1, 2, 3]), 3);
     assert.deepEqual(max([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 1 }, { id: 2 }, { id: 3 }], x => x.id), 3);
     assert.deepEqual(max()([1, 2, 3, 1, 2, 3]), 3);
+
+    assert.deepEqual(max([10, 5, 1], (x, index) => x * index), 5);
 });
 
 export const samples = [

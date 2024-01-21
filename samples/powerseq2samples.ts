@@ -1,4 +1,4 @@
-import { pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share } from "./index"
+import { pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share } from "../src/index"
 
 
 const coders: Coder[] = [{ name: "kalinka", language: "ts" }, { name: "michal", language: "ts" }, { name: "maciek", language: "haskell" },]

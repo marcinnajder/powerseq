@@ -5,6 +5,7 @@ it('average', function () {
     assert.deepEqual(average([1, 2, 3, 4]), 2.5);
     assert.deepEqual(average([]), undefined);
     assert.deepEqual(average(["a", "aa", "aaa"], s => s.length), 2);
+    assert.deepEqual(average(["aa", "a", ""], (s, index) => s.length + index), 2);
 
     assert.deepEqual(average<number>()([1, 2, 3, 4]), 2.5);
     assert.deepEqual(average<string>(s => s.length)(["a", "aa", "aaa"]), 2);
@@ -12,7 +13,8 @@ it('average', function () {
 
 export const samples = [
     () => average([1, 2, 3, 4]),
-    () => average(['a', 'aa', 'aaa'], s => s.length)
+    () => average(['a', 'aa', 'aaa'], s => s.length),
+    () => average(['a', 'aa', ''], (s, index) => s.length + index)
 ];
 
 export const linq = "Average";

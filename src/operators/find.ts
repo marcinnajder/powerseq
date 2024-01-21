@@ -3,13 +3,13 @@ import { wrapInThunk } from "../common/wrap";
 
 function _find<T>(source: Iterable<T>, predicate?: Predicate<T>, defaultValue?: T): T | undefined {
     if (typeof predicate === "undefined") {
-        for (var item of source) {
+        for (const item of source) {
             return item;
         }
         return defaultValue;
     } else {
         let index = 0;
-        for (var item of source) {
+        for (const item of source) {
             if (predicate(item, index++)) {
                 return item;
             }

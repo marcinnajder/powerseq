@@ -9,9 +9,9 @@ function _skiplast<T>(source: Iterable<T>, count: number) {
             return;
         }
 
-        var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T>;
-        var cache: T[] = [];
+        const iterator = source[Symbol.iterator]();
+        let value: IteratorResult<T>;
+        const cache: T[] = [];
 
         // process first 'count' items
         for (let i = 0; i < count; i++) {
@@ -23,7 +23,7 @@ function _skiplast<T>(source: Iterable<T>, count: number) {
         }
 
         // process other items
-        var j = 0;
+        let j = 0;
         while (true) {
             value = iterator.next();
             if (value.done) {

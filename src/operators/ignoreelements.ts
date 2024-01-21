@@ -3,7 +3,7 @@ import { Operator } from "../common/types";
 
 function _ignoreelements<T>(source: Iterable<T>): Iterable<T> {
     return wrapInIterable(function* () {
-        for (var item of source) {
+        for (const item of source) {
         }
     });
 }

@@ -3,13 +3,13 @@ import { Operator } from "../common/types";
 
 function _expand<T>(source: Iterable<T>, selector: (item: T, index?: number) => Iterable<T> | undefined) {
     return wrapInIterable(function* () {
-        var head: Node<T> = { iter: source };
-        var last = head;
-        var newIterable: Iterable<T> | undefined;
+        let head: Node<T> = { iter: source };
+        let last = head;
+        let newIterable: Iterable<T> | undefined;
 
         while (true) {
-            var index = 0;
-            for (var item of head.iter) {
+            let index = 0;
+            for (const item of head.iter) {
                 yield item;
                 newIterable = selector(item, index++);
                 if (typeof newIterable !== "undefined") {

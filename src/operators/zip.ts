@@ -8,9 +8,9 @@ export function zip<T1, T2, T3, T4, T5, R>(source1: Iterable<T1>, source2: Itera
 export function zip(...args: any[]): Iterable<any>;
 export function zip<R>(...args: any[]): Iterable<R> {
     return wrapInIterable(function* () {
-        var iterators = args.slice(0, args.length - 1).map((i: Iterable<any>) => i[Symbol.iterator]());
-        var func: Function = args[args.length - 1];
-        var values: IteratorResult<any>[];
+        const iterators = args.slice(0, args.length - 1).map((i: Iterable<any>) => i[Symbol.iterator]());
+        const func: Function = args[args.length - 1];
+        let values: IteratorResult<any>[];
 
         while (true) {
             values = iterators.map(i => i.next());

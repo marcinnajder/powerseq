@@ -1,15 +1,19 @@
-import { Func } from "../common/types";
+import { Func2 } from "../common/types";
 
-export function maxmin<T, V>(source: Iterable<T>, valueSelector: Func<T, V>,
+export function maxmin<T, V>(source: Iterable<T>, valueSelector: Func2<T, number, V>,
     isGreaterOrLess: (key: V, minmaxKey: V) => boolean, returnValueOrItem: boolean): V | T | undefined {
 
-    var iterator = source[Symbol.iterator]();
-    var iteratorValue = iterator.next();
-    if (iteratorValue.done) return undefined;
+    const iterator = source[Symbol.iterator]();
+    let iteratorValue = iterator.next();
 
-    var maxminItem = iteratorValue.value;
-    var maxminValue = valueSelector(maxminItem);
-    var item, value;
+    if (iteratorValue.done) {
+        return undefined;
+    }
+
+    let index = 0;
+    let maxminItem = iteratorValue.value;
+    let maxminValue = valueSelector(maxminItem, index);
+    index++;
 
     while (true) {
         iteratorValue = iterator.next();
@@ -17,12 +21,13 @@ export function maxmin<T, V>(source: Iterable<T>, valueSelector: Func<T, V>,
             return returnValueOrItem ? maxminValue : maxminItem;
         }
 
-        item = iteratorValue.value;
-        value = valueSelector(item);
+        const item = iteratorValue.value;
+        const value = valueSelector(item, index);
 
         if (isGreaterOrLess(value, maxminValue)) {
             maxminValue = value;
             maxminItem = item;
         }
+        index++;
     }
 }

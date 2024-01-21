@@ -47,6 +47,7 @@ console.log(items);
 ##### [average](https://github.com/marcinnajder/powerseq/tree/master/src/operators/average.ts)
 - ```average([1, 2, 3, 4])``` -> ```2.5```
 - ```average(['a', 'aa', 'aaa'], s => s.length)``` -> ```2```
+- ```average(['a', 'aa', ''], (s, index) => s.length + index)``` -> ```2```
 ##### [buffer](https://github.com/marcinnajder/powerseq/tree/master/src/operators/buffer.ts)
 - ```buffer([1, 2, 3, 4, 5, 6, 7], 2)``` -> ```seq [[1, 2], [3, 4], [5, 6], [7]]```
 - ```buffer([1, 2, 3, 4, 5, 6, 7], 2, /*skip*/ 4)``` -> ```seq [[1, 2], [5, 6]]```
@@ -60,6 +61,7 @@ console.log(items);
 ##### [count](https://github.com/marcinnajder/powerseq/tree/master/src/operators/count.ts)
 - ```count([2, 2, 2])``` -> ```3```
 - ```count([2, 4, 6], x => x > 2)``` -> ```2```
+- ```count([2, 4, 6], (x, index) => index >= 2)``` -> ```1```
 ##### [countby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/countby.ts)
 - ```countby(['a', 'a', 'cc', 'ddd', 'xx'], x => x.length)``` -> ```Map {1 => 2, 2 => 2, 3 => 1}```
 - ```pipe(['a', 'a', 'cc', 'ddd', 'xx'], countby(x => x), toobject())``` -> ```{ a:2, cc:1, ddd:1, xx:1 }```
@@ -75,7 +77,7 @@ console.log(items);
 ##### [distinctuntilchanged](https://github.com/marcinnajder/powerseq/tree/master/src/operators/distinctuntilchanged.ts)
 - ```distinctuntilchanged([1, 1, 2, 2, 2, 1, 3, 3])``` -> ```seq [1, 2, 1, 3]```
 ##### [doo](https://github.com/marcinnajder/powerseq/tree/master/src/operators/doo.ts)
-- ```doo([1, 2, 3,], (x) => { /* executed during iteration */ ; })``` -> ```seq [1, 2, 3]```
+- ```doo([1, 2, 3,], x => { })``` -> ```seq [1, 2, 3]```
 ##### [elementat](https://github.com/marcinnajder/powerseq/tree/master/src/operators/elementat.ts)
 - ```elementat([1, 2, 12, 15], 2)``` -> ```12```
 - ```elementat([1, 2, 12, 15], 20)``` -> ```undefined```
@@ -83,6 +85,7 @@ console.log(items);
 ##### [every](https://github.com/marcinnajder/powerseq/tree/master/src/operators/every.ts)
 - ```every([1, 2, 12, 15], x => x > 0)``` -> ```true```
 - ```every([1, 2, 12, 15], x => x < 10)``` -> ```false```
+- ```every([0, 1, 3, 3], (x, index) => x === index)``` -> ```false```
 ##### [except](https://github.com/marcinnajder/powerseq/tree/master/src/operators/except.ts)
 - ```except([1, 2, 2, 3, 4], [2, 3])``` -> ```seq [1, 4]```
 ##### [exceptby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/exceptby.ts)
@@ -104,6 +107,7 @@ console.log(items);
 - ```find([1, 2, 2, 3, 4], (x, index) => x > 1 && index > 2)``` -> ```3```
 ##### [findindex](https://github.com/marcinnajder/powerseq/tree/master/src/operators/findindex.ts)
 - ```findindex([1, 2, 2, 3, 4], x => x > 1)``` -> ```1```
+- ```findindex([1, 2, 2, 3, 4], (x, index) => index > 1)``` -> ```2```
 - ```findindex([1, 2, 2, 3, 4], (x, index) => x > 1 && index > 2)``` -> ```3```
 ##### [flat](https://github.com/marcinnajder/powerseq/tree/master/src/operators/flat.ts)
 - ```flat([1, [2, 3], [[4, 5], 6], []])``` -> ```seq [1, 2, 3, [4, 5], 6]```
@@ -113,8 +117,10 @@ console.log(items);
     - ```seq ['a', 'b', 'c', 'd', 'e']```
 ##### [flatmap](https://github.com/marcinnajder/powerseq/tree/master/src/operators/flatmap.ts)
 - ```flatmap([{ ns: [1] }, { ns: [99, 10] }, { ns: [6, 3] }], x => x.ns)``` -> ```seq [1, 99, 10, 6, 3]```
-- ```flatmap(['abc', 'cd'], text => text, (text, char) => text + '-' + char)```
-    - ```seq ['abc-a', 'abc-b', 'abc-c', 'cd-c', 'cd-d']```
+- ```flatmap([{ ns: [1] }, { ns: [99, 10] }, { ns: [6, 3] }], (x, index) => x.ns.map(n => [index, n]))```
+    - ```seq [[0, 1], [1, 99], [1, 10], [2, 6], [2, 3]]```
+- ```flatmap(['abc', 'cd'], text => text, (text, char, index) => `${index}. ${char} (${text})`)```
+    - ```seq ['0. a (abc)', '1. b (abc)', '2. c (abc)', '3. c (cd)', '4. d (cd)']```
 ##### [foreach](https://github.com/marcinnajder/powerseq/tree/master/src/operators/foreach.ts)
 - ```foreach([1, 2, 3], x => { /* some action */ ; })``` -> ```undefined```
 ##### [groupby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/groupby.ts)
@@ -169,14 +175,17 @@ console.log(items);
 - ```max(['a', 'bb', 'rrr', 'd'], x => x.length)``` -> ```3```
 ##### [maxby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/maxby.ts)
 - ```maxby(['a', 'bb', 'rrr', 'd'], x => x.length)``` -> ```'rrr'```
+- ```maxby(['a', 'bb', 'rrr', 'd'], (x, index) => x.length * index)``` -> ```'rrr'```
 ##### [memoize](https://github.com/marcinnajder/powerseq/tree/master/src/operators/memoize.ts)
 - ```pipe(range(0, 4), map(i => ({ i })), memoize(), xs => zip(xs, xs, (x1, x2) => [x1.i, x2.i, x1 === x2]))```
     - ```seq [[0, 0, true], [1, 1, true], [2, 2, true], [3, 3, true]]```
 ##### [min](https://github.com/marcinnajder/powerseq/tree/master/src/operators/min.ts)
 - ```min([1, 2, 3, 1])``` -> ```1```
 - ```min(['a', 'bb', 'rrr', 'd'], x => x.length)``` -> ```1```
+- ```min(['a', 'bb', 'rrr', 'd'], (x, index) => x.length * index)``` -> ```0```
 ##### [minby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/minby.ts)
 - ```minby(['a', 'bb', 'rrr', 'd'], x => x.length)``` -> ```'a'```
+- ```minby(['a', 'bb', 'rrr', 'd'], (x, index) => x.length * index)``` -> ```'a'```
 ##### [oftype](https://github.com/marcinnajder/powerseq/tree/master/src/operators/oftype.ts)
 - ```oftype([new Number(1), new Number(2), 's', false], Number)``` -> ```seq [{  }, {  }]```
 ##### [orderby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/orderby.ts)
@@ -187,6 +196,9 @@ console.log(items);
 - ```orderbydescending(['abc', 'dd', 'sdfe', 'f'], x => x.length)``` -> ```seq ['sdfe', 'abc', 'dd', 'f']```
 ##### [pairwise](https://github.com/marcinnajder/powerseq/tree/master/src/operators/pairwise.ts)
 - ```pairwise([1, 2, 3, 4])``` -> ```seq [[1, 2], [2, 3], [3, 4]]```
+- ```pairwise([1, 2])``` -> ```seq [[1, 2]]```
+- ```pairwise([1])``` -> ```seq []```
+- ```pairwise([])``` -> ```seq []```
 ##### [partitionby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/partitionby.ts)
 - ```partitionby([1, 2, 4, 6, 3, 4], n => n % 2 === 0)``` -> ```seq [[1], [2, 4, 6], [3], [4]]```
 ##### [reduce](https://github.com/marcinnajder/powerseq/tree/master/src/operators/reduce.ts)
@@ -199,7 +211,10 @@ console.log(items);
 - ```reverse([1, 2, 3])``` -> ```seq [3, 2, 1]```
 ##### [scan](https://github.com/marcinnajder/powerseq/tree/master/src/operators/scan.ts)
 - ```scan([1, 2, 3], (a, x) => a + x)``` -> ```seq [3, 6]```
+- ```scan([1], (a, x) => a + x)``` -> ```seq []```
 - ```scan([1, 2, 3], (a, x) => a + (x * 10), '')``` -> ```seq ['', '10', '1020', '102030']```
+- ```scan([1], (a, x) => a + (x * 10), '')``` -> ```seq ['', '10']```
+- ```scan([], (a, x) => a + (x * 10), '')``` -> ```seq ['']```
 ##### [sequenceequal](https://github.com/marcinnajder/powerseq/tree/master/src/operators/sequenceequal.ts)
 - ```sequenceequal([1, 2, 3], [1, 2, 3])``` -> ```true```
 - ```sequenceequal([1, 2, 3], [1, 2, 2])``` -> ```false```
@@ -209,6 +224,7 @@ console.log(items);
     - ```seq [[0, 1, false], [2, 3, false]]```
 ##### [single](https://github.com/marcinnajder/powerseq/tree/master/src/operators/single.ts)
 - ```single([1])``` -> ```1```
+- ```single([])``` -> ```undefined```
 - ```single([1, 2, 3], x => x > 2)``` -> ```3```
 - ```single([1, 2, 3], x => x > 10)``` -> ```undefined```
 - ```single([1, 2, 3], x => x > 10, -1)``` -> ```-1```
@@ -228,6 +244,7 @@ console.log(items);
 ##### [sum](https://github.com/marcinnajder/powerseq/tree/master/src/operators/sum.ts)
 - ```sum([1, 2, 3])``` -> ```6```
 - ```sum(['a', 'asd', 'yy'], x => x.length)``` -> ```6```
+- ```sum(['a', 'asd', 'yy'], (x, index) => x.length + index)``` -> ```9```
 ##### [take](https://github.com/marcinnajder/powerseq/tree/master/src/operators/take.ts)
 - ```take([1, 2, 3, 4, 5], 2)``` -> ```seq [1, 2]```
 ##### [takelast](https://github.com/marcinnajder/powerseq/tree/master/src/operators/takelast.ts)

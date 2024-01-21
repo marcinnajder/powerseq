@@ -11,7 +11,7 @@ function _buffer<T>(source: Iterable<T>, count: number, skip?: number) {
             let result = new Array<T>(count);
 
             let i = 0;
-            for (var item of source) {
+            for (const item of source) {
                 result[i] = item;
                 i++;
 
@@ -27,15 +27,15 @@ function _buffer<T>(source: Iterable<T>, count: number, skip?: number) {
                 yield result;
             }
         } else {
-            let results: T[][] = [];
+            const results: T[][] = [];
 
             let index = 0;
-            for (var item of source) {
+            for (const item of source) {
                 if (index % skip === 0) {
                     results.push([]);
                 }
 
-                for (let result of results) {
+                for (const result of results) {
                     result.push(item);
                 }
 
@@ -47,7 +47,7 @@ function _buffer<T>(source: Iterable<T>, count: number, skip?: number) {
                 index++;
             }
 
-            for (let result of results) {
+            for (const result of results) {
                 yield result;
             }
         }

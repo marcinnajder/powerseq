@@ -2,9 +2,9 @@ import { wrapInThunk } from "../common/wrap";
 import { Func2, OperatorR } from "../common/types";
 
 function _reduce<T, A>(source: Iterable<T>, func: Func2<A, T, A>, seed?: A): A {
-    var iterator = source[Symbol.iterator]();
-    var value: IteratorResult<T>;
-    var accumulator: A;
+    const iterator = source[Symbol.iterator]();
+    let value: IteratorResult<T>;
+    let accumulator: A;
 
     if (typeof seed === "undefined") {
         value = iterator.next();

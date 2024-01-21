@@ -1,27 +1,28 @@
 import { Func, Operator } from "../common/types";
+import { identity } from "../common/utils";
 import { wrapInIterable, wrapInThunk } from "../common/wrap";
 
 function _distinctuntilchanged<T>(source: Iterable<T>, keySelector?: Func<T, any>) {
     return wrapInIterable(function* () {
         if (typeof keySelector === "undefined") {
-            keySelector = item => item;
+            keySelector = identity;
         }
 
-        var iterator = source[Symbol.iterator]();
-        var value: IteratorResult<T>;
-        var lastKey: T;
-        var key;
+        const iterator = source[Symbol.iterator]();
 
-        value = iterator.next();
-        if (value.done) return;
-        lastKey = keySelector(value.value);
+        let value = iterator.next();
+        if (value.done) {
+            return;
+        }
+
+        let lastKey = keySelector(value.value);
         yield value.value;
 
         while (true) {
             value = iterator.next();
             if (value.done) return;
 
-            key = keySelector(value.value);
+            const key = keySelector(value.value);
             if (lastKey !== key) {
                 lastKey = key;
                 yield value.value;

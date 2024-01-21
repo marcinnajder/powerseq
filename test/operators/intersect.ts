@@ -6,8 +6,6 @@ it('intersect', function () {
     assert.deepEqual(Array.from(intersect([4, 5, 6, 1, 1])([1, 2, 3, 4, 2, 4])), [4, 1]);
 });
 
-
-
 export const samples = [
     () => intersect([1, 2, 2, 3], [3, 3, 1]),
 ];

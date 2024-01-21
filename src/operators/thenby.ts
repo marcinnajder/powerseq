@@ -4,8 +4,8 @@ import { ordebyImpl, OrderedIterable, OrderingState } from "../common/ordering";
 import { wrapInThunk } from "../common/wrap";
 
 function _thenby<T>(source: OrderedIterable<T>, keySelector: Func<T, any>): OrderedIterable<T> {
-    var state: OrderingState<T> = { descending: false, keySelector, originalIterable: source.state.originalIterable, prevState: source.state };
-    var sortingIterable = ordebyImpl(state);
+    const state: OrderingState<T> = { descending: false, keySelector, originalIterable: source.state.originalIterable, prevState: source.state };
+    const sortingIterable = ordebyImpl(state);
     return { state, ...sortingIterable };
 }
 

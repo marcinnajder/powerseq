@@ -3,8 +3,8 @@ import { Operator } from "../common/types";
 
 function _doo<T>(source: Iterable<T>, action: (item: T, index: number) => void) {
     return wrapInIterable(function* () {
-        var index = 0;
-        for (var item of source) {
+        let index = 0;
+        for (const item of source) {
             action(item, index++);
             yield item;
         }

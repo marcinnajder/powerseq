@@ -9,11 +9,11 @@ class Dog extends Animal {
 }
 
 it('cast', function () {
-    var animals: any[] = [new Animal(), new Animal(), new Dog()];
+    const animals: any[] = [new Animal(), new Animal(), new Dog()];
     assert.deepEqual([...cast<Animal>(animals, Animal)].length, 3);
     assert.deepEqual([...cast<Animal>(animals, Animal)].length, 3);
     assert.throws(() => {
-        var r = [...cast<Dog>(animals, Dog)];
+        const r = [...cast<Dog>(animals, Dog)];
     }, "An element in the sequence cannot be cast to type TResult.")
 
     assert.deepEqual([...cast<Animal>(Animal)(animals)].length, 3);

@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { tomap } from "../../src/index";
 
 it('tomap', function () {
-    for (var m1 of [
+    for (const m1 of [
         tomap([1, 1, 2], x => x),
         tomap<number, number>(x => x)([1, 1, 2])
     ]) {
@@ -11,7 +11,7 @@ it('tomap', function () {
         assert.strictEqual(m1.get(2), 2);
     }
 
-    var m2 = tomap([1, 1, 2], x => x, x => x.toString());
+    const m2 = tomap([1, 1, 2], x => x, x => x.toString());
     assert.equal(m2.size, 2);
     assert.strictEqual(m2.get(1), "1");
     assert.strictEqual(m2.get(2), "2");

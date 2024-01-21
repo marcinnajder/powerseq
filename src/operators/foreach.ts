@@ -3,12 +3,11 @@ import { wrapInThunk } from "../common/wrap";
 
 function _foreach<T>(source: Iterable<T>, action?: Func2<T, number, void>): void {
     if (typeof action === "undefined") {
-        for (var item of source) {
-        }
+        for (const item of source) { }
     }
     else {
-        var index = 0;
-        for (var item of source) {
+        let index = 0;
+        for (const item of source) {
             action(item, index++);
         }
     }

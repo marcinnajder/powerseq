@@ -1,4 +1,26 @@
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/marcinnajder/powerseq/releases/tag/2.0.0) (2024-01-21)
+
+* upgrade dependencies, upgrade TypeScript from 3.x to 5.x
+* TypeScript strict option
+* breaking changes (BC)
+* BC remove Enumerable type and 'of' and 'from' functions
+* BC: groupby returns Map instead of custom type IterableGroup, no overload for 'resultSelector' function (use map operator)
+* BC: changing 'distinct', introducing 'distinctby' (caution: previously distinct with lambda worked like today's 'distinctby' !)
+* BC: adding 'defaultValue' parameter to 'last' operator
+* BC: remove previous inconsistency, 'single' does not throw exception now, returns 'undefined'
+* BC: new 'unionby', 'intersectby', 'exceptby' operators extracted from changed 'union', 'intersect', 'except'
+* BC: 'scan' returns init value of acculumator
+* BC: 'groupjoin' returns empty arrays for unmachted items
+* BC: additional generic type argument to 'toobject' function
+* BC: remove 'asiterable'
+* new overload for toobject() passing Iterable<[K,E]> type (for example Map), usefull after groupby and countby
+* new operators: groupbytoobject, countby, memoize, share, pairwise, partitionby, combinations, filtermap, interleave, interpose, flat, unionby, intersectby, exceptby, distinctby
+* add 'index' to lambda argument functions to operators: min, minby, max, maxby, sum, average
+* shorter generic argument names like K, V, ...  instead of TKey, TValue, ..., introduction of Func<T,R>
+* new more generic type definition of pipe function, type 'Interable<T>' is no required now
+
 <a name="1.0.4"></a>
 # [1.0.4](https://github.com/marcinnajder/powerseq/releases/tag/1.0.4) (2018-11-01)
 
@@ -26,7 +48,7 @@
 * esm as a default distribution format (tree shaking finally works)
 
 <a name="0.0.9"></a>
-# [0.0.9](https://github.com/marecinnajder/powerseq/releases/tag/0.0.9) (2017-05-09)
+# [0.0.9](https://github.com/marcinnajder/powerseq/releases/tag/0.0.9) (2017-05-09)
 
 * upgrade to TS 2.3.0 (babel is not no longer required)
 * distribution of ESM (support for webpack2)

@@ -22,8 +22,16 @@ var pkg = require('../package.json');
 // "typings": "Rx.d.ts",
 
 
+// https://nodejs.org/en/about/previous-releases
+// 8.17.0 - 2019-12-17
+// v16.20.2 - 2023-08-08
+// pkg.engines: {
+//     node: ">=8.17.0"
+// };
+
+
 pkg.main = "index.js"; // for node.js
-pkg.module = "esm_es5/index.js"; // for tools like webpack2, rollup
+// pkg.module = "esm_es5/index.js"; // for tools like webpack2, rollup
 
 delete pkg.scripts;
 

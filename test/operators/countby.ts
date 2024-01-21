@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { groupby, map, pipe, toarray, countby, toobject } from "../../src/index";
+import { pipe, countby, toobject } from "../../src/index";
 
 it('countby', function () {
     const items = ["a", "a", "cc", "ddd"];
@@ -13,9 +13,4 @@ export const samples = [
     () => pipe(['a', 'a', 'cc', 'ddd', 'xx'], countby(x => x), toobject())
 ];
 
-
 export const fsharp = "countBy";
-
-
-
-

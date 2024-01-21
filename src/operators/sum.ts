@@ -1,22 +1,25 @@
-import { Func, Operator, OperatorR } from "../common/types";
+import { Func2, OperatorR } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
-function _sum<T>(source: Iterable<T>, valueSelector?: Func<T, number>): number {
-    var result = 0;
+function _sum<T>(source: Iterable<T>, valueSelector?: Func2<T, number, number>): number {
+    let result = 0;
+
     if (typeof valueSelector === "undefined") {
-        for (var item of source) {
+        for (const item of source) {
             result += <any>item;
         }
     } else {
-        for (var item of source) {
-            result += valueSelector(item);
+        let index = 0;
+        for (const item of source) {
+            result += valueSelector(item, index);
+            index++;
         }
     }
     return result;
 }
 
-export function sum<T>(source: Iterable<T>, valueSelector?: Func<T, number>): number;
-export function sum<T>(valueSelector?: Func<T, number>): OperatorR<T, number>;
+export function sum<T>(source: Iterable<T>, valueSelector?: Func2<T, number, number>): number;
+export function sum<T>(valueSelector?: Func2<T, number, number>): OperatorR<T, number>;
 export function sum() {
     return wrapInThunk(arguments, _sum);
 }

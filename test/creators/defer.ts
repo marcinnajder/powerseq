@@ -2,9 +2,9 @@ import * as assert from "assert";
 import { defer } from "../../src/index";
 
 it('defer', function () {
-    var couter = 0;
+    let couter = 0;
 
-    var iterable = defer(() => {
+    const iterable = defer(() => {
         couter++;
         return [couter, couter, couter];
     });

@@ -4,7 +4,7 @@ import { expand } from "../../src/index";
 it('expand', function () {
     assert.deepEqual(Array.from(expand([1], x => x > 8 ? [] : [x * 2])), [1, 2, 4, 8, 16]);
 
-    var tree = [{
+    const tree = [{
         name: "a",
         children: [
             { name: "d", children: [{ name: "dd", children: [] }] },

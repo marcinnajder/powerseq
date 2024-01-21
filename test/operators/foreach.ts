@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { foreach } from "../../src/index";
 
 it('foreach', function () {
-    var items: number[] = [];
+    let items: number[] = [];
 
     foreach([1, 2, 3], x => items.push(x));
     assert.deepEqual(items, [1, 2, 3]);

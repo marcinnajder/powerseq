@@ -3,9 +3,9 @@ import { Operator } from "../common/types";
 
 function _take<T>(source: Iterable<T>, count: number) {
     return wrapInIterable(function* () {
-        var countInstance = count;
+        let countInstance = count;
         if (countInstance > 0) {
-            for (var item of source) {
+            for (const item of source) {
                 yield item;
                 if (--countInstance === 0) break;
             }
