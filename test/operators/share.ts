@@ -12,8 +12,7 @@ it('share', function () {
 });
 
 export const samples = [
-    () => pipe(range(0, 4), map(i => ({ i })), share(), xs => zip(xs, xs, (x1, x2) => [x1.i, x2.i, x1 === x2])),
-    () => [...pipe(range(0, 4), map(i => ({ i })), share(), xs => zip(xs, xs, (x1, x2) => [x1.i, x2.i, x1 === x2]))]
+    () => pipe(range(0, 4), map(i => ({ i })), share(), xs => zip(xs, xs, (x1, x2) => [x1.i, x2.i, x1 === x2]))
 ];
 
 export const rxjs = "share";

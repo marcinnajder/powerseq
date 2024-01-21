@@ -6,9 +6,6 @@ const os = require("os");
 const { creators, operators, allFunctions, pOperators } = require("./generate.config");
 
 
-const _maxColumns = 4;
-const _maxRows = 6;
-
 const allFunctionsImportPrefix = allFunctions.concat(["pipe"]).map(functionName => [`(0, index_1.${functionName})`, functionName]);
 const githubAddressPrefix = "https://github.com/marcinnajder/powerseq/tree/master";
 
@@ -26,21 +23,10 @@ const otherLibs = {
 }
 
 
-const operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
-const enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
-const counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
-const mappingTable = generateMappingTable([...allFunctions].sort(), githubAddressPrefix, counterparts);
-const mappingLines = generateMappingLines([...allFunctions].sort(), githubAddressPrefix, counterparts);
-
 const creatorsDocs = generateDocs(creators, githubAddressPrefix, "creators");
 const operatorsDocs = generateDocs(operators, githubAddressPrefix, "operators");
-
-// console.log(creatorsDocs);
-// console.log(operatorsDocs);
-// creators
-// ${enumerableTable}
-// operators
-// ${operatorsTable}
+const counterparts = ["linq", "rxjs", "jsarray", "lodash", "fsharp", "clojure", "kotlin", "java"];
+const mappingLines = generateMappingLines([...allFunctions].sort(), githubAddressPrefix, counterparts);
 
 
 var readmeContent =
@@ -84,6 +70,103 @@ ${mappingLines}
 fs.writeFileSync("./README.md", readmeContent);
 console.log("./README.md", " file generated");
 
+function generateDocs(methods, urlPrefix, creatorsOrOpertors) {
+    const ticks = `\`\`\``;
+    let content = "";
+
+    for (const methodName of methods) {
+        const unitTestModule = require("../dist/test/" + creatorsOrOpertors + "/" + methodName + ".js");
+        const samples = formatSamplesList(methodName, unitTestModule.samples);
+
+        // const lines = samples.map(([code, result]) => `  - ${ticks}${code}${ticks}${os.EOL}       - ${ticks}${result}${ticks}`)
+        const lines = samples.map(([code, result]) => `- ${ticks}${code}${ticks}${(code.length > 70 ? os.EOL + "    - " : " -> ")}${ticks}${result}${ticks}`)
+
+        content += `##### [${methodName}](${urlPrefix}/src/${creatorsOrOpertors}/${methodName}.ts")
+${lines.join(os.EOL)}
+`;
+    }
+
+    return content;
+}
+
+function generateMappingLines(methods, urlPrefix, counterparts) {
+    let content = "";
+
+    for (const methodName of methods) {
+        const unitTestModulePath = ["/operators", "/creators"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
+        const unitTestModule = require(unitTestModulePath);
+
+        const funcsByLang = counterparts
+            .map(lang => ({ lang, funcs: unitTestModule[lang] }))
+            .filter(({ funcs }) => funcs)
+            .map(({ lang, funcs }) => ({ lang, funcs: Array.isArray(funcs) ? funcs : [funcs] }));
+
+        content += `- **${methodName}** - ${funcsByLang.map(({ lang, funcs }) => `${funcs.join(", ")} (${lang})`).join(", ")}${os.EOL}`
+    }
+
+    return content;
+}
+
+function formatSamplesList(methodName, samples) {
+    if (typeof samples === "undefined") {
+        console.warn("no samples for operator: ", methodName);
+        return "";
+    }
+
+    return samples.map(sampleFunc => {
+        let sampleBody = sampleFunc.toString();
+        sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 3);
+        sampleBody = allFunctionsImportPrefix.reduce((prev, [funcCall, funcName]) => prev.replace(funcCall, funcName), sampleBody);
+        sampleBody = sampleBody.replace(/\"/g, "'"); // normalize all strings to ' 
+
+        try {
+            const sampleResult = sampleFunc();
+            return [sampleBody, formatResultValue(sampleResult)]; // iterate only once, for some operators like share it makes a different
+        } catch (err) {
+            return [sampleBody, formatResultValue(err)];
+        }
+    });
+}
+
+
+function formatResultValue(value) {
+    if (value instanceof Error) {
+        return "error: " + value.message;
+    }
+    if (typeof value === "undefined") {
+        return "undefined";
+    }
+    if (typeof value === "string") {
+        return `'${value}'`;
+    }
+    if (Array.isArray(value)) {
+        return "[" + Array.from(value).map(formatResultValue).join(", ") + "]";
+    }
+    if (value instanceof Map) {
+        return `Map {${Array.from(value.entries()).map(([key, v]) => `${formatResultValue(key)} => ${formatResultValue(v)}`).join(", ")}}`;
+    }
+    if (value && value.constructor && (value.constructor.name === "Enumerable" || value.constructor.name === "OrderedEnumerable")) {
+        return "enum [" + Array.from(value).map(formatResultValue).join(", ") + "]";
+    }
+    if (value[Symbol.iterator]) {
+        return "seq [" + Array.from(value).map(formatResultValue).join(", ") + "]";
+    }
+
+    if (util.isObject(value)) {
+        return `{ ${Object.keys(value).map(key => `${key}:${formatResultValue(value[key])}`).join(", ")} }`;
+    }
+    return value;
+}
+
+
+// ********************************************************************************************************************************
+// previous document version with tables
+
+// const _maxColumns = 4;
+// const _maxRows = 6;
+// const operatorsTable = generateTable(_maxColumns, _maxRows, operators, githubAddressPrefix, "operators");
+// const enumerableTable = generateTable(_maxColumns, _maxRows, creators, githubAddressPrefix, "creators");
+const mappingTable = generateMappingTable([...allFunctions].sort(), githubAddressPrefix, counterparts);
 
 var mappingContent =
     `
@@ -92,11 +175,6 @@ ${mappingTable}
 fs.writeFileSync("./docs/mapping.md", mappingContent);
 console.log("./docs/mapping.md", " file generated");
 
-
-
-// function listMethods(globbingPattern) {
-//     return glob.sync(globbingPattern).map(p => path.basename(p, '.ts')).sort();
-// }
 
 function findTableSize(columnCount, rowCount, methodCount) {
     while (columnCount * rowCount < methodCount) {
@@ -108,6 +186,7 @@ function findTableSize(columnCount, rowCount, methodCount) {
     }
     return { rowCount, columnCount };
 }
+
 
 function generateTable(maxColumns, maxRows, methods, urlPrefix, creatorsOrOpertors) {
     var { rowCount, columnCount } = findTableSize(maxColumns, maxRows, methods.length);
@@ -135,32 +214,6 @@ function generateTable(maxColumns, maxRows, methods, urlPrefix, creatorsOrOperto
     return `<table>${content}</table>`;
 }
 
-
-function generateDocs(methods, urlPrefix, creatorsOrOpertors) {
-    //return ` \`\`\`${sampleBody}\`\`\` -> \`\`\`${formatResultValue(error || sampleResult)}\`\`\` `
-    const ticks = `\`\`\``;
-
-    var content = "";
-
-    for (const methodName of methods) {
-        const unitTestModule = require("../dist/test/" + creatorsOrOpertors + "/" + methodName + ".js");
-        const samples = formatSamplesList(methodName, unitTestModule.samples);
-
-        // const lines = samples.map(([code, result]) => `  - ${ticks}${code}${ticks}${os.EOL}       - ${ticks}${result}${ticks}`)
-        const lines = samples.map(([code, result]) => `- ${ticks}${code}${ticks}${(code.length > 70 ? os.EOL + "        - " : " -> ")}${ticks}${result}${ticks}`)
-
-        content += `##### ${methodName}
-${lines.join(os.EOL)}
-`;
-    }
-
-    return content;
-}
-
-
-
-
-
 function generateMappingTable(methods, urlPrefix, counterparts) {
     // console.log(methods);
 
@@ -185,23 +238,7 @@ function generateMappingTable(methods, urlPrefix, counterparts) {
     return content;
 }
 
-function generateMappingLines(methods, urlPrefix, counterparts) {
-    let content = "";
 
-    for (const methodName of methods) {
-        const unitTestModulePath = ["/operators", "/creators"].map(f => path.resolve(__dirname, "../dist/test") + f + "/" + methodName + ".js").find(f => fs.existsSync(f));
-        const unitTestModule = require(unitTestModulePath);
-
-        const funcsByLang = counterparts
-            .map(lang => ({ lang, funcs: unitTestModule[lang] }))
-            .filter(({ funcs }) => funcs)
-            .map(({ lang, funcs }) => ({ lang, funcs: Array.isArray(funcs) ? funcs : [funcs] }));
-
-        content += `- **${methodName}** - ${funcsByLang.map(({ lang, funcs }) => `${funcs.join(", ")} (${lang})`).join(", ")}${os.EOL}`
-    }
-
-    return content;
-}
 
 
 
@@ -269,79 +306,6 @@ function formatSamplesTooltip(methodName, samples) {
 
     return `title = "${samplesText}"`;
 }
-
-function formatSamplesList(methodName, samples) {
-    if (typeof samples === "undefined") {
-        console.warn("no samples for operator: ", methodName);
-        return "";
-    }
-
-    return samples.map(sampleFunc => {
-        var error;
-        var sampleBody = sampleFunc.toString();
-        sampleBody = sampleBody.substr(sampleBody.indexOf("=>") + 3);
-
-        sampleBody = allFunctionsImportPrefix.reduce((prev, [funcCall, funcName]) => prev.replace(funcCall, funcName), sampleBody);
-
-        // sampleBody = sampleBody.replace(/enumerable_1\./g, "");
-        sampleBody = sampleBody.replace(/\"/g, "'");
-
-        var sampleResult;
-        try {
-            sampleResult = sampleFunc();
-
-            // try to catch any exception thrown during the iteration
-            if (sampleResult && sampleResult[Symbol.iterator]) {
-                Array.from(sampleResult);
-            }
-
-            // if(sampleBody.indexOf ("take") !== -1 && sampleBody.indexOf ("repeat") !== -1) {
-            // }
-        }
-        catch (err) {
-            error = err;
-        }
-
-        //return ` \`\`\`${sampleBody}\`\`\` -> \`\`\`${formatResultValue(error || sampleResult)}\`\`\` `
-        return [sampleBody, formatResultValue(error || sampleResult)];
-    });
-}
-
-
-
-
-
-function formatResultValue(value) {
-    if (value instanceof Error) {
-        return "error: " + value.message;
-    }
-    if (typeof value === "undefined") {
-        return "undefined";
-    }
-    if (typeof value === "string") {
-        return `'${value}'`;
-    }
-    if (Array.isArray(value)) {
-        return "[" + Array.from(value).map(formatResultValue).join(", ") + "]";
-    }
-    if (value instanceof Map) {
-        return `Map {${Array.from(value.entries()).map(([key, v]) => `${formatResultValue(key)} => ${formatResultValue(v)}`).join(", ")}}`;
-    }
-    if (value && value.constructor && (value.constructor.name === "Enumerable" || value.constructor.name === "OrderedEnumerable")) {
-        return "enum [" + Array.from(value).map(formatResultValue).join(", ") + "]";
-    }
-    if (value[Symbol.iterator]) {
-        return "seq [" + Array.from(value).map(formatResultValue).join(", ") + "]";
-    }
-
-    if (util.isObject(value)) {
-        return `{ ${Object.keys(value).map(key => `${key}:${formatResultValue(value[key])}`).join(", ")} }`;
-    }
-    return value;
-}
-
-
-
 
 
 
@@ -762,3 +726,8 @@ function formatResultValue(value) {
 //       pointer-events: auto;
 //     }
 //   </style>
+
+
+
+
+
