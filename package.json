@@ -14,8 +14,8 @@
     "generate-readme": "node tools/generate.readme.js",
     "generate-package-json": "node tools/generate.package.json.js",
     "rebuild": "npm-run-all del generate-functions tsc",
-    "copy-src-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/src/* ./npmpackage",
-    "build-npmpackage": "npm-run-all rebuild copy-src-npmpackage generate-readme generate-package-json"
+    "copy-src-to-npmpackage": "mkdirp ./npmpackage && shx cp -r ./dist/src/* ./npmpackage",
+    "build-npmpackage": "npm-run-all rebuild copy-src-to-npmpackage generate-readme generate-package-json"
   },
   "dependencies": {},
   "devDependencies": {
