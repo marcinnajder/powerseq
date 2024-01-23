@@ -1,6 +1,6 @@
 
 <a name="2.0.0"></a>
-# [2.0.0](https://github.com/marcinnajder/powerseq/releases/tag/2.0.0) (2024-01-21)
+# [2.0.0](https://github.com/marcinnajder/powerseq/releases/tag/2.0.0) (2024-01-23)
 
 * upgrade dependencies, upgrade TypeScript from 3.x to 5.x
 * TypeScript strict option
