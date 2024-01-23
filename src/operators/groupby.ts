@@ -3,8 +3,10 @@ import { OperatorR, Func2 } from "../common/types";
 import { identity } from "../common/utils"
 
 
-export function _groupby<T, K, E = T>(source: Iterable<T>, keySelector: Func2<T, number, K>, elementSelector?: Func2<T, K, E>): Map<K, E[]> {
-    const result = new Map<K, E[]>();
+export function _groupby<T, K, E = T>(source: Iterable<T>, keySelector: Func2<T, number, K>,
+    elementSelector?: Func2<T, K, E>): Map<K, E[]> {
+
+    const result = new Map<K, any>();
     const eSelector = elementSelector ?? (identity as Func2<T, K, E>);
     let index = 0;
 

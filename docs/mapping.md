@@ -30,6 +30,8 @@
 |foreach|||forEach|each</br>forEach|iter</br>iteri||forEach</br>forEachIndexed|forEach|foreach|
 |generate|||||init</br>initInfinite|iterate</br>repeatedly|generate|iterate|generate|
 |groupby|GroupBy|groupBy||groupBy|groupBy|group-by|groupBy</br>groupingBy|C.groupingBy|groupby|
+|groupbytoobject|||||||||groupbytoobject|
+|groupbytotransformedobject|||||||||groupbytotransformedobject|
 |groupjoin|GroupJoin||||||||groupjoin|
 |ignoreelements||ignoreElements|||||||ignoreelements|
 |includes|Contains||includes|includes|contains|contains?|contains||includes|
@@ -74,7 +76,6 @@
 |toarray|ToArray||||toArray||toList|toArray</br>toList</br>C.toList|toarray|
 |tomap|ToDictionary||||||toMap|C.toMap|tomap|
 |toobject||||fromPairs</br>keyBy</br></br>|||associate</br>associateBy</br>associateWith|C.toMap|toobject|
-|toobjectgrouping|||||||||toobjectgrouping|
 |union|Union|||union||union~|union~||union|
 |unionby|UnionBy|||unionBy</br>unionWith|||||unionby|
 |zip|Zip|zip||zip</br>zipWith|zip</br>zip3|map|zip||zip|

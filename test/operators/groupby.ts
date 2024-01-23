@@ -17,8 +17,8 @@ it('groupby', function () {
 });
 
 
-function groupToString<K, E>([key, values]: [K, E[]]) {
-    return key + ":" + values.join(",")
+function groupToString<K, V>([key, values]: [K, V]) {
+    return key + ":" + (Array.isArray(values) ? values.join(",") : values);
 }
 
 export const samples = [

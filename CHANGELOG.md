@@ -4,6 +4,7 @@
 
 * upgrade dependencies, upgrade TypeScript from 3.x to 5.x
 * TypeScript strict option
+* remove many different bundles for source code, now only es2017 version with CommonJS module system
 * breaking changes (BC)
 * BC remove Enumerable type and 'of' and 'from' functions
 * BC: groupby returns Map instead of custom type IterableGroup, no overload for 'resultSelector' function (use map operator)
@@ -16,7 +17,7 @@
 * BC: additional generic type argument to 'toobject' function
 * BC: remove 'asiterable'
 * new overload for toobject() passing Iterable<[K,E]> type (for example Map), usefull after groupby and countby
-* new operators: groupbytoobject, countby, memoize, share, pairwise, partitionby, combinations, filtermap, interleave, interpose, flat, unionby, intersectby, exceptby, distinctby
+* new operators: countby, memoize, share, pairwise, partitionby, combinations, filtermap, interleave, interpose, flat, unionby, intersectby, exceptby, distinctby, groupbytoobject, groupbytotransformedobject
 * add 'index' to lambda argument functions to operators: min, minby, max, maxby, sum, average
 * shorter generic argument names like K, V, ...  instead of TKey, TValue, ..., introduction of Func<T,R>
 * new more generic type definition of pipe function, type 'Interable<T>' is no required now

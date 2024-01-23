@@ -20,7 +20,7 @@ console.log(items);
 ### functions
 
 - creators: [defer](#defer), [empty](#empty), [entries](#entries), [generate](#generate), [range](#range), [repeatvalue](#repeatvalue), [throww](#throww)
-- operators: [average](#average), [buffer](#buffer), [cast](#cast), [combinations](#combinations), [concat](#concat), [count](#count), [countby](#countby), [defaultifempty](#defaultifempty), [distinct](#distinct), [distinctby](#distinctby), [distinctuntilchanged](#distinctuntilchanged), [doo](#doo), [elementat](#elementat), [every](#every), [except](#except), [exceptby](#exceptby), [expand](#expand), [filter](#filter), [filtermap](#filtermap), [find](#find), [findindex](#findindex), [flat](#flat), [flatmap](#flatmap), [foreach](#foreach), [groupby](#groupby), [groupjoin](#groupjoin), [ignoreelements](#ignoreelements), [includes](#includes), [interleave](#interleave), [interpose](#interpose), [intersect](#intersect), [intersectby](#intersectby), [isempty](#isempty), [join](#join), [last](#last), [map](#map), [max](#max), [maxby](#maxby), [memoize](#memoize), [min](#min), [minby](#minby), [oftype](#oftype), [orderby](#orderby), [orderbydescending](#orderbydescending), [pairwise](#pairwise), [partitionby](#partitionby), [reduce](#reduce), [repeat](#repeat), [reverse](#reverse), [scan](#scan), [sequenceequal](#sequenceequal), [share](#share), [single](#single), [skip](#skip), [skiplast](#skiplast), [skipwhile](#skipwhile), [some](#some), [sum](#sum), [take](#take), [takelast](#takelast), [takewhile](#takewhile), [thenby](#thenby), [thenbydescending](#thenbydescending), [toarray](#toarray), [tomap](#tomap), [toobject](#toobject), [toobjectgrouping](#toobjectgrouping), [union](#union), [unionby](#unionby), [zip](#zip)
+- operators: [average](#average), [buffer](#buffer), [cast](#cast), [combinations](#combinations), [concat](#concat), [count](#count), [countby](#countby), [defaultifempty](#defaultifempty), [distinct](#distinct), [distinctby](#distinctby), [distinctuntilchanged](#distinctuntilchanged), [doo](#doo), [elementat](#elementat), [every](#every), [except](#except), [exceptby](#exceptby), [expand](#expand), [filter](#filter), [filtermap](#filtermap), [find](#find), [findindex](#findindex), [flat](#flat), [flatmap](#flatmap), [foreach](#foreach), [groupby](#groupby), [groupbytoobject](#groupbytoobject), [groupbytotransformedobject](#groupbytotransformedobject), [groupjoin](#groupjoin), [ignoreelements](#ignoreelements), [includes](#includes), [interleave](#interleave), [interpose](#interpose), [intersect](#intersect), [intersectby](#intersectby), [isempty](#isempty), [join](#join), [last](#last), [map](#map), [max](#max), [maxby](#maxby), [memoize](#memoize), [min](#min), [minby](#minby), [oftype](#oftype), [orderby](#orderby), [orderbydescending](#orderbydescending), [pairwise](#pairwise), [partitionby](#partitionby), [reduce](#reduce), [repeat](#repeat), [reverse](#reverse), [scan](#scan), [sequenceequal](#sequenceequal), [share](#share), [single](#single), [skip](#skip), [skiplast](#skiplast), [skipwhile](#skipwhile), [some](#some), [sum](#sum), [take](#take), [takelast](#takelast), [takewhile](#takewhile), [thenby](#thenby), [thenbydescending](#thenbydescending), [toarray](#toarray), [tomap](#tomap), [toobject](#toobject), [union](#union), [unionby](#unionby), [zip](#zip)
 
 ### creators
 
@@ -132,6 +132,19 @@ console.log(items);
     - ```seq [{ key:1, values:['a', 'b'] }, { key:2, values:['cc', 'xx'] }, { key:3, values:['ddd'] }]```
 - ```pipe(['a', 'b', 'cc', 'ddd', 'xx'], groupby(x => x.length), toobject())```
     - ```{ 1:['a', 'b'], 2:['cc', 'xx'], 3:['ddd'] }```
+##### [groupbytoobject](https://github.com/marcinnajder/powerseq/tree/master/src/operators/groupbytoobject.ts)
+- ```groupbytoobject(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length)``` -> ```{ 1:['a', 'e'], 2:['bb', 'ff'], 3:['ccc'] }```
+- ```groupbytoobject(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, x => x.toUpperCase())```
+    - ```{ 1:['A', 'E'], 2:['BB', 'FF'], 3:['CCC'] }```
+- ```groupbytoobject(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, x => x.length)```
+    - ```{ 1:[1, 1], 2:[2, 2], 3:[3] }```
+- ```groupbytoobject(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, (x, key) => x + key)```
+    - ```{ 1:['a1', 'e1'], 2:['bb2', 'ff2'], 3:['ccc3'] }```
+##### [groupbytotransformedobject](https://github.com/marcinnajder/powerseq/tree/master/src/operators/groupbytotransformedobject.ts)
+- ```groupbytotransformedobject(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, xs => xs.join(','))```
+    - ```{ 1:'a,e', 2:'bb,ff', 3:'ccc' }```
+- ```groupbytotransformedobject(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, xs => xs.length)```
+    - ```{ 1:2, 2:2, 3:1 }```
 ##### [groupjoin](https://github.com/marcinnajder/powerseq/tree/master/src/operators/groupjoin.ts)
 - ```groupjoin([1, 3, 2, 1], ['a', 'b', 'cc'], x => x, y => y.length, (x, ys) => x + ':' + ys)```
     - ```seq ['1:a,b', '3:', '2:cc', '1:a,b']```
@@ -268,14 +281,6 @@ console.log(items);
 - ```toobject(['a', 'bb', 'ccc'], x => x.length, x => x.toUpperCase())``` -> ```{ 1:'A', 2:'BB', 3:'CCC' }```
 - ```toobject(['a', 'bb', 'ccc'], x => x.length, (x, k) => k)``` -> ```{ 1:1, 2:2, 3:3 }```
 - ```toobject(new Map([[1, 'one'], [2, 'two']]))``` -> ```{ 1:'one', 2:'two' }```
-##### [toobjectgrouping](https://github.com/marcinnajder/powerseq/tree/master/src/operators/toobjectgrouping.ts)
-- ```toobjectgrouping(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length)``` -> ```{ 1:['a', 'e'], 2:['bb', 'ff'], 3:['ccc'] }```
-- ```toobjectgrouping(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, xs => xs.join(','))```
-    - ```{ 1:'a,e', 2:'bb,ff', 3:'ccc' }```
-- ```toobjectgrouping(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, xs => xs.length)```
-    - ```{ 1:2, 2:2, 3:1 }```
-- ```toobjectgrouping(['a', 'bb', 'ccc', 'e', 'ff'], x => x.length, (xs, key) => xs.map(_ => key))```
-    - ```{ 1:[1, 1], 2:[2, 2], 3:[3] }```
 ##### [union](https://github.com/marcinnajder/powerseq/tree/master/src/operators/union.ts)
 - ```union([1, 2, 2], [2, 3, 3, 4])``` -> ```seq [1, 2, 3, 4]```
 ##### [unionby](https://github.com/marcinnajder/powerseq/tree/master/src/operators/unionby.ts)
@@ -316,6 +321,8 @@ console.log(items);
 - **foreach** - forEach (jsarray), each, forEach (lodash), iter, iteri (fsharp), forEach, forEachIndexed (kotlin), forEach (java)
 - **generate** - init, initInfinite (fsharp), iterate, repeatedly (clojure), generate (kotlin), iterate (java)
 - **groupby** - GroupBy (linq), groupBy (rxjs), groupBy (lodash), groupBy (fsharp), group-by (clojure), groupBy, groupingBy (kotlin), C.groupingBy (java)
+- **groupbytoobject** - 
+- **groupbytotransformedobject** - 
 - **groupjoin** - GroupJoin (linq)
 - **ignoreelements** - ignoreElements (rxjs)
 - **includes** - Contains (linq), includes (jsarray), includes (lodash), contains (fsharp), contains? (clojure), contains (kotlin)
@@ -360,7 +367,6 @@ console.log(items);
 - **toarray** - ToArray (linq), toArray (fsharp), toList (kotlin), toArray, toList, C.toList (java)
 - **tomap** - ToDictionary (linq), toMap (kotlin), C.toMap (java)
 - **toobject** - fromPairs, keyBy (lodash), associate, associateBy, associateWith (kotlin), C.toMap (java)
-- **toobjectgrouping** - 
 - **union** - Union (linq), union (lodash), union~ (clojure), union~ (kotlin)
 - **unionby** - UnionBy (linq), unionBy, unionWith (lodash)
 - **zip** - Zip (linq), zip (rxjs), zip, zipWith (lodash), zip, zip3 (fsharp), map (clojure), zip (kotlin)

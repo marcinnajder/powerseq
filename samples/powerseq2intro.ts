@@ -1,5 +1,5 @@
 
-import { distinct, pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share, maxby, max, countby, toobjectgrouping, filter, filtermap, sum, flat } from "../src/index";
+import { distinct, pipe, groupby, map, toarray, toobject, flatmap, count, take, range, zip, memoize, share, maxby, max, countby, groupbytotransformedobject, filter, filtermap, sum, flat } from "../src/index";
 import { groupby1 } from "../src/operators/groupby1";
 
 
@@ -101,15 +101,15 @@ const coders: AocCoder[] = [
 
 // console.log(pipe(groupby(coders, c => c.language, c => c.name), toobject(([key, values]) => key))); // to NIE JEST samo
 
-// console.log(toobjectgrouping(coders, c => c.language, cs => cs.map(c => c.name))); // to samo // new! operator toobjectgrouping
+// console.log(groupbytotransformedobject(coders, c => c.language, cs => cs.map(c => c.name))); // to samo // new! operator groupbytotransformedobject
 
-// toobject vs toobjectgrouping
+// toobject vs groupbytotransformedobject
 
 // console.log(toobject(coders, c => c.id)); // Dictionary<AocCoder> 
-// console.log(toobjectgrouping(coders, c => c.language)); // Dictionary<AocCoder[]>
+// console.log(groupbytotransformedobject(coders, c => c.language)); // Dictionary<AocCoder[]>
 
 // console.log(toobject(coders, c => c.id, c => c.name)); // Dictionary<string> 
-// console.log(toobjectgrouping(coders, c => c.language, cs => cs.map(c => c.name))); // Dictionary<string[]> 
+// console.log(groupbytotransformedobject(coders, c => c.language, cs => cs.map(c => c.name))); // Dictionary<string[]> 
 
 
 // ********************************
@@ -174,5 +174,5 @@ const coders: AocCoder[] = [
 
 // const a1 = groupby(coders, c => c.language);
 // const a2 = groupby(coders, c => c.language, c => c.name);
-// const a3 = toobjectgrouping(coders, c => c.language, c => c.name);
+// const a3 = groupbytotransformedobject(coders, c => c.language, c => c.name);
 
