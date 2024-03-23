@@ -1,4 +1,8 @@
 
+<a name="2.0.1"></a>
+# [2.0.1](https://github.com/marcinnajder/powerseq/releases/tag/2.0.1) (2024-03-23)
+* link to [Programming with sequences](https://marcinnajder.github.io/2022/11/02/programming-with-sequences-part-1-introduction-to-powerseq.html) series added to the documentation
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/marcinnajder/powerseq/releases/tag/2.0.0) (2024-01-23)
 
