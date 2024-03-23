@@ -48,6 +48,7 @@ console.log(items);
 - thanks to function overloading the same operator can be called alone or as a part of \`pipe(..., operator(), ...)\` expression
 - for some operators a special counterparts ending with \`p\` are provided (${pOperators.map(o => `\`${o}p\``)}), those functions must be used inside \`pipe(..., opp())\`, so we call \`concat([1,2,3], [4,5,6])\` or \`pipe([1,2,3], concatp([4,5,6]) )\`  
 - [mapping](#mapping) powerseq operators to ${counterparts.map(n => otherLibs[n]).join(", ")}
+- read [Programming with sequences](https://marcinnajder.github.io/2022/11/02/programming-with-sequences-part-1-introduction-to-powerseq.html) series to better understand iterators and generators in JS, it also presents how to implement powerseq operators from scratch
 
 ### functions
 
