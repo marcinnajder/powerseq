@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { last } from "../../src/index";
+import { last, pipe } from "../../src/index";
 
 it('last', function () {
     assert.equal(last([1, 2]), 2);
@@ -12,6 +12,19 @@ it('last', function () {
     assert.equal(last((x: number) => x > 2)([1, 2, 2, 4, 4, 3, 1]), 3);
 
     assert.equal(last([1, 2, 3], x => x > 10, -1), -1);
+
+    const stringsOrNumbers = ["1", 2, "3", 4];
+    const string1 = last(stringsOrNumbers, x => typeof x === "string");
+    assert.deepEqual(string1, "3");
+
+    const string2 = pipe(stringsOrNumbers, last(x => typeof x === "string"));
+    assert.deepEqual(string2, "3");
+
+    const string3 = last(stringsOrNumbers, x => typeof x === "string" && x === "10", "11");
+    assert.deepEqual(string3, "11");
+
+    const string4 = pipe(stringsOrNumbers, last(x => typeof x === "string" && x === "3", "11"));
+    assert.deepEqual(string4, "3");
 });
 
 export const samples = [

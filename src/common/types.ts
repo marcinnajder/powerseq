@@ -4,6 +4,8 @@ export type Func2<T1, T2, R> = (arg1: T1, arg2: T2) => R;
 export type Func3<T1, T2, T3, R> = (arg1: T1, arg2: T2, arg3: T3) => R;
 
 export type Predicate<T> = (item: T, index: number) => boolean;
+export type PredicateS<T, S extends T> = (item: T, index: number) => item is S;
+export type PredicateSS<T, S extends T> = (item: T, index: number) => item is Exclude<T, S>;
 export type Comparer<T> = (a: T, b: T) => number;
 
 export type Dictionary<T> = {
@@ -15,6 +17,8 @@ export type OperatorTR<T, R> = (source: T) => R;
 export type OperatorR<T, R> = OperatorTR<Iterable<T>, R>;
 
 export type Operator<T, R> = OperatorTR<Iterable<T>, Iterable<R>>;
+
+export type OperatorS<T, S extends T> = (source: Iterable<T>) => source is Iterable<S>;
 
 export type Nothing = null | undefined;
 

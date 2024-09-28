@@ -1,4 +1,4 @@
-import { Predicate, OperatorR } from "../common/types";
+import { Predicate, OperatorR, PredicateS } from "../common/types";
 import { wrapInThunk } from "../common/wrap";
 
 
@@ -34,6 +34,10 @@ function _single<T>(source: Iterable<T>, predicate?: Predicate<T>, defaultValue?
 // "single(source: Iterable<T>, defaultValue: T): T" <- that overload would be very convenient,
 // but if type T is a function there in no way to differentiate from -> single(source: Iterable<T>, predicate?: Predicate<T>)
 
+export function single<T, S extends T>(source: Iterable<T>, predicate?: PredicateS<T, S>): S | undefined;
+export function single<T, S extends T>(source: Iterable<T>, predicate: PredicateS<T, S>, defaultValue: S): S;
+export function single<T, S extends T>(predicate?: PredicateS<T, S>): OperatorR<T, S | undefined>;
+export function single<T, S extends T>(predicate: PredicateS<T, S>, defaultValue: S): OperatorR<T, S>;
 export function single<T>(source: Iterable<T>, predicate?: Predicate<T>): T | undefined;
 export function single<T>(source: Iterable<T>, predicate: Predicate<T>, defaultValue: T): T;
 export function single<T>(predicate?: Predicate<T>): OperatorR<T, T | undefined>;

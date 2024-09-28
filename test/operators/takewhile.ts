@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { takewhile } from "../../src/index";
+import { pipe, takewhile } from "../../src/index";
 
 it('takewhile', function () {
     assert.deepEqual([...takewhile([1, 2, 3, 4], x => x < 3)], [1, 2]);
@@ -9,6 +9,14 @@ it('takewhile', function () {
     assert.deepEqual([...takewhile([1, 2, 3, 4], (x, index) => index < 3)], [1, 2, 3]);
 
     assert.deepEqual([...takewhile((x: number) => x < 3)([1, 2, 3, 4])], [1, 2]);
+
+    const stringsOrNumbers = ["1", "2", 3, 4];
+
+    const strings1 = takewhile(stringsOrNumbers, x => typeof x === "string");
+    assert.deepEqual([...strings1], ["1", "2"]);
+
+    const strings2 = pipe(stringsOrNumbers, takewhile(x => typeof x === "string"));
+    assert.deepEqual([...strings2], ["1", "2"]);
 });
 
 export const samples = [
