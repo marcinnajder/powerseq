@@ -16,7 +16,7 @@ console.log(items);
 - thanks to function overloading the same operator can be called alone or as a part of `pipe(..., operator(), ...)` expression
 - for some operators a special counterparts ending with `p` are provided (`concatp`,`defaultifemptyp`,`includesp`,`sequenceequalp`,`zipp`,`interleavep`), those functions must be used inside `pipe(..., opp())`, so we call `concat([1,2,3], [4,5,6])` or `pipe([1,2,3], concatp([4,5,6]) )`  
 - [mapping](#mapping) powerseq operators to [LINQ](https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx), [RxJS](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html), [JS Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), [lodash](https://lodash.com/docs/4.17.2), [F#](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-seqmodule.html), [Clojure](https://clojure.org/api/cheatsheet), [Kotlin](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/), [Java](https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/stream/Stream.html)
-- read [Programming with sequences](https://marcinnajder.github.io/2022/11/02/programming-with-sequences-part-1-introduction-to-powerseq.html) series to better understand iterators and generators in JS, it also presents how to implement powerseq operators from scratch
+- read [Sequences in JavaScript](https://marcinnajder.github.io/2022/11/02/sequences-in-javascript-part-1-introduction-to-powerseq.html) series to better understand iterators and generators in JS, it also presents how to implement powerseq operators from scratch
 
 ### functions
 

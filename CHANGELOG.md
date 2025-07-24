@@ -1,3 +1,9 @@
+<a name="2.0.4"></a>
+
+# [2.0.4](https://github.com/marcinnajder/powerseq/releases/tag/2.0.4) (2025-07-24)
+
+- update link to [Sequences in JavaScript](https://marcinnajder.github.io/2022/11/02/sequences-in-javascript-part-1-introduction-to-powerseq.html) in readme file
+
 <a name="2.0.3"></a>
 
 # [2.0.3](https://github.com/marcinnajder/powerseq/releases/tag/2.0.3) (2024-09-28)
